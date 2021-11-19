@@ -10,3 +10,4 @@ RUN pwd && \
     npm ci && \
     ng build --output-path=dist || cat /root/.npm/_logs/* && \
     ls -lh dist
+
