@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "assets/css/bootstrap.min.css";
+
+html, body {
+  height: 100%;
+  background: #221c1e;
+  color: white;
+  font-size: 14px;
+  font-family: 'M PLUS 1', sans-serif;
+}
