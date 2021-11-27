@@ -47,13 +47,13 @@ export class RewardsComponent implements OnInit {
                     show: false,
                     type: 'continuous',
                     seriesIndex: 1,
-                    dimension: 2,
+                    dimension: 1,
                 }
             ],
 
             title: [
                 {
-                    top: '2%',
+                    top: '0%',
                     left: 'center',
                     text: 'Rewards last 14 days',
                     textStyle: {
@@ -64,7 +64,7 @@ export class RewardsComponent implements OnInit {
 
                 },
                 {
-                    top: '50%',
+                    top: '53%',
                     left: 'center',
                     text: 'Total stake bonded last 14 days',
                     textStyle: {
@@ -106,10 +106,14 @@ export class RewardsComponent implements OnInit {
             ],
             grid: [
                 {
-                    bottom: '60%'
+                    top: '11%',
+                    bottom: '55%',
+                    containLabel: true
                 },
                 {
-                    top: '60%'
+                    top: '64%',
+                    bottom: '5%',
+                    containLabel: true
                 }
             ],
             series: [

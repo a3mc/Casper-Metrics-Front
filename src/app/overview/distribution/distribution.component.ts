@@ -9,8 +9,6 @@ import { EChartsOption } from 'echarts';
 } )
 export class DistributionComponent implements OnInit {
 
-    private _staked = 0;
-    private _stakedPercent = 0
     private _circulating = 0;
     private _circulatingPercent = 0;
     private _lockedPercent = 0;
@@ -27,12 +25,9 @@ export class DistributionComponent implements OnInit {
         this._dataService.eraSubject$.subscribe(
             ( result: any ) => {
                 this._circulating = result[0].circulatingSupply;
-                this._staked = result[0].validatorsWeights;
                 this._total = result[0].totalSupply;
-
-                this._stakedPercent = ( this._staked / this._total * 100 );
-                this._circulatingPercent = ( this._circulating / this._total * 100 );
-                this._lockedPercent = 100 - this._stakedPercent + this._circulatingPercent;
+                this._circulatingPercent = (this._circulating / this._total ) * 100;
+                this._lockedPercent = ( this._total - this._circulating ) / this._total * 100;
                 this._setChart();
                 this.loading = false;
             }
@@ -89,10 +84,6 @@ export class DistributionComponent implements OnInit {
                         show: false
                     },
                     data: [
-                        // {
-                        //     value: Math.round( this._stakedPercent ),
-                        //     name: 'Stake Bonded ' + Math.round( this._stakedPercent ) + '%'
-                        // },
                         {
                             value: Math.round( this._circulatingPercent ),
                             name: 'Circulating Supply ' + Math.round( this._circulatingPercent ) + '%',

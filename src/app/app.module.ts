@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
 import { DistributionComponent } from './overview/distribution/distribution.component';
 import { FooterComponent } from './footer/footer.component';
+import { SwaggerBarComponent } from './api/swagger-bar/swagger-bar.component';
+import { TransfersComponent } from './overview/transfers/transfers.component';
+import { MarketComponent } from './overview/market/market.component';
 
 @NgModule( {
     declarations: [
@@ -29,7 +32,10 @@ import { FooterComponent } from './footer/footer.component';
         StackedComponent,
         RewardsComponent,
         DistributionComponent,
-        FooterComponent
+        FooterComponent,
+        SwaggerBarComponent,
+        TransfersComponent,
+        MarketComponent
     ],
     imports: [
         HttpClientModule,
