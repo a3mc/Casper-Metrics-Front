@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartsOption, graphic } from 'echarts';
+import { DataService } from '../services/data.service';
 
 @Component( {
     selector: 'app-stacked',
@@ -8,132 +9,124 @@ import { EChartsOption, graphic } from 'echarts';
 } )
 export class StackedComponent implements OnInit {
 
-    constructor() {
+    private _staked: number[] = [];
+    private _circulating: number[] = [];
+    public loading = true;
+    public chartOption: EChartsOption = {};
+
+    constructor(
+        private _dataService: DataService
+    ) {
     }
 
     ngOnInit(): void {
+        this._dataService.eraSubject$.subscribe(
+            ( result: any )  => {
+                this._circulating = result.map( ( era: any ) => era.circulatingSupply );
+                this._staked = result.map( ( era: any ) => era.validatorsWeights );
+                this._setChart();
+                this.loading = false;
+            }
+        );
     }
 
-    chartOption: EChartsOption = {
-        color: ['#37A2FF', '#FF0087', '#FFBF00'],
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'cross',
-                label: {
-                    backgroundColor: '#6a7985'
+    private _setChart(): void {
+        this.chartOption = {
+            color: ['green', 'blue'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
                 }
-            }
-        },
-        legend: {
-            data: ['Total Supply', 'Circulating Supply', 'Validators Weight']
-        },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: [
-            {
-                type: 'category',
-                boundaryGap: false,
-                data: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value'
-            }
-        ],
-        series: [
-            {
-                name: 'Total Supply',
-                type: 'line',
-                stack: 'Total',
-                smooth: true,
-                lineStyle: {
-                    width: 0
-                },
-                showSymbol: false,
-                areaStyle: {
-                    opacity: 0.8,
-                    color: new graphic.LinearGradient(0, 0, 0, 1, [
-                        {
-                            offset: 0,
-                            color: 'rgba(128, 255, 165)'
-                        },
-                        {
-                            offset: 1,
-                            color: 'rgba(1, 191, 236)'
-                        }
-                    ])
-                },
-                emphasis: {
-                    focus: 'series'
-                },
-                data: [140, 232, 101, 264, 90, 340, 250]
             },
-            {
-                name: 'Circulating Supply',
-                type: 'line',
-                stack: 'Total',
-                smooth: true,
-                lineStyle: {
-                    width: 0
-                },
-                showSymbol: false,
-                areaStyle: {
-                    opacity: 0.8,
-                    color: new graphic.LinearGradient(0, 0, 0, 1, [
-                        {
-                            offset: 0,
-                            color: 'rgba(0, 221, 255)'
-                        },
-                        {
-                            offset: 1,
-                            color: 'rgba(77, 119, 255)'
-                        }
-                    ])
-                },
-                emphasis: {
-                    focus: 'series'
-                },
-                data: [120, 282, 111, 234, 220, 340, 310]
+            legend: {
+                data: ['Circulating Supply', 'Stake Bonded']
             },
-            {
-                name: 'Validators Weight',
-                type: 'line',
-                stack: 'Total',
-                smooth: true,
-                lineStyle: {
-                    width: 0
-                },
-                showSymbol: false,
-                areaStyle: {
-                    opacity: 0.8,
-                    color: new graphic.LinearGradient(0, 0, 0, 1, [
-                        {
-                            offset: 0,
-                            color: 'rgba(55, 162, 255)'
-                        },
-                        {
-                            offset: 1,
-                            color: 'rgba(116, 21, 219)'
-                        }
-                    ])
-                },
-                emphasis: {
-                    focus: 'series'
-                },
-                data: [320, 132, 201, 334, 190, 130, 220]
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
             },
-        ]
-    };
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: 'Validators Weight',
+                    type: 'line',
+                    //stack: 'Total',
+                    smooth: true,
+                    lineStyle: {
+                        width: 0
+                    },
+                    showSymbol: false,
+                    areaStyle: {
+                        opacity: 0.8,
+                        color: new graphic.LinearGradient(0, 0, 0, 1, [
+                            {
+                                offset: 0,
+                                color: 'blue'
+                            },
+                            {
+                                offset: 1,
+                                color: 'blue'
+                            }
+                        ])
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: this._staked
+                },
+                {
+                    name: 'Circulating Supply',
+                    type: 'line',
+                    //stack: 'Total',
+                    smooth: true,
+                    lineStyle: {
+                        width: 0
+                    },
+                    showSymbol: false,
+                    areaStyle: {
+                        opacity: 0.8,
+                        color: new graphic.LinearGradient(0, 0, 0, 1, [
+                            {
+                                offset: 0,
+                                color: 'green'
+                            },
+                            {
+                                offset: 1,
+                                color: 'green'
+                            }
+                        ])
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: this._circulating
+                },
+            ]
+        };
+    }
+
+
 
 }

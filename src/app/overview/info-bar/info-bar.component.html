@@ -11,7 +11,7 @@
                             Current Era
                         </div>
                         <div class="value">
-                            1230
+                            {{ lastBlock?.eraId }}
                         </div>
                     </div>
                     <div class="col-sm-4 info-box">
@@ -19,7 +19,7 @@
                             Block Height
                         </div>
                         <div class="value">
-                            123230
+                            {{ lastBlock?.blockHeight }}
                         </div>
                     </div>
                     <div class="col-sm-4 info-box">
@@ -38,7 +38,7 @@
                             Total Supply
                         </div>
                         <div class="value">
-                            10,486,074,829
+                            {{ lastBlock?.totalSupply | number }}
                         </div>
                     </div>
                     <div class="col-sm-4 info-box">
@@ -46,15 +46,15 @@
                             Circulating Supply
                         </div>
                         <div class="value">
-                            2,535,531,058
+                            {{ lastBlock?.circulatingSupply | number }}
                         </div>
                     </div>
                     <div class="col-sm-4 info-box">
                         <div class="label">
-                            Validators Weight
+                            Validators Weights
                         </div>
                         <div class="value">
-                            7,418,670,696
+                            {{ lastEra?.validatorsWeights | number }}
                         </div>
                     </div>
                 </div>

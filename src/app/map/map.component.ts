@@ -1,150 +1,59 @@
-import { Component, OnInit } from '@angular/core';
-import { EChartsOption } from 'echarts';
+import { AfterViewInit, Component } from '@angular/core';
+import * as L from 'leaflet';
 
 @Component( {
     selector: 'app-map',
     templateUrl: './map.component.html',
     styleUrls: ['./map.component.scss']
 } )
-export class MapComponent implements OnInit {
+export class MapComponent implements AfterViewInit {
+
+    private map: any;
 
     constructor() {
     }
 
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
+        this.initMap();
     }
 
-    public chartOption: EChartsOption = {
-        title: {
-            text: '全国主要城市空气质量 - 百度地图',
-            subtext: 'data from PM25.in',
-            sublink: 'http://www.pm25.in',
-            left: 'center'
-        },
-        tooltip: {
-            trigger: 'item'
-        },
-        bmap: {
-            center: [104.114129, 37.550339],
-            zoom: 5,
-            roam: true,
-            mapStyle: {
-                styleJson: [
-                    {
-                        featureType: 'water',
-                        elementType: 'all',
-                        stylers: {
-                            color: '#d1d1d1'
-                        }
-                    },
-                    {
-                        featureType: 'land',
-                        elementType: 'all',
-                        stylers: {
-                            color: '#f3f3f3'
-                        }
-                    },
-                    {
-                        featureType: 'railway',
-                        elementType: 'all',
-                        stylers: {
-                            visibility: 'off'
-                        }
-                    },
-                    {
-                        featureType: 'highway',
-                        elementType: 'all',
-                        stylers: {
-                            color: '#fdfdfd'
-                        }
-                    },
-                    {
-                        featureType: 'highway',
-                        elementType: 'labels',
-                        stylers: {
-                            visibility: 'off'
-                        }
-                    },
-                    {
-                        featureType: 'arterial',
-                        elementType: 'geometry',
-                        stylers: {
-                            color: '#fefefe'
-                        }
-                    },
-                    {
-                        featureType: 'arterial',
-                        elementType: 'geometry.fill',
-                        stylers: {
-                            color: '#fefefe'
-                        }
-                    },
-                    {
-                        featureType: 'poi',
-                        elementType: 'all',
-                        stylers: {
-                            visibility: 'off'
-                        }
-                    },
-                    {
-                        featureType: 'green',
-                        elementType: 'all',
-                        stylers: {
-                            visibility: 'off'
-                        }
-                    },
-                    {
-                        featureType: 'subway',
-                        elementType: 'all',
-                        stylers: {
-                            visibility: 'off'
-                        }
-                    },
-                    {
-                        featureType: 'manmade',
-                        elementType: 'all',
-                        stylers: {
-                            color: '#d1d1d1'
-                        }
-                    },
-                    {
-                        featureType: 'local',
-                        elementType: 'all',
-                        stylers: {
-                            color: '#d1d1d1'
-                        }
-                    },
-                    {
-                        featureType: 'arterial',
-                        elementType: 'labels',
-                        stylers: {
-                            visibility: 'off'
-                        }
-                    },
-                    {
-                        featureType: 'boundary',
-                        elementType: 'all',
-                        stylers: {
-                            color: '#fefefe'
-                        }
-                    },
-                    {
-                        featureType: 'building',
-                        elementType: 'all',
-                        stylers: {
-                            color: '#d1d1d1'
-                        }
-                    },
-                    {
-                        featureType: 'label',
-                        elementType: 'labels.text.fill',
-                        stylers: {
-                            color: '#999999'
-                        }
-                    }
-                ]
-            }
-        },
+    private initMap(): void {
+        this.map = L.map( 'map', {
+            center: [38, 20],
+            zoom: 1
+        } );
+        const tiles = L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 3,
+            minZoom: 1,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        } );
 
-    };
+        tiles.addTo( this.map );
+
+        this._addMarkers();
+    }
+
+    private _addMarkers(): void {
+        const markersData: L.LatLngExpression[] = [
+            [51.5, -0.09],
+            [55.2, -0.16],
+            [50.2, 4],
+            [51.5, 12],
+            [55.5, 36.2],
+            [55.5, 37.8],
+            [53.5, 32.1],
+            [50.5, -60.1],
+            [40.5, -70.1],
+        ];
+
+        for ( const position of markersData ) {
+            L.marker( position, {
+                icon: L.divIcon( {
+                    className: 'validator-icon',
+                    iconSize: [8,8],
+                }),
+                riseOnHover: true
+            }, ).addTo( this.map );
+        }
+    }
 }
