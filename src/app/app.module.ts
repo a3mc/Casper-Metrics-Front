@@ -11,6 +11,14 @@ import { ChartsComponent } from './charts/charts.component';
 import { ApiComponent } from './api/api.component';
 import { StackedComponent } from './stacked/stacked.component';
 import { RewardsComponent } from './rewards/rewards.component';
+import { ApiClientService } from './services/api-client.service';
+import { HttpClientModule } from '@angular/common/http';
+import { DataService } from './services/data.service';
+import { DistributionComponent } from './overview/distribution/distribution.component';
+import { FooterComponent } from './footer/footer.component';
+import { SwaggerBarComponent } from './api/swagger-bar/swagger-bar.component';
+import { TransfersComponent } from './overview/transfers/transfers.component';
+import { MarketComponent } from './overview/market/market.component';
 
 @NgModule( {
     declarations: [
@@ -22,9 +30,15 @@ import { RewardsComponent } from './rewards/rewards.component';
         ChartsComponent,
         ApiComponent,
         StackedComponent,
-        RewardsComponent
+        RewardsComponent,
+        DistributionComponent,
+        FooterComponent,
+        SwaggerBarComponent,
+        TransfersComponent,
+        MarketComponent
     ],
     imports: [
+        HttpClientModule,
         BrowserModule,
         AppRoutingModule,
         NgxEchartsModule.forRoot( {
@@ -36,7 +50,10 @@ import { RewardsComponent } from './rewards/rewards.component';
             echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
         } ),
     ],
-    providers: [],
+    providers: [
+        ApiClientService,
+        DataService
+    ],
     bootstrap: [AppComponent]
 } )
 export class AppModule {
