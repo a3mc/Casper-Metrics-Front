@@ -12,6 +12,7 @@ export class InfoBarComponent implements OnInit {
 
     public lastBlock: any;
     public lastEra: any;
+    public price: number = 0;
 
     constructor(
         private _apiClientService: ApiClientService,
@@ -22,6 +23,7 @@ export class InfoBarComponent implements OnInit {
     ngOnInit(): void {
         this._getLastBlock();
         this._getLastEra();
+        this._getLastPrice();
     }
 
     private _getLastBlock(): void {
@@ -44,6 +46,16 @@ export class InfoBarComponent implements OnInit {
                     result.reverse();
                     this._dataService.eras = result;
                     this.lastEra = result[0]; // FIXME to return a single value
+                }
+            )
+    }
+
+    private _getLastPrice(): void {
+        this._apiClientService.get( 'price' )
+            .pipe( take( 1 ) )
+            .subscribe(
+                ( result: any ) => {
+                    this.price = result;
                 }
             )
     }
