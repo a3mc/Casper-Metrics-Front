@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
     headers: new HttpHeaders( { 'Content-Type': 'application/json' } )
@@ -7,7 +8,8 @@ const httpOptions = {
 
 @Injectable()
 export class ApiClientService {
-    public baseUrl = 'http://3.124.189.139:3001/';
+    public baseUrl = location.host.indexOf( 'testnet' ) > - 1 ?
+        environment.apiMainnetUrl: environment.apiMainnetUrl;
 
     constructor(
         private _httpClient: HttpClient
@@ -20,7 +22,7 @@ export class ApiClientService {
     }
 
     public getUrl( url: string ): any {
-        return this._httpClient.get( url );
+        return this._httpClient.get( url, httpOptions );
     }
 
 }
