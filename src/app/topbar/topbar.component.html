@@ -6,17 +6,32 @@
             </div>
             <div class="main-links col-sm-4">
                 <a routerLink="/" [routerLinkActive]="['link-active']"
-                   [routerLinkActiveOptions]="{exact: true}"class="link me-5">Overview</a>
+                   [routerLinkActiveOptions]="{exact: true}" class="link me-5">Overview</a>
                 <a routerLink="/charts" [routerLinkActive]="['link-active']"
                    class="link me-5">Charts</a>
                 <a routerLink="/api" [routerLinkActive]="['link-active']"
                    class="link me-5">API</a>
             </div>
             <div class="network col-sm-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                    mainnet
-                </button>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            (click)="showNetworkDropdown = !showNetworkDropdown">
+                        {{ apiClientService.network }}
+                    </button>
+                    <ul class="dropdown-menu" [class.show]="showNetworkDropdown" aria-labelledby="dropdownMenuButton1">
+                        <li *ngIf="apiClientService.network !== 'testnet'">
+                            <a class="dropdown-item" (click)="changeNetwork( 'testnet' )">
+                                testnet
+                            </a>
+                        </li>
+                        <li *ngIf="apiClientService.network !== 'mainnet'">
+                            <a class="dropdown-item" (click)="changeNetwork( 'testnet' )">
+                                mainnet
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 

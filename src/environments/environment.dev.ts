@@ -1,7 +1,7 @@
 export const environment = {
-    production: false,
+    production: true,
     apiMainnetUrl: 'https://dev-mainnet.cspr.art3mis.net/',
     apiTestnetUrl: 'https://dev-testnet.cspr.art3mis.net/',
-    frontMainnetHost: 'cspr.best',
-    frontTestnetHost: 'testnet.cspr.best'
+    frontMainnetHost: 'dev.cspr.best',
+    frontTestnetHost: 'dev.testnet.cspr.best'
 };
