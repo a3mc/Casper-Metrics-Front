@@ -12,6 +12,7 @@
     },
     "private": true,
     "dependencies": {
+        "@angular-slider/ngx-slider": "^2.0.3",
         "@angular/animations": "~13.0.0",
         "@angular/common": "~13.0.0",
         "@angular/compiler": "~13.0.0",
@@ -20,6 +21,7 @@
         "@angular/platform-browser": "~13.0.0",
         "@angular/platform-browser-dynamic": "~13.0.0",
         "@angular/router": "~13.0.0",
+        "dsa.js": "^2.7.6",
         "echarts": "^5.2.2",
         "leaflet": "^1.7.1",
         "moment": "^2.29.1",

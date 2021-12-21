@@ -2,21 +2,23 @@
   background: linear-gradient(90deg, #4c3939, #4c3939, #3c2e2e, #3c2e2e);
 
   .info-bar-inner {
-    min-height: 300px;
     max-width: 1200px;
     margin: 0 auto;
-
+    min-height: 270px;
     .bars {
       .left-bar {
-        min-height: 300px;
+        min-height: 270px;
         background-image: url('/assets/img/dots.png');
         background-size: 50%;
         background-repeat: no-repeat;
         background-position-x: right;
+        .sub-title {
+          color: #9cbf65;
+        }
       }
 
       .right-bar {
-        min-height: 300px;
+        min-height: 270px;
         background: #3c2e2e;
 
         .info-box {

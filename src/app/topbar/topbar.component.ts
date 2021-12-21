@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ApiClientService } from '../services/api-client.service';
 import { environment } from '../../environments/environment';
 
@@ -9,11 +9,20 @@ import { environment } from '../../environments/environment';
 } )
 export class TopbarComponent implements OnInit {
 
+    @ViewChild( 'network' ) network: ElementRef | undefined;
+
     public showNetworkDropdown = false;
 
     constructor(
         public apiClientService: ApiClientService
     ) {
+    }
+
+    @HostListener( 'document:mousedown', ['$event'] )
+    onGlobalClick( event: MouseEvent ): void {
+        if( this.network && !this.network.nativeElement.contains( event.target ) ) {
+            this.showNetworkDropdown = false;
+        }
     }
 
     ngOnInit(): void {
