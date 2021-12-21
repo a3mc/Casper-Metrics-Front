@@ -19,6 +19,13 @@ import { FooterComponent } from './footer/footer.component';
 import { SwaggerBarComponent } from './api/swagger-bar/swagger-bar.component';
 import { TransfersComponent } from './overview/transfers/transfers.component';
 import { MarketComponent } from './overview/market/market.component';
+import { FlowComponent } from './overview/flow/flow.component';
+import { ChartsBarComponent } from './charts/charts-bar/charts-bar.component';
+import { FlowFullComponent } from './charts/flow-full/flow-full.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { TransfersFullComponent } from './charts/transfers-full/transfers-full.component'
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule( {
     declarations: [
@@ -35,26 +42,29 @@ import { MarketComponent } from './overview/market/market.component';
         FooterComponent,
         SwaggerBarComponent,
         TransfersComponent,
-        MarketComponent
+        MarketComponent,
+        FlowComponent,
+        ChartsBarComponent,
+        FlowFullComponent,
+        TransfersFullComponent
     ],
     imports: [
         HttpClientModule,
         BrowserModule,
         AppRoutingModule,
         NgxEchartsModule.forRoot( {
-            /**
-             * This will import all modules from echarts.
-             * If you only need custom modules,
-             * please refer to [Custom Build] section.
-             */
-            echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
+            echarts: () => import('echarts'),
         } ),
+        NgxSliderModule,
+        FormsModule,
+        CommonModule,
+        CommonModule,
     ],
     providers: [
         ApiClientService,
         DataService
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 } )
 export class AppModule {
 }

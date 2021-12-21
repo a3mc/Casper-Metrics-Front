@@ -1,12 +1,15 @@
 <div class="info-bar">
     <div class="info-bar-inner">
-        <div class="bars row">
+        <div class="bars row g-0">
             <div class="col-sm-4 left-bar">
-                s
+                <h5 class="sub-title mt-5">
+                    <strong>CSPR Metrics API and Historical Archive</strong><br />
+                    for Services, Dapps and Analytics
+                </h5>
             </div>
             <div class="col-sm-8 right-bar p-5">
                 <div class="row">
-                    <div class="col-sm-4 info-box">
+                    <div class="col-4 info-box">
                         <div class="label">
                             Current Era
                         </div>
@@ -14,7 +17,7 @@
                             {{ lastBlock?.eraId }}
                         </div>
                     </div>
-                    <div class="col-sm-4 info-box">
+                    <div class="col-4 info-box">
                         <div class="label">
                             Block Height
                         </div>
@@ -22,7 +25,7 @@
                             {{ lastBlock?.blockHeight }}
                         </div>
                     </div>
-                    <div class="col-sm-4 info-box">
+                    <div class="col-4 info-box">
                         <div class="label">
                             Current Price
                         </div>
@@ -33,34 +36,43 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col-sm-4 info-box">
+                    <div class="col-4 info-box">
                         <div class="label">
                             Total Supply
                         </div>
-                        <div class="value">
+                        <div class="value d-none d-md-block">
                             {{ lastBlock?.totalSupply | number }}
                         </div>
+                        <div class="value d-md-none">
+                            {{ lastBlock?.totalSupply / 1000000 | number: '1.0-0' }}M
+                        </div>
                     </div>
-                    <div class="col-sm-4 info-box">
+                    <div class="col-4 info-box">
                         <div class="label">
                             Circulating Supply
                         </div>
-                        <div class="value">
+                        <div class="value d-none d-md-block">
                             {{ lastBlock?.circulatingSupply | number }}
                         </div>
+                        <div class="value d-md-none">
+                            {{ lastBlock?.circulatingSupply / 1000000 | number: '1.0-0' }}M
+                        </div>
                     </div>
-                    <div class="col-sm-4 info-box">
+                    <div class="col-4 info-box">
                         <div class="label">
                             Validators Weights
                         </div>
-                        <div class="value">
+                        <div class="value d-none d-md-block">
                             {{ lastEra?.validatorsWeights | number }}
+                        </div>
+                        <div class="value d-md-none">
+                            {{ lastEra?.validatorsWeights / 1000000 | number: '1.0-0' }}M
                         </div>
                     </div>
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col-sm-4 info-box">
+                    <div class="col-4 info-box">
                         <div class="label">
                             Deploys
                         </div>
@@ -68,7 +80,7 @@
                             16854
                         </div>
                     </div>
-                    <div class="col-sm-4 info-box">
+                    <div class="col-4 info-box">
                         <div class="label">
                             Transfers
                         </div>
@@ -76,7 +88,7 @@
                             111252
                         </div>
                     </div>
-                    <div class="col-sm-4 info-box">
+                    <div class="col-4 info-box">
                         <div class="label">
                             Block Time
                         </div>

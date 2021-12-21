@@ -1,0 +1,10 @@
+.chart-panel {
+    border-radius: 10px;
+    background: #fff1;
+    transition: box-shadow, background-color 0.2s ease-in-out;
+
+    &:hover {
+        background: #ffffff15;
+        box-shadow: 5px 5px 15px #00000015;
+    }
+}

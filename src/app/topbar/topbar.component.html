@@ -1,10 +1,10 @@
 <div class="top-bar">
     <div class="inner-bar container-sm">
         <div class="row">
-            <div class="logo col-sm-4 me-5">
+            <div class="logo col me-5">
                 Casper Metrics
             </div>
-            <div class="main-links col-sm-4">
+            <div class="main-links col-sm-4 d-none d-md-block">
                 <a routerLink="/" [routerLinkActive]="['link-active']"
                    [routerLinkActiveOptions]="{exact: true}" class="link me-5">Overview</a>
                 <a routerLink="/charts" [routerLinkActive]="['link-active']"
@@ -12,8 +12,8 @@
                 <a routerLink="/api" [routerLinkActive]="['link-active']"
                    class="link me-5">API</a>
             </div>
-            <div class="network col-sm-3">
-                <div class="dropdown">
+            <div class="network col d-none d-md-block">
+                <div class="dropdown" #network>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false"
                             (click)="showNetworkDropdown = !showNetworkDropdown">
@@ -34,6 +34,10 @@
                 </div>
             </div>
         </div>
-
+        <div class="bars d-md-none">
+            <a href="#">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
     </div>
 </div>

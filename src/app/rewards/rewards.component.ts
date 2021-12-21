@@ -25,8 +25,12 @@ export class RewardsComponent implements OnInit {
         this._dataService.eraSubject$.subscribe(
             ( result: any ) => {
                 this._eraDates = result.map( ( era: any ) => moment( era.start ).format( 'D MMM') );
-                this._totalStaked = result.map( ( era: any ) => era.validatorsWeights );
-                this._rewards = result.map( ( era: any ) => era.rewards );
+                this._totalStaked = result.map(
+                    ( era: any ) => Math.round( era.validatorsWeights / 1000000 )
+                );
+                this._rewards = result.map(
+                    ( era: any ) => Math.round( era.rewards / 1000 )
+                );
                 this._setChart();
                 this.loading = false;
             }
@@ -35,27 +39,11 @@ export class RewardsComponent implements OnInit {
 
     private _setChart(): void {
         this.chartOption = {
-            // Make gradient line here
-            visualMap: [
-                {
-                    show: false,
-                    type: 'continuous',
-                    seriesIndex: 0,
-                    dimension: 0,
-                },
-                {
-                    show: false,
-                    type: 'continuous',
-                    seriesIndex: 1,
-                    dimension: 1,
-                }
-            ],
-
             title: [
                 {
                     top: '0%',
                     left: 'center',
-                    text: 'Rewards last 14 days',
+                    text: 'Rewards per Era',
                     textStyle: {
                         color: '#ccb',
                         fontFamily: "'M PLUS 1', sans-serif",
@@ -66,7 +54,7 @@ export class RewardsComponent implements OnInit {
                 {
                     top: '53%',
                     left: 'center',
-                    text: 'Total stake bonded last 14 days',
+                    text: 'Total Stake Bonded',
                     textStyle: {
                         color: '#ccb',
                         fontFamily: "'M PLUS 1', sans-serif",
@@ -74,15 +62,6 @@ export class RewardsComponent implements OnInit {
                     }
                 }
             ],
-            tooltip: {
-                trigger: 'axis',
-                backgroundColor: '#ddc',
-                shadowColor: '#0006',
-                shadowBlur: 5,
-                shadowOffsetX: 5,
-                shadowOffsetY: 5,
-                showDelay: 1000,
-            },
             xAxis: [
                 {
                     data: this._eraDates
@@ -94,25 +73,34 @@ export class RewardsComponent implements OnInit {
             ],
             yAxis: [
                 {
-                    min: Math.min( ... this._rewards ),
-                    max: Math.max( ... this._rewards ),
+                    min: 'dataMin',
+                    max: 'dataMax',
+                    axisLabel: {
+                        formatter: '{value}K'
+                    },
                 },
                 {
                     gridIndex: 1,
-                    min: Math.min( ... this._totalStaked ),
-                    max: Math.max( ... this._totalStaked ),
-                    scale: true
+                    min: 'dataMin',
+                    max: 'dataMax',
+                    axisLabel: {
+                        formatter: '{value}M'
+                    },
                 }
             ],
             grid: [
                 {
                     top: '11%',
                     bottom: '55%',
+                    left: '3%',
+                    right: '4%',
                     containLabel: true
                 },
                 {
                     top: '64%',
                     bottom: '5%',
+                    left: '3%',
+                    right: '4%',
                     containLabel: true
                 }
             ],
@@ -121,6 +109,7 @@ export class RewardsComponent implements OnInit {
                     type: 'line',
                     showSymbol: false,
                     data: this._rewards,
+                    //color: '#3f9623'
                 },
                 {
                     type: 'line',
@@ -128,6 +117,7 @@ export class RewardsComponent implements OnInit {
                     data: this._totalStaked,
                     xAxisIndex: 1,
                     yAxisIndex: 1,
+                    color: '#3f9623'
                 }
             ]
         };

@@ -44,7 +44,7 @@ export class DistributionComponent implements OnInit {
                 {
                     top: '2%',
                     left: 'center',
-                    text: 'CSPR Token Distribution',
+                    text: 'Token Distribution',
                     textStyle: {
                         color: '#ccb',
                         fontFamily: "'M PLUS 1', sans-serif",
@@ -68,6 +68,7 @@ export class DistributionComponent implements OnInit {
                     type: 'pie',
                     radius: ['40%', '70%'],
                     avoidLabelOverlap: true,
+                    color: ['#3f9623', '#707054'],
                     label: {
                         show: false,
                         position: 'center',

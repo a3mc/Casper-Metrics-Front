@@ -1,0 +1,25 @@
+<div class="row mt-5">
+    <div [class.col-sm-12]="!showInfo"
+         [class.col-sm-9]="showInfo">
+        <div class="chart-panel p-3">
+            <div class="transfers-box">
+                <a class="info" (click)="toggleInfo()" [class.active]="showInfo">
+                    <i class="fa fa-info-circle"></i>
+                </a>
+                <div class="chart-title">
+                    Transactions
+                </div>
+                <div *ngIf="!loading" echarts [options]="chartOption" class="transfers"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" *ngIf="showInfo">
+        <div class="chart-panel p-3 transfers-info">
+            Info here
+        </div>
+    </div>
+</div>
+
+
+
+
