@@ -1,4 +1,6 @@
 .info-bar {
+  position: relative;
+  z-index: 10;
   background: linear-gradient(90deg, #4c3939, #4c3939, #3c2e2e, #3c2e2e);
 
   .info-bar-inner {

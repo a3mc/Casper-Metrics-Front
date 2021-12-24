@@ -3,4 +3,11 @@
   background: linear-gradient(180deg, #100, #100, #180000);
   border-top: 1px solid #000;
   margin-top: 45px;
+  a, a:active, a:visited, a:hover {
+    text-decoration: none;
+    color: #6885df;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 }

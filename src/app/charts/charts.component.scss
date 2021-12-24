@@ -1,10 +1,36 @@
 .chart-panel {
-    border-radius: 10px;
-    background: #fff1;
-    transition: box-shadow, background-color 0.2s ease-in-out;
+	border-radius: 10px;
+	background: #fff1;
+	transition: box-shadow, background-color 0.2s ease-in-out;
 
-    &:hover {
-        background: #ffffff15;
-        box-shadow: 5px 5px 15px #00000015;
-    }
+	&:hover {
+		background: #ffffff15;
+		box-shadow: 5px 5px 15px #00000015;
+	}
+}
+
+.charts-menu {
+	@media screen and (max-width: 1675px) {
+		display: none;
+	}
+	position: fixed;
+	opacity: 0;
+	z-index: 1;
+	transition: opacity 0.15s ease-in-out;
+	top: 40px;
+	left: 0px;
+	list-style: none;
+	font-size: 16px;
+	line-height: 1.8;
+	text-shadow: 0 0 10px #fff2;
+
+	a, a:active, a:visited, a:hover {
+		text-decoration: none;
+		color: #ccb;
+		transition: color 0.2s ease-in-out;
+	}
+
+	a:hover {
+		color:#ffd;
+	}
 }
