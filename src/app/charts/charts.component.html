@@ -1,9 +1,18 @@
 <div class="container-sm mt-5">
-    <app-flow-full></app-flow-full>
-    <app-transfers-full></app-transfers-full>
-    <app-stake></app-stake>
-    <app-weights-full></app-weights-full>
-    <app-map-full></app-map-full>
+    <ul class="charts-menu" [style.opacity]="showMenu ? 100 : 0">
+        <li> <a [routerLink] = "['/charts']"  fragment="flow">Transfers Flow</a></li>
+        <li> <a [routerLink] = "['/charts']"  fragment="transactions">Transactions</a></li>
+        <li> <a [routerLink] = "['/charts']"  fragment="staked">Staked</a></li>
+        <li> <a [routerLink] = "['/charts']"  fragment="weights">Validators Weights</a></li>
+        <li> <a [routerLink] = "['/charts']"  fragment="network">Network Map</a></li>
+    </ul>
+
+
+    <app-flow-full id="flow"></app-flow-full>
+    <app-transfers-full id="transactions"></app-transfers-full>
+    <app-stake id="staked"></app-stake>
+    <app-weights-full id="weights"></app-weights-full>
+    <app-map-full id="network"></app-map-full>
 </div>
 
 

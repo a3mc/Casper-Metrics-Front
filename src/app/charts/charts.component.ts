@@ -1,19 +1,35 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { DataService } from '../services/data.service';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { fromEvent, Subscription, tap, throttleTime } from "rxjs";
 
-@Component({
-  selector: 'app-charts',
-  templateUrl: './charts.component.html',
-  styleUrls: ['./charts.component.scss'],
-  encapsulation: ViewEncapsulation.None
-})
-export class ChartsComponent implements OnInit {
+@Component( {
+	selector: 'app-charts',
+	templateUrl: './charts.component.html',
+	styleUrls: ['./charts.component.scss'],
+	encapsulation: ViewEncapsulation.None
+} )
+export class ChartsComponent {
 
-  constructor(
-      public dataService: DataService
-  ) { }
+	public showMenu = false;
+	private _eventSub: Subscription | undefined;
 
-  ngOnInit(): void {
-  }
+	constructor() {
+	}
 
+	ngOnInit(): void {
+		this._eventSub = fromEvent( window, 'scroll' ).pipe(
+			throttleTime( 50 ),
+			tap( event => this._scroll() )
+		).subscribe();
+
+		setTimeout( () => { this._scroll(); }, 1000 );
+	}
+
+	ngOnDestroy(): void {
+		this._eventSub?.unsubscribe();
+	}
+
+	private _scroll(): void {
+		const verticalOffset = document.documentElement.scrollTop || document.body.scrollTop || 0;
+		this.showMenu = verticalOffset > 300;
+	}
 }

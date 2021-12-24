@@ -5,17 +5,20 @@ import { ChartsComponent } from './charts/charts.component';
 import { ApiComponent } from './api/api.component';
 
 const routes: Routes = [
-    { path: '', component: OverviewComponent, pathMatch: 'full' },
-    { path: 'charts', component: ChartsComponent },
-    { path: 'api', component: ApiComponent },
+	{ path: '', component: OverviewComponent, pathMatch: 'full' },
+	{ path: 'charts', component: ChartsComponent },
+	{ path: 'api', component: ApiComponent },
 ];
 
 @NgModule( {
-    imports: [RouterModule.forRoot( routes, {
-        initialNavigation: 'enabled',
-        preloadingStrategy: PreloadAllModules,
-    } )],
-    exports: [RouterModule]
+	imports: [RouterModule.forRoot( routes, {
+		initialNavigation: 'enabled',
+		preloadingStrategy: PreloadAllModules,
+		anchorScrolling: 'enabled',
+		scrollPositionRestoration: 'enabled',
+		scrollOffset: [0, 20],
+	} )],
+	exports: [RouterModule]
 } )
 export class AppRoutingModule {
 }
