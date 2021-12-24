@@ -5,7 +5,7 @@ import { ChartsComponent } from './charts/charts.component';
 import { ApiComponent } from './api/api.component';
 
 const routes: Routes = [
-    { path: '', component: OverviewComponent },
+    { path: '', component: OverviewComponent, pathMatch: 'full' },
     { path: 'charts', component: ChartsComponent },
     { path: 'api', component: ApiComponent },
 ];

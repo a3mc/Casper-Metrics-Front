@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SwaggerBarComponent } from './swagger-bar.component';
+import { WeightsFullComponent } from './weights-full.component';
 
-describe('SwaggerBarComponent', () => {
-  let component: SwaggerBarComponent;
-  let fixture: ComponentFixture<SwaggerBarComponent>;
+describe('WeightsFullComponent', () => {
+  let component: WeightsFullComponent;
+  let fixture: ComponentFixture<WeightsFullComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SwaggerBarComponent ]
+      declarations: [ WeightsFullComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SwaggerBarComponent);
+    fixture = TestBed.createComponent(WeightsFullComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
