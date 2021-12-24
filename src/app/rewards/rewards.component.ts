@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { DataService } from '../services/data.service';
 import * as moment from 'moment';
+import {take} from "rxjs";
+import {ApiClientService} from "../services/api-client.service";
 
 @Component( {
     selector: 'app-rewards',
@@ -17,12 +19,14 @@ export class RewardsComponent implements OnInit {
     private _rewards: number[] = []
 
     constructor(
-        private _dataService: DataService
+        private _apiClientService: ApiClientService
     ) {
     }
 
     ngOnInit(): void {
-        this._dataService.eraSubject$.subscribe(
+        this._apiClientService.get( '/era?limit=192' )
+            .pipe( take( 1 ) )
+            .subscribe(
             ( result: any ) => {
                 this._eraDates = result.map( ( era: any ) => moment( era.start ).format( 'D MMM') );
                 this._totalStaked = result.map(

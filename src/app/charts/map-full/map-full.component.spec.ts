@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChartsBarComponent } from './charts-bar.component';
+import { MapFullComponent } from './map-full.component';
 
-describe('ChartsBarComponent', () => {
-  let component: ChartsBarComponent;
-  let fixture: ComponentFixture<ChartsBarComponent>;
+describe('MapFullComponent', () => {
+  let component: MapFullComponent;
+  let fixture: ComponentFixture<MapFullComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChartsBarComponent ]
+      declarations: [ MapFullComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChartsBarComponent);
+    fixture = TestBed.createComponent(MapFullComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

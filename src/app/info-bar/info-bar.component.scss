@@ -2,7 +2,6 @@
   background: linear-gradient(90deg, #4c3939, #4c3939, #3c2e2e, #3c2e2e);
 
   .info-bar-inner {
-    max-width: 1200px;
     margin: 0 auto;
     min-height: 270px;
     .bars {
@@ -13,7 +12,8 @@
         background-repeat: no-repeat;
         background-position-x: right;
         .sub-title {
-          color: #9cbf65;
+          color: #ffffff;
+          text-shadow: 1px 1px 1px #0003;
         }
       }
 

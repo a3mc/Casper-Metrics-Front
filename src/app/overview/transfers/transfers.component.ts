@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
+import {ApiClientService} from "../../services/api-client.service";
+import {take} from "rxjs";
 
 @Component( {
     selector: 'app-transfers',
@@ -17,12 +19,15 @@ export class TransfersComponent implements OnInit {
     public chartOption: EChartsOption = {};
 
     constructor(
-        private _dataService: DataService
+        private _apiClientService: ApiClientService
     ) {
     }
 
     ngOnInit(): void {
-        this._dataService.eraSubject$.subscribe(
+
+        this._apiClientService.get( '/era?limit=192' )
+            .pipe( take( 1 ) )
+            .subscribe(
             ( result: any ) => {
                 result.forEach( ( era: any ) => {
                     this._dates.push( moment( era.end ).format( 'DD MMM' ) );

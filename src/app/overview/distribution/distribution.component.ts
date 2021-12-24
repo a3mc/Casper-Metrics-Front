@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { EChartsOption } from 'echarts';
+import {take} from "rxjs";
+import {ApiClientService} from "../../services/api-client.service";
 
 @Component( {
     selector: 'app-distribution',
@@ -17,12 +19,14 @@ export class DistributionComponent implements OnInit {
     public chartOption: EChartsOption = {};
 
     constructor(
-        private _dataService: DataService
+        private _apiClientService: ApiClientService
     ) {
     }
 
     ngOnInit(): void {
-        this._dataService.eraSubject$.subscribe(
+        this._apiClientService.get( '/era' )
+            .pipe( take( 1 ) )
+            .subscribe(
             ( result: any ) => {
                 this._circulating = result[0].circulatingSupply;
                 this._total = result[0].totalSupply;
