@@ -26,7 +26,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { StakeComponent } from './charts/stake/stake.component';
 import { WeightsFullComponent } from './charts/weights-full/weights-full.component';
-import { MapFullComponent } from './charts/map-full/map-full.component';
 
 @NgModule( {
     declarations: [
@@ -48,7 +47,6 @@ import { MapFullComponent } from './charts/map-full/map-full.component';
         TransfersFullComponent,
         StakeComponent,
         WeightsFullComponent,
-        MapFullComponent
     ],
     imports: [
         HttpClientModule,
