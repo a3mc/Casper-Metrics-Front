@@ -20,7 +20,7 @@ export class StackedComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._dataService.eraSubject$.subscribe(
+        this._dataService.eras$.subscribe(
             ( result: any )  => {
                 this._circulating = result.map( ( era: any ) => era.circulatingSupply );
                 this._staked = result.map( ( era: any ) => era.validatorsWeights );

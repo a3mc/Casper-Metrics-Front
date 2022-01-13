@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EChartsOption, graphic } from 'echarts';
 import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { ApiClientService } from '../../services/api-client.service';
 
 @Component( {
@@ -10,15 +10,16 @@ import { ApiClientService } from '../../services/api-client.service';
 	templateUrl: './weights-full.component.html',
 	styleUrls: ['./weights-full.component.scss']
 } )
-export class WeightsFullComponent implements OnInit {
+export class WeightsFullComponent implements OnInit, OnDestroy {
 
-	private _weights: number[] = [];
-	private _deploys: number[] = [];
-	private _dates: string[] = [];
 	public loading = true;
 	public chartOption: EChartsOption = {};
 	public showInfo = false;
 
+	private _erasSub: Subscription | undefined;
+	private _weights: number[] = [];
+	private _deploys: number[] = [];
+	private _dates: string[] = [];
 
 	constructor(
 		private _apiClientService: ApiClientService,
@@ -30,13 +31,21 @@ export class WeightsFullComponent implements OnInit {
 		this._loadEras();
 	}
 
+	ngOnDestroy(): void {
+		if ( this._erasSub ) {
+			this._erasSub.unsubscribe();
+		}
+	}
+
 	public toggleInfo(): void {
 		this.showInfo = !this.showInfo;
 	}
 
 	private _loadEras() {
-		this._apiClientService.get( 'era?order=id%20ASC&limit=10000' )
-			.pipe( take( 1 ) )
+		if ( this._erasSub ) {
+			this._erasSub.unsubscribe();
+		}
+		this._erasSub = this._dataService.eras$
 			.subscribe( ( result: any ) => {
 				this._reset();
 				result.forEach( ( era: any ) => {

@@ -1,0 +1,79 @@
+<div class="row mt-5" *ngIf="mode === 'full'">
+    <div [class.col-sm-12]="!showInfo"
+         [class.col-sm-9]="showInfo">
+        <div class="chart-panel p-3">
+            <div class="flow-box pt-2">
+                <a class="info" (click)="toggleInfo()" [class.active]="showInfo">
+                    <i class="fa fa-info-circle"></i>
+                </a>
+                <div class="chart-title">
+                    Transfers Flow
+                </div>
+                <div *ngIf="!loading" echarts [options]="chartOption" class="flow"
+                     (click)="clickHandler( $event )"></div>
+
+                <div class="era-control">
+                    <div class="row">
+                        <div class="col-12">
+                            <ngx-slider *ngIf="showSingleSlider"
+                                        [(value)]="eraId" [options]="options"
+                                        (valueChange)="sliderChange( $event )"
+                            ></ngx-slider>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col text-end">
+                            <label class="form-label pe-2" for="eraId">
+                                Era Id:
+                            </label>
+                            <input type="number" [(ngModel)]="eraId" name="eraId" id="eraId"
+                                size="5" min="1" max="1508" />
+                        </div>
+                        <div class="col text-start">
+                            <div class="date" title="Era Time">
+                                {{ eraStart | date: 'medium' }}
+                                &mdash;
+                                {{ eraEnd | date: 'shortTime' }}
+                            </div>
+                        </div>
+                        <div class="col text-end">
+                            <label class="form-label count-label">
+                                Total tx count: {{ count }}
+                            </label>
+                        </div>
+                        <div class="col text-end">
+                            <label class="form-label pe-2" for="eraId">
+                                Limit:
+                            </label>
+                            <select name="limit" [(ngModel)]="limit" (change)="getTransfers( eraId )">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>30</option>
+                                <option>40</option>
+                                <option>50</option>
+                                <option>60</option>
+                                <option>70</option>
+                                <option>80</option>
+                                <option>90</option>
+                                <option>100</option>
+                                <option>200</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" *ngIf="showInfo">
+        <div class="chart-panel p-3 transfers-info">
+            Info here
+        </div>
+    </div>
+</div>
+<div class="flow-container" *ngIf="mode !== 'full'">
+    <h4 class="text-center mt-3">Transfers Flow (last completed Era)</h4>
+    <div *ngIf="!loading" echarts [options]="chartOption" class="flow"
+         (click)="clickHandler( $event )"></div>
+</div>
+
