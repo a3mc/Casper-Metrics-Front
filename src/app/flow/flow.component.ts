@@ -1,48 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { ApiClientService } from '../../services/api-client.service';
-import { take } from 'rxjs';
+import { ApiClientService } from '../services/api-client.service';
+import { debounceTime, Subject, Subscription, take } from 'rxjs';
 import { Options } from '@angular-slider/ngx-slider';
 import * as moment from 'moment';
+import { DataService } from "../services/data.service";
 
 @Component( {
-    selector: 'app-flow-full',
-    templateUrl: './flow-full.component.html',
-    styleUrls: ['./flow-full.component.scss'],
+    selector: 'app-flow',
+    templateUrl: './flow.component.html',
+    styleUrls: ['./flow.component.scss'],
 } )
-export class FlowFullComponent implements OnInit {
+export class FlowComponent implements OnInit, OnDestroy {
 
-    private _names: any[] = [];
-    private _links: any[] = [];
+    @Input( 'mode' ) public mode: string = '';
+
+
     public loading = true;
     public chartOption: EChartsOption = {};
     public lastEraId = 0;
     public showSingleSlider = false;
-
+    public limit = 20;
+    public count = 0;
     public showInfo = false;
-    public eraId = 1;
+    public eraId = 0;
+    public eraStart = moment().format();
     public eraEnd = moment().format();
     public options: Options = {
-        floor: 1,
-        ceil: 1
+        floor: 0,
+        ceil: 0
     };
 
+    private _eraSub: Subscription | undefined;
+    private _slider$: Subject<number> = new Subject();
+    private _names: any[] = [];
+    private _links: any[] = [];
+
     constructor(
-        private _apiClientService: ApiClientService
+        private _apiClientService: ApiClientService,
+        private _dataService: DataService,
     ) {
     }
 
     ngOnInit(): void {
-        this._getLastBlock();
+        this._getLastCompletedEra();
+        this._slider$.pipe( debounceTime( 200 ) )
+            .subscribe( ( eraId: number ) => this.getTransfers( eraId ) );
+    }
+
+    ngOnDestroy(): void {
+        if ( this._eraSub ) {
+            this._eraSub.unsubscribe();
+        }
     }
 
     public sliderChange( eraId: number ) {
-        this._getTransfers( eraId );
+        this._slider$.next( eraId );
     }
 
-    private _getTransfers( eraId: number ): void {
+    public getTransfers( eraId: number ): void {
         this._apiClientService.get(
-            '/transfersByEraId?eraId=' + eraId
+            '/transfersByEraId?eraId=' + eraId + '&limit=' + this.limit
         )
             .pipe(
                 take( 1 )
@@ -51,7 +69,9 @@ export class FlowFullComponent implements OnInit {
                 ( result: any ) => {
                     this._names = [];
                     this._links = [];
+                    this.eraStart = result.eraStart;
                     this.eraEnd = result.eraEnd;
+                    this.count = result.count;
 
                     result.transfers.forEach( ( item: any ) => {
                         if( !this._names.some( node => node.id === item.fromHash ) ) {
@@ -86,19 +106,25 @@ export class FlowFullComponent implements OnInit {
         this.showInfo = !this.showInfo;
     }
 
-    private _getLastBlock(): void {
-        this._apiClientService.get( 'block' )
-            .pipe( take( 1 ) )
+    private _getLastCompletedEra(): void {
+        if ( this._eraSub ) {
+            this._eraSub.unsubscribe();
+        }
+        this._eraSub = this._dataService.lastEra$
             .subscribe(
                 ( result: any ) => {
-                    this.options.ceil = result.eraId;
-                    this.eraId = result.eraId;
-                    this.showSingleSlider = true;
-                    //this._getTransfers( result.eraId ); 1038 Cycle!
-                    this._getTransfers( 546 );
+                    if ( result ) {
+                        this.options.ceil = result.id;
+                        if ( !this.eraId ) {
+                            this.eraId = result.id;
+                            this.showSingleSlider = true;
+                            this.getTransfers( this.eraId );
+                        }
+                    }
                 }
             )
     }
+
 
     private _shortenAddress( address: string ): string {
         address = address.replace( /^account-hash-/, '#' );
@@ -126,7 +152,7 @@ export class FlowFullComponent implements OnInit {
     }
 
     public clickHandler( event: MouseEvent ) {
-        console.log( event );
+        //console.log( event );
     }
 
 }

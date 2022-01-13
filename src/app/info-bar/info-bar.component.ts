@@ -16,13 +16,19 @@ export class InfoBarComponent implements OnInit {
 
     constructor(
         private _apiClientService: ApiClientService,
-        private _dataService: DataService
     ) {
     }
 
     ngOnInit(): void {
+        setInterval( () => {
+            this._refreshData()
+        }, 5000 );
+
+        this._refreshData();
+    }
+
+    private _refreshData(): void {
         this._getLastBlock();
-        this._getLastEra();
         this._getLastPrice();
     }
 
@@ -31,21 +37,7 @@ export class InfoBarComponent implements OnInit {
             .pipe( take( 1 ) )
             .subscribe(
                 ( result: any ) => {
-                    console.log( result )
                     this.lastBlock = result;
-                }
-            )
-    }
-
-    private _getLastEra(): void {
-        this._apiClientService.get( 'era?limit=192' )
-            .pipe( take( 1 ) )
-            .subscribe(
-                ( result: any ) => {
-                    console.log( result )
-                    result.reverse();
-                    this._dataService.eras = result;
-                    this.lastEra = result[0]; // FIXME to return a single value
                 }
             )
     }

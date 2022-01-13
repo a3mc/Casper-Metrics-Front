@@ -18,15 +18,13 @@ import { DistributionComponent } from './overview/distribution/distribution.comp
 import { FooterComponent } from './footer/footer.component';
 import { TransfersComponent } from './overview/transfers/transfers.component';
 import { MarketComponent } from './overview/market/market.component';
-import { FlowComponent } from './overview/flow/flow.component';
-import { FlowFullComponent } from './charts/flow-full/flow-full.component';
+import { FlowComponent } from './flow/flow.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { TransfersFullComponent } from './charts/transfers-full/transfers-full.component'
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { StakeComponent } from './charts/stake/stake.component';
 import { WeightsFullComponent } from './charts/weights-full/weights-full.component';
-import { MapFullComponent } from './charts/map-full/map-full.component';
 
 @NgModule( {
     declarations: [
@@ -44,11 +42,9 @@ import { MapFullComponent } from './charts/map-full/map-full.component';
         TransfersComponent,
         MarketComponent,
         FlowComponent,
-        FlowFullComponent,
         TransfersFullComponent,
         StakeComponent,
         WeightsFullComponent,
-        MapFullComponent
     ],
     imports: [
         HttpClientModule,

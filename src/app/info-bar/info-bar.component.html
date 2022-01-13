@@ -28,9 +28,10 @@
                     <div class="col-4 info-box">
                         <div class="label">
                             Current Price
+                            <sup title="Market data provided by CoinGecko">*</sup>
                         </div>
                         <div class="value">
-                            ${{ price | number: '1.3-3' }}
+                            ${{ price | number: '1.4-4' }}
                         </div>
                     </div>
                 </div>
@@ -63,10 +64,10 @@
                             Validators Weights
                         </div>
                         <div class="value d-none d-md-block">
-                            {{ lastEra?.validatorsWeights | number }}
+                            {{ lastBlock?.validatorsWeights | number }}
                         </div>
                         <div class="value d-md-none">
-                            {{ lastEra?.validatorsWeights / 1000000 | number: '1.0-0' }}M
+                            {{ lastBlock?.validatorsWeights / 1000000 | number: '1.0-0' }}M
                         </div>
                     </div>
                 </div>
