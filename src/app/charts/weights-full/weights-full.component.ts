@@ -41,6 +41,16 @@ export class WeightsFullComponent implements OnInit, OnDestroy {
 		this.showInfo = !this.showInfo;
 	}
 
+	public chartClick( event: any ): void {
+		if ( event.dataIndex !== undefined ) {
+			this._dataService.selectedEra = event.dataIndex;
+		}
+	}
+
+	public sliderChange() {
+		this._loadEras();
+	}
+
 	private _loadEras() {
 		if ( this._erasSub ) {
 			this._erasSub.unsubscribe();
@@ -62,10 +72,6 @@ export class WeightsFullComponent implements OnInit, OnDestroy {
 		this._dates = [];
 		this._weights = [];
 		this._deploys = [];
-	}
-
-	public sliderChange() {
-		this._loadEras();
 	}
 
 	private _setChart(): void {

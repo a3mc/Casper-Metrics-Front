@@ -32,6 +32,8 @@ export class FlowComponent implements OnInit, OnDestroy {
     };
 
     private _eraSub: Subscription | undefined;
+    private _sliderSub: Subscription | undefined;
+    private _selectedSub: Subscription | undefined;
     private _slider$: Subject<number> = new Subject();
     private _names: any[] = [];
     private _links: any[] = [];
@@ -44,14 +46,22 @@ export class FlowComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this._getLastCompletedEra();
-        this._slider$.pipe( debounceTime( 200 ) )
+
+        if ( this._sliderSub ) this._sliderSub.unsubscribe();
+        this._sliderSub = this._slider$.pipe( debounceTime( 200 ) )
             .subscribe( ( eraId: number ) => this.getTransfers( eraId ) );
+
+        if ( this._selectedSub ) this._selectedSub.unsubscribe();
+        this._selectedSub = this._dataService.selectedEraId$
+            .subscribe( ( eraId: any ) => {
+                this.eraId = eraId;
+            } );
     }
 
     ngOnDestroy(): void {
-        if ( this._eraSub ) {
-            this._eraSub.unsubscribe();
-        }
+        if ( this._eraSub ) this._eraSub.unsubscribe();
+        if ( this._sliderSub ) this._sliderSub.unsubscribe();
+        if ( this._selectedSub ) this._selectedSub.unsubscribe();
     }
 
     public sliderChange( eraId: number ) {
@@ -151,8 +161,8 @@ export class FlowComponent implements OnInit, OnDestroy {
         };
     }
 
-    public clickHandler( event: MouseEvent ) {
-        //console.log( event );
+    public chartClick( event: any ): void {
+        console.log( event );
     }
 
 }

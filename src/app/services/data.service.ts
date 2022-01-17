@@ -10,8 +10,10 @@ export class DataService {
     public transfersInfo = false;
 
     private _lastEra: any = null;
+    private _selectedEraId = 0;
     private _eras: any[] = [];
     public lastEra$ = new BehaviorSubject( null );
+    public selectedEraId$ = new Subject();
     public eras$ = new BehaviorSubject( this._eras );
 
 
@@ -19,6 +21,11 @@ export class DataService {
     set lastEra( value: any ) {
         this._lastEra = value;
         this.lastEra$.next( this._lastEra );
+    }
+
+    set selectedEra( value: number ) {
+        this._selectedEraId = value;
+        this.selectedEraId$.next( this._selectedEraId );
     }
 
     set eras( value: any ) {

@@ -9,7 +9,8 @@
                 <div class="chart-title">
                     Staked Per Era
                 </div>
-                <div *ngIf="!loading" echarts [options]="chartOption" class="stake"></div>
+                <div *ngIf="!loading" echarts [options]="chartOption" class="stake"
+                     (chartClick)="chartClick( $event )"></div>
             </div>
         </div>
     </div>

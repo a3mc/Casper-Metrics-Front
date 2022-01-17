@@ -43,6 +43,12 @@ export class StakeComponent implements OnInit, OnDestroy {
 		this.showInfo = !this.showInfo;
 	}
 
+	public chartClick( event: any ): void {
+		if ( event.dataIndex !== undefined ) {
+			this._dataService.selectedEra = event.dataIndex;
+		}
+	}
+
 	private _loadEras() {
 		if ( this._erasSub ) {
 			this._erasSub.unsubscribe();
