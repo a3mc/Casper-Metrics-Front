@@ -29,10 +29,11 @@ export class MarketComponent implements OnInit {
             .pipe( take( 1 ) )
             .subscribe(
                 ( result: any ) => {
+                    result.reverse();
                     result.forEach( ( item: any ) => {
                         this._dates.push( moment( item.date ).format( 'DD MMM' ) );
-                        this._prices.push( Math.round( item.price * 1000 ) / 1000 );
-                        this._volumes.push( Math.round( item.volume / 1000 ) );
+                        this._prices.push( Math.round( item.close * 1000 ) / 1000 );
+                        this._volumes.push( Math.round( item.volumeFrom / 1000 ) );
                     } );
                     this._setChart();
                     this.loading = false;

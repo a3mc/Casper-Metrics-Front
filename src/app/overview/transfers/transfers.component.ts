@@ -29,6 +29,7 @@ export class TransfersComponent implements OnInit {
             .pipe( take( 1 ) )
             .subscribe(
             ( result: any ) => {
+                result.reverse();
                 result.forEach( ( era: any ) => {
                     this._dates.push( moment( era.end ).format( 'DD MMM' ) );
                     this._transfers.push( era.transfersCount );
