@@ -28,6 +28,7 @@ export class RewardsComponent implements OnInit {
             .pipe( take( 1 ) )
             .subscribe(
             ( result: any ) => {
+                result.reverse();
                 this._eraDates = result.map( ( era: any ) => moment( era.start ).format( 'D MMM') );
                 this._totalStaked = result.map(
                     ( era: any ) => Math.round( era.validatorsWeights / 1000000 )
