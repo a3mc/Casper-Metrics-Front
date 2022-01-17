@@ -12,6 +12,7 @@ export class TopbarComponent implements OnInit {
     @ViewChild( 'network' ) network: ElementRef | undefined;
 
     public showNetworkDropdown = false;
+    public showMenu = false;
 
     constructor(
         public apiClientService: ApiClientService
@@ -26,6 +27,11 @@ export class TopbarComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    public setMenu( show = !this.showMenu ): void {
+        this.showMenu = show;
+        document.body.classList.toggle( 'no-scroll', this.showMenu );
     }
 
     public changeNetwork( network: string ): void {

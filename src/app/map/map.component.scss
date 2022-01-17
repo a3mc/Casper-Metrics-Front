@@ -1,39 +1,60 @@
 .map-container {
-  height: 459px;
-  .map-frame {
-    border: 2px solid #222;
-    height: 400px;
-    #map {
-      height: 100%;
-      filter: invert(1) hue-rotate(-180deg) brightness(1.8);
+	height: 459px;
 
-    }
-  }
+	.map-frame {
+		border: 2px solid #222;
+		height: 400px;
+
+		#map {
+			height: 100%;
+			filter: invert(1) hue-rotate(-180deg) brightness(1.8);
+
+		}
+
+		.map-legend {
+			padding-top: 8px;
+			text-align: center;
+			font-size: 12px;
+			font-family: 'M PLUS 1', sans-serif;
+			color: #c3c2b2;
+			.map-legend-circle {
+				display: inline-block;
+				border-radius: 50px;
+				width: 9px;
+				height: 9px;
+				background: #3bc700;
+				margin-right: 1px;
+			}
+		}
+	}
 }
 
 .map-box {
-  position: relative;
-  .chart-title {
-    font-size: 18px;
-    text-align: center;
-    color: #ccb;
-    font-family: 'M PLUS 1', sans-serif;
-    font-weight: bold;
-  }
-  a.info {
-    display: block;
-    position: absolute;
-    right:-5px;
-    top: -10px;
-    width:20px;
-    height: 30px;
-    color:#fff6;
-    font-size: 22px;
-    cursor: pointer;
-    z-index: 100;
-    transition: color 0.4s ease-in-out;
-    &:hover, &.active {
-      color: #fed;
-    }
-  }
+	position: relative;
+
+	.chart-title {
+		font-size: 18px;
+		text-align: center;
+		color: #ccb;
+		font-family: 'M PLUS 1', sans-serif;
+		font-weight: bold;
+	}
+
+	a.info {
+		display: block;
+		position: absolute;
+		right: -5px;
+		top: -10px;
+		width: 20px;
+		height: 30px;
+		color: #fff6;
+		font-size: 22px;
+		cursor: pointer;
+		z-index: 100;
+		transition: color 0.4s ease-in-out;
+
+		&:hover, &.active {
+			color: #fed;
+		}
+	}
 }

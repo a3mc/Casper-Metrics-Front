@@ -13,8 +13,7 @@ export class MapComponent implements AfterViewInit {
 	@Input( 'mode' ) public mode: string = '';
 
 	public showInfo = false;
-
-	private map: any;
+	private _map: any;
 
 	constructor(
 		private _apiClientService: ApiClientService
@@ -30,9 +29,10 @@ export class MapComponent implements AfterViewInit {
 	}
 
 	private initMap(): void {
-		this.map = L.map( 'map', {
+		this._map = L.map( 'map', {
 			center: [38, 20],
-			zoom: this.mode === 'full' ? 2 : 1
+			zoom: this.mode === 'full' ? 2 : 1,
+			scrollWheelZoom: false,
 		} );
 		const tiles = L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: this.mode === 'full' ? 5 : 3,
@@ -40,14 +40,12 @@ export class MapComponent implements AfterViewInit {
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		} );
 
-		tiles.addTo( this.map );
-
+		tiles.addTo( this._map );
 		this._addMarkers();
 	}
 
 	private _addMarkers(): void {
 		const markersData: any[] = [];
-
 		this._apiClientService.get( 'geodata/validators' )
 			.pipe( take( 1 ) )
 			.subscribe(
@@ -68,7 +66,7 @@ export class MapComponent implements AfterViewInit {
 								iconSize: [8, 8],
 							} ),
 							riseOnHover: true
-						}, ).addTo( this.map );
+						}, ).addTo( this._map );
 					}
 				}
 			);
