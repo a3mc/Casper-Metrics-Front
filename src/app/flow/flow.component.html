@@ -10,7 +10,7 @@
                     Transfers Flow
                 </div>
                 <div *ngIf="!loading" echarts [options]="chartOption" class="flow"
-                     (click)="clickHandler( $event )"></div>
+                     (chartClick)="chartClick( $event )"></div>
 
                 <div class="era-control">
                     <div class="row">
@@ -73,7 +73,6 @@
 </div>
 <div class="flow-container" *ngIf="mode !== 'full'">
     <h4 class="text-center mt-3">Transfers Flow (last completed Era)</h4>
-    <div *ngIf="!loading" echarts [options]="chartOption" class="flow"
-         (click)="clickHandler( $event )"></div>
+    <div *ngIf="!loading" echarts [options]="chartOption" class="flow"></div>
 </div>
 
