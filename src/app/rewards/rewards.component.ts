@@ -24,7 +24,7 @@ export class RewardsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._apiClientService.get( '/era?limit=192' )
+        this._apiClientService.get( '/era?limit=168' )
             .pipe( take( 1 ) )
             .subscribe(
             ( result: any ) => {
@@ -59,7 +59,7 @@ export class RewardsComponent implements OnInit {
                 {
                     top: '53%',
                     left: 'center',
-                    text: 'Total Stake Bonded',
+                    text: 'Validators Weights',
                     textStyle: {
                         color: '#ccb',
                         fontFamily: "'M PLUS 1', sans-serif",

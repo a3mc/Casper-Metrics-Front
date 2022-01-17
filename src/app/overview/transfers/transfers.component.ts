@@ -25,7 +25,7 @@ export class TransfersComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this._apiClientService.get( '/era?limit=192' )
+        this._apiClientService.get( '/era?limit=168' )
             .pipe( take( 1 ) )
             .subscribe(
             ( result: any ) => {
