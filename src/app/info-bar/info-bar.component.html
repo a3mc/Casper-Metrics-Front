@@ -93,8 +93,8 @@
                         <div class="label">
                             Block Time
                         </div>
-                        <div class="value">
-                            65ms
+                        <div class="value" *ngIf="lastBlock?.prevBlockTime">
+                            {{ lastBlock.prevBlockTime / 1000 | number }}s
                         </div>
                     </div>
                 </div>

@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { StakeComponent } from './charts/stake/stake.component';
 import { WeightsFullComponent } from './charts/weights-full/weights-full.component';
+import { ClipboardModule } from "ngx-clipboard";
 
 @NgModule( {
     declarations: [
@@ -56,7 +57,7 @@ import { WeightsFullComponent } from './charts/weights-full/weights-full.compone
         NgxSliderModule,
         FormsModule,
         CommonModule,
-        CommonModule,
+        ClipboardModule,
     ],
     providers: [
         ApiClientService,

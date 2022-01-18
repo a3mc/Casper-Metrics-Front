@@ -25,6 +25,7 @@
         "echarts": "^5.2.2",
         "leaflet": "^1.7.1",
         "moment": "^2.29.1",
+        "ngx-clipboard": "^15.0.1",
         "ngx-echarts": "^8.0.0",
         "rxjs": "~7.4.0",
         "swagger-ui": "^4.1.0",

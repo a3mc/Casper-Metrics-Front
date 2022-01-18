@@ -16,6 +16,7 @@ export class InfoBarComponent implements OnInit {
 
     constructor(
         private _apiClientService: ApiClientService,
+        private _dataService: DataService,
     ) {
     }
 
@@ -48,6 +49,7 @@ export class InfoBarComponent implements OnInit {
             .subscribe(
                 ( result: any ) => {
                     this.price = result;
+                    this._dataService.price = result;
                 }
             )
     }
