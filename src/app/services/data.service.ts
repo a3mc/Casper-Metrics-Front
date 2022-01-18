@@ -15,8 +15,7 @@ export class DataService {
     public lastEra$ = new BehaviorSubject( null );
     public selectedEraId$ = new Subject();
     public eras$ = new BehaviorSubject( this._eras );
-
-
+    public price = 0;
 
     set lastEra( value: any ) {
         this._lastEra = value;
@@ -35,10 +34,7 @@ export class DataService {
 
     constructor(
         private _apiClientService: ApiClientService
-    ) {
-        console.log( 'dataservice init');
-        this.getLastEra();
-    }
+    ) {}
 
     public getLastEra(): void {
         this._apiClientService.get( 'era' )

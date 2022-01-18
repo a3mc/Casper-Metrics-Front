@@ -30,6 +30,7 @@ export class FlowComponent implements OnInit, OnDestroy {
         floor: 0,
         ceil: 0
     };
+    public txInfo: any;
 
     private _eraSub: Subscription | undefined;
     private _sliderSub: Subscription | undefined;
@@ -40,7 +41,7 @@ export class FlowComponent implements OnInit, OnDestroy {
 
     constructor(
         private _apiClientService: ApiClientService,
-        private _dataService: DataService,
+        public dataService: DataService,
     ) {
     }
 
@@ -52,7 +53,7 @@ export class FlowComponent implements OnInit, OnDestroy {
             .subscribe( ( eraId: number ) => this.getTransfers( eraId ) );
 
         if ( this._selectedSub ) this._selectedSub.unsubscribe();
-        this._selectedSub = this._dataService.selectedEraId$
+        this._selectedSub = this.dataService.selectedEraId$
             .subscribe( ( eraId: any ) => {
                 this.eraId = eraId;
             } );
@@ -69,6 +70,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     }
 
     public getTransfers( eraId: number ): void {
+        this.txInfo = null;
         this._apiClientService.get(
             '/transfersByEraId?eraId=' + eraId + '&limit=' + this.limit
         )
@@ -101,7 +103,13 @@ export class FlowComponent implements OnInit, OnDestroy {
                             {
                                 source: item.fromHash,
                                 target: item.toHash,
-                                value: parseInt( item.amount ) / 1000000000
+                                value: parseInt( item.amount ) / 1000000000,
+                                from: item.from,
+                                to: item.to,
+                                deployHash: item.deployHash,
+                                timestamp: item.timestamp,
+                                blockHeight: item.blockHeight,
+                                eraId: this.eraId,
                             },
                         );
 
@@ -113,6 +121,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     }
 
     public toggleInfo(): void {
+        this.txInfo = null;
         this.showInfo = !this.showInfo;
     }
 
@@ -120,7 +129,7 @@ export class FlowComponent implements OnInit, OnDestroy {
         if ( this._eraSub ) {
             this._eraSub.unsubscribe();
         }
-        this._eraSub = this._dataService.lastEra$
+        this._eraSub = this.dataService.lastEra$
             .subscribe(
                 ( result: any ) => {
                     if ( result ) {
@@ -143,6 +152,14 @@ export class FlowComponent implements OnInit, OnDestroy {
 
     private _setChart(): void {
         this.chartOption = {
+            tooltip: {
+                formatter: ( params:any ) =>  {
+                    if ( params.data.value ) {
+                        return ( `${ Math.round( params.data.value * 100 ) / 100 } CSPR` )
+                    }
+                    return '';
+                }
+            },
             series: {
                 type: 'sankey',
                 layout: 'none',
@@ -162,7 +179,8 @@ export class FlowComponent implements OnInit, OnDestroy {
     }
 
     public chartClick( event: any ): void {
-        console.log( event );
+        this.showInfo = true;
+        this.txInfo = event.data;
     }
 
 }

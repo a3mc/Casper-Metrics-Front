@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { fromEvent, Subscription, tap, throttleTime } from "rxjs";
+import { DataService } from "../services/data.service";
 
 @Component( {
 	selector: 'app-charts',
@@ -12,10 +13,14 @@ export class ChartsComponent {
 	public showMenu = false;
 	private _eventSub: Subscription | undefined;
 
-	constructor() {
+	constructor(
+		private _dataService: DataService
+	) {
 	}
 
 	ngOnInit(): void {
+		this._dataService.getLastEra();
+
 		this._eventSub = fromEvent( window, 'scroll' ).pipe(
 			throttleTime( 50 ),
 			tap( event => this._scroll() )

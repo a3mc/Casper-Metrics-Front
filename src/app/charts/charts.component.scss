@@ -7,6 +7,45 @@
 		background: #ffffff15;
 		box-shadow: 5px 5px 15px #00000015;
 	}
+
+	&.tx-info {
+		.label, i.fa-copy {
+			color: #fff9;
+			white-space: nowrap;
+		}
+		i.fa-copy:hover {
+			color: #fff;
+		}
+		i.fa-copy {
+			cursor: pointer;
+		}
+		.dollar-price {
+			color: #fff9;
+			margin-left: 63px;
+			font-size: 12px;
+		}
+		.address {
+			padding-left: 7px;
+			padding-right: 7px;
+			font-family: monospace;
+			word-wrap: break-word;
+			overflow-wrap: anywhere;
+		}
+		.from {
+			color: #c9a1a1;
+		}
+		.to {
+			color: #a5c79f;
+		}
+		.deploy-hash {
+			color: #c3c89e
+		}
+		.info-header {
+			font-weight: bold;
+			font-size: 16px;
+			color: #ccccbb;
+		}
+	}
 }
 
 .charts-menu {
@@ -31,6 +70,6 @@
 	}
 
 	a:hover {
-		color:#ffd;
+		color: #ffd;
 	}
 }
