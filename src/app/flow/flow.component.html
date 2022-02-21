@@ -116,7 +116,7 @@
     </div>
 </div>
 <div class="flow-container" *ngIf="mode !== 'full'">
-    <h4 class="text-center mt-3">Transfers Flow (last completed Era)</h4>
+    <h4 class="text-center mt-3" title="Era {{ eraId }}">Transfers Flow (last completed Era)</h4>
     <div *ngIf="!loading" echarts [options]="chartOption" class="flow"></div>
 </div>
 

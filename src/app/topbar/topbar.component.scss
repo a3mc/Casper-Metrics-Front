@@ -45,6 +45,12 @@
 			.network {
 				text-transform: capitalize;
 
+				.network-name {
+					float: right;
+					font-size: 16px;
+					margin-top: 5px;
+				}
+
 				button {
 					text-transform: capitalize;
 					background-color: #897a7b;

@@ -2,10 +2,8 @@
     <div class="container info-bar-inner ps-2 pe-2">
         <div class="bars row g-0">
             <div class="col-sm-4 left-bar">
-                <h5 class="sub-title mt-5">
-                    <strong>CSPR Metrics API and Historical Archive</strong><br />
-                    for Services, Dapps and Analytics
-                </h5>
+                <app-train></app-train>
+                <app-era-progress></app-era-progress>
             </div>
             <div class="col-sm-8 right-bar p-5">
                 <div class="row">
@@ -14,7 +12,7 @@
                             Current Era
                         </div>
                         <div class="value">
-                            {{ lastBlock?.eraId }}
+                            {{ dataService.lastBlock?.eraId }}
                         </div>
                     </div>
                     <div class="col-4 info-box">
@@ -22,7 +20,7 @@
                             Block Height
                         </div>
                         <div class="value">
-                            {{ lastBlock?.blockHeight }}
+                            {{ dataService.lastBlock?.blockHeight }}
                         </div>
                     </div>
                     <div class="col-4 info-box">
@@ -31,7 +29,7 @@
                             <sup title="Market data provided by CoinGecko">*</sup>
                         </div>
                         <div class="value price">
-                            ${{ price | number: '1.4-4' }}
+                            ${{ dataService.price | number: '1.4-4' }}
                         </div>
                     </div>
                 </div>
@@ -42,10 +40,10 @@
                             Total Supply
                         </div>
                         <div class="value d-none d-md-block">
-                            {{ lastBlock?.totalSupply | number }}
+                            {{ dataService.lastBlock?.totalSupply | number }}
                         </div>
                         <div class="value d-md-none">
-                            {{ lastBlock?.totalSupply / 1000000 | number: '1.0-0' }}M
+                            {{ dataService.lastBlock?.totalSupply / 1000000 | number: '1.0-0' }}M
                         </div>
                     </div>
                     <div class="col-4 info-box">
@@ -53,10 +51,10 @@
                             Circulating Supply
                         </div>
                         <div class="value d-none d-md-block">
-                            {{ lastBlock?.circulatingSupply | number }}
+                            {{ dataService.lastBlock?.circulatingSupply | number }}
                         </div>
                         <div class="value d-md-none">
-                            {{ lastBlock?.circulatingSupply / 1000000 | number: '1.0-0' }}M
+                            {{ dataService.lastBlock?.circulatingSupply / 1000000 | number: '1.0-0' }}M
                         </div>
                     </div>
                     <div class="col-4 info-box">
@@ -64,10 +62,10 @@
                             Validators Weights
                         </div>
                         <div class="value d-none d-md-block">
-                            {{ lastBlock?.validatorsWeights | number }}
+                            {{ dataService.lastBlock?.validatorsWeights | number }}
                         </div>
                         <div class="value d-md-none">
-                            {{ lastBlock?.validatorsWeights / 1000000 | number: '1.0-0' }}M
+                            {{ dataService.lastBlock?.validatorsWeights / 1000000 | number: '1.0-0' }}M
                         </div>
                     </div>
                 </div>
@@ -93,8 +91,8 @@
                         <div class="label">
                             Block Time
                         </div>
-                        <div class="value" *ngIf="lastBlock?.prevBlockTime">
-                            {{ lastBlock.prevBlockTime / 1000 | number }}s
+                        <div class="value" *ngIf="dataService.lastBlock?.prevBlockTime">
+                            {{ dataService.lastBlock?.prevBlockTime / 1000 | number }}s
                         </div>
                     </div>
                 </div>

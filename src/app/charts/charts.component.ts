@@ -19,8 +19,6 @@ export class ChartsComponent {
 	}
 
 	ngOnInit(): void {
-		this._dataService.getLastEra();
-
 		this._eventSub = fromEvent( window, 'scroll' ).pipe(
 			throttleTime( 50 ),
 			tap( event => this._scroll() )

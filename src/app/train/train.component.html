@@ -1,0 +1,55 @@
+<div class="train">
+    <div class="train-container"
+         [class.cycle]="dataService.lastBlocks.length === 2"
+         [style.left.px]="350 + (-175 * dataService.lastBlocks.length)">
+        <div class="block" *ngFor="let block of dataService.lastBlocks; let i = index"
+            [class.active]="i === dataService.lastBlocks.length - 1">
+            <div class="block-height clearfix">
+                <div class="float-start">{{ block.blockHeight }}</div>
+                <div class="float-end switch" *ngIf="block.switch">Switch</div>
+            </div>
+            <div>
+                {{ block.timestamp | date: 'MMM d H:mm:ss' }}
+            </div>
+            <div>
+                <span class="label">Time:</span> {{ block.prevBlockTime / 1000 }}s
+            </div>
+            <div>
+                <span class="label">Transfers:</span> {{ block.transfersCount }}
+            </div>
+            <div>
+                <span class="label">Deploys:</span> {{ block.deploysCount }}
+            </div>
+            <div>
+                <span class="label">Staked:</span> {{ block.stakedThisBlock }}
+            </div>
+            <div>
+                <span class="label">Unbonded:</span> {{ block.undelegatedThisBlock }}
+            </div>
+        </div>
+        <div class="block upcoming">
+            ...
+        </div>
+    </div>
+</div>
+
+
+<!--blockHeight: 130000-->
+<!--circulatingSupply: 3495820112-->
+<!--delegatorsCount: 0-->
+<!--delegatorsRewards: 0-->
+<!--deploysCount: 0-->
+<!--eraId: 1198-->
+<!--nextEraValidatorsWeights: 0-->
+<!--prevBlockTime: 65000-->
+<!--rewards: 0-->
+<!--stakedThisBlock: 0-->
+<!--stateRootHash: "98340ce26866a80b64d7702b2dc1ff953db0a004b738cc786d67067397eb9520"-->
+<!--switch: false-->
+<!--timestamp: "2021-07-09T15:18:12.000Z"-->
+<!--totalSupply: 10202470830-->
+<!--transfersCount: 0-->
+<!--undelegatedThisBlock: 0-->
+<!--validatorsCount: 0-->
+<!--validatorsRewards: 0-->
+<!--validatorsWeights: 3860059188-->

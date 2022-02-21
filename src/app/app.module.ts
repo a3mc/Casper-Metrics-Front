@@ -26,6 +26,8 @@ import { CommonModule } from '@angular/common';
 import { StakeComponent } from './charts/stake/stake.component';
 import { WeightsFullComponent } from './charts/weights-full/weights-full.component';
 import { ClipboardModule } from "ngx-clipboard";
+import { TrainComponent } from './train/train.component';
+import { EraProgressComponent } from './era-progress/era-progress.component';
 
 @NgModule( {
     declarations: [
@@ -46,6 +48,8 @@ import { ClipboardModule } from "ngx-clipboard";
         TransfersFullComponent,
         StakeComponent,
         WeightsFullComponent,
+        TrainComponent,
+        EraProgressComponent,
     ],
     imports: [
         HttpClientModule,

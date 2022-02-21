@@ -8,8 +8,8 @@ const httpOptions = {
 
 @Injectable()
 export class ApiClientService {
-    public network = location.host.indexOf( 'testnet' ) > -1 ? 'testnet' : 'mainnet';
-    public baseUrl = this.network === 'testnet' ? environment.apiTestnetUrl: environment.apiMainnetUrl;
+    public network = 'mainnet';
+    public baseUrl = environment.apiMainnetUrl;
 
     constructor(
         private _httpClient: HttpClient
