@@ -13,25 +13,7 @@
                    class="link me-5">API</a>
             </div>
             <div class="network col d-none d-md-block">
-                <div class="dropdown" #network>
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false"
-                            (click)="showNetworkDropdown = !showNetworkDropdown">
-                        {{ apiClientService.network }}
-                    </button>
-                    <ul class="dropdown-menu" [class.show]="showNetworkDropdown" aria-labelledby="dropdownMenuButton1">
-                        <li *ngIf="apiClientService.network !== 'testnet'">
-                            <a class="dropdown-item" (click)="changeNetwork( 'testnet' )">
-                                testnet
-                            </a>
-                        </li>
-                        <li *ngIf="apiClientService.network !== 'mainnet'">
-                            <a class="dropdown-item" (click)="changeNetwork( 'mainnet' )">
-                                mainnet
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <div class="network-name">Mainnet</div>
             </div>
         </div>
         <div class="bars d-md-none">
@@ -50,15 +32,5 @@
            class="link me-5">Charts</a>
         <a routerLink="/api" [routerLinkActive]="['link-active']" (click)="setMenu( false )"
            class="link me-5">API</a>
-    </div>
-    <div class="mobile-menu mobile-networks p-5 mt-2">
-        <a [class.link-active]="apiClientService.network === 'mainnet'" class="link me-5"
-           (click)="setMenu( false ); changeNetwork( 'mainnet' )">
-            Mainnet
-        </a>
-        <a [class.link-active]="apiClientService.network === 'testnet'" class="link me-5"
-           (click)="setMenu( false ); changeNetwork( 'testnet' )">
-            Testnet
-        </a>
     </div>
 </div>

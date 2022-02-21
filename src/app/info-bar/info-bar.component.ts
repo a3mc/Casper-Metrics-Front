@@ -8,50 +8,10 @@ import { DataService } from '../services/data.service';
     templateUrl: './info-bar.component.html',
     styleUrls: ['./info-bar.component.scss']
 } )
-export class InfoBarComponent implements OnInit {
-
-    public lastBlock: any;
-    public lastEra: any;
-    public price: number = 0;
+export class InfoBarComponent {
 
     constructor(
-        private _apiClientService: ApiClientService,
-        private _dataService: DataService,
+        public dataService: DataService,
     ) {
     }
-
-    ngOnInit(): void {
-        setInterval( () => {
-            this._refreshData()
-        }, 5000 );
-
-        this._refreshData();
-    }
-
-    private _refreshData(): void {
-        this._getLastBlock();
-        this._getLastPrice();
-    }
-
-    private _getLastBlock(): void {
-        this._apiClientService.get( 'block' )
-            .pipe( take( 1 ) )
-            .subscribe(
-                ( result: any ) => {
-                    this.lastBlock = result;
-                }
-            )
-    }
-
-    private _getLastPrice(): void {
-        this._apiClientService.get( 'price' )
-            .pipe( take( 1 ) )
-            .subscribe(
-                ( result: any ) => {
-                    this.price = result;
-                    this._dataService.price = result;
-                }
-            )
-    }
-
 }

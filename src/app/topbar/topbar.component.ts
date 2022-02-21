@@ -34,12 +34,4 @@ export class TopbarComponent implements OnInit {
         document.body.classList.toggle( 'no-scroll', this.showMenu );
     }
 
-    public changeNetwork( network: string ): void {
-        if ( network === 'mainnet' ) {
-            location.host = environment.frontMainnetHost;
-        } else if ( network === 'testnet' ) {
-            location.host = environment.frontTestnetHost;
-        }
-    }
-
 }
