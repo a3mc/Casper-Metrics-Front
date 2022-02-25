@@ -2,14 +2,14 @@
     <div [class.col-sm-12]="!showInfo"
          [class.col-sm-9]="showInfo">
         <div class="chart-panel p-3">
-            <div class="map-box">
+            <div class="map-box map-box-full">
                 <a class="info" (click)="toggleInfo()" [class.active]="showInfo">
                     <i class="fa fa-info-circle"></i>
                 </a>
                 <div class="chart-title">
                     Network Map
                 </div>
-                <div class="map-container mt-4">
+                <div class="map-container map-full mt-4">
                     <div class="map-frame">
                         <div id="map"></div>
                     </div>
@@ -18,8 +18,62 @@
         </div>
     </div>
     <div class="col-sm-3" *ngIf="showInfo">
-        <div class="chart-panel p-3 map-info">
-            Info here
+        <div class="chart-panel p-3 map-info" *ngIf="!validator">
+            Active validators map.<br><br>
+            Orange clusters show high-density of validator nodes in one area. Green show areas
+            with less density.<br><br>
+            Click on a marker to see the details of a particular validator node.
+        </div>
+        <div *ngIf="validator">
+            <div class="chart-panel p-3 validators-info">
+                <div class="info-header">Validator Details</div>
+                <div class="mt-4">
+                    <span class="label">IP: </span>
+                    {{ validator.ip }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">Public&nbsp;Key:</span>
+                    <span class="address to">{{ validator.public_key }}</span>
+                    <i class="fa fa-copy" ngxClipboard [cbContent]="validator.public_key"></i>
+                </div>
+                <div class="mt-2">
+                    <span class="label">Performance:</span>
+                    {{ validator.performance | number:'1.1-1'}}
+                </div>
+                <div class="mt-2">
+                    <span class="label">API&nbsp;Version:</span>
+                    {{ validator.api_version }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">Org:</span>
+                    {{ validator.org }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">Location:</span>
+                    {{ validator.loc }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">City:</span>
+                    {{ validator.city }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">Region:</span>
+                    {{ validator.region }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">Country:</span>
+                    {{ validator.country }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">Postal&nbsp;Code:</span>
+                    {{ validator.postal }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">Timezone:</span>
+                    {{ validator.timezone }}
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

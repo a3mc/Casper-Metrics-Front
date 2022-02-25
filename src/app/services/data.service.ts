@@ -16,6 +16,7 @@ export class DataService {
     public price = 0;
     public lastBlocks: any[] = [];
     public lastBlock: any = null;
+
     set lastEra( value: any ) {
         this._lastEra = value;
         this.lastEra$.next( this._lastEra );
@@ -65,9 +66,7 @@ export class DataService {
     }
 
     private _getLastBlock(): void {
-        if ( this.lastBlocks.length === 25 ) {
-            this.lastBlocks = [this.lastBlocks[23], this.lastBlocks[24]];
-        }
+
         this._apiClientService.get( 'block' )
             .pipe( take( 1 ) )
             .subscribe(
@@ -76,18 +75,21 @@ export class DataService {
                         return;
                     }
                     this.lastBlock = result;
-                    setTimeout( () => {
-                        this.lastBlocks.push( result );
-                        if ( this.lastBlocks.length === 1 ) {
-                            this._getPrevBlock();
-                        }
-                    }, 100 )
+                    this.lastBlocks.push( result );
+                    if ( this.lastBlocks.length === 1 ) {
+                        this._getPrevBlock();
+                    }
+                    if ( this.lastBlocks.length === 6 ) {
+                        setTimeout( () => {
+                            this.lastBlocks.shift();
+                        }, 1000 )
+                    }
                 }
             )
     }
 
     private _getPrevBlock(): void {
-        this._apiClientService.get( 'block?blockHeight=' + (this.lastBlocks[0].blockHeight - 1 ) )
+        this._apiClientService.get( 'block?blockHeight=' + ( this.lastBlocks[0].blockHeight - 1 ) )
             .pipe( take( 1 ) )
             .subscribe(
                 ( result: any ) => {

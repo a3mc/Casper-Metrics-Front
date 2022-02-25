@@ -8,7 +8,7 @@
 		box-shadow: 5px 5px 15px #00000015;
 	}
 
-	&.tx-info {
+	&.tx-info, &.validators-info {
 		.label, i.fa-copy {
 			color: #fff9;
 			white-space: nowrap;

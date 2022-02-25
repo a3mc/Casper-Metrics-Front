@@ -1,40 +1,14 @@
 <div class="info-bar">
+    <img class="dots" src="/assets/img/dots.png">
+
     <div class="container info-bar-inner ps-2 pe-2">
         <div class="bars row g-0">
             <div class="col-sm-4 left-bar">
                 <app-train></app-train>
                 <app-era-progress></app-era-progress>
             </div>
-            <div class="col-sm-8 right-bar p-5">
-                <div class="row">
-                    <div class="col-4 info-box">
-                        <div class="label">
-                            Current Era
-                        </div>
-                        <div class="value">
-                            {{ dataService.lastBlock?.eraId }}
-                        </div>
-                    </div>
-                    <div class="col-4 info-box">
-                        <div class="label">
-                            Block Height
-                        </div>
-                        <div class="value">
-                            {{ dataService.lastBlock?.blockHeight }}
-                        </div>
-                    </div>
-                    <div class="col-4 info-box">
-                        <div class="label">
-                            Current Price
-                            <sup title="Market data provided by CoinGecko">*</sup>
-                        </div>
-                        <div class="value price">
-                            ${{ dataService.price | number: '1.4-4' }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-4">
+            <div class="col-sm-8 right-bar ps-5 pe-5 pt-3 pb-3">
+                <div class="row mt-2">
                     <div class="col-4 info-box">
                         <div class="label">
                             Total Supply
@@ -89,10 +63,39 @@
                     </div>
                     <div class="col-4 info-box">
                         <div class="label">
-                            Block Time
+                            Current Price
+                            <sup title="Market data provided by CoinGecko">*</sup>
                         </div>
-                        <div class="value" *ngIf="dataService.lastBlock?.prevBlockTime">
-                            {{ dataService.lastBlock?.prevBlockTime / 1000 | number }}s
+                        <div class="value price">
+                            ${{ dataService.price | number: '1.4-4' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-4 info-box">
+                        <div class="label">
+                            Deploys
+                        </div>
+                        <div class="value">
+                            16854
+                        </div>
+                    </div>
+                    <div class="col-4 info-box">
+                        <div class="label">
+                            Transfers
+                        </div>
+                        <div class="value">
+                            111252
+                        </div>
+                    </div>
+                    <div class="col-4 info-box">
+                        <div class="label">
+                            Current Price
+                            <sup title="Market data provided by CoinGecko">*</sup>
+                        </div>
+                        <div class="value price">
+                            ${{ dataService.price | number: '1.4-4' }}
                         </div>
                     </div>
                 </div>

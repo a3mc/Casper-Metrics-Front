@@ -1,8 +1,23 @@
 .train {
 	user-select: none;
-	overflow: hidden;
-	margin-top: 20px;
+	margin-top: 33px;
+	position: relative;
+	background-image: url(/assets/img/corners.png);
+	background-size: 210px;
+	background-repeat: no-repeat;
+	background-position-x: 195px;
+	height: 190px;
+	.current-block {
+		position: absolute;
+		color: #948887;
+		right: 99px;
+		top: -11px;
+		font-size: 11px;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
 	.train-container {
+		padding-top: 8px;
 		width: 10000px;
 		position: relative;
 		left: 0;
@@ -17,7 +32,7 @@
 			padding: 10px;
 			display: inline-block;
 			font-size: 12px;
-			width: 160px;
+			width: 190px;
 			height: 160px;
 			overflow: hidden;
 			background: #453435;
@@ -37,6 +52,7 @@
 			}
 			&.active {
 				border-color: #fff3;
+				background: #564847;
 				opacity: 1;
 			}
 			&.upcoming {

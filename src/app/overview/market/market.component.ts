@@ -47,7 +47,6 @@ export class MarketComponent implements OnInit {
 
         this.chartOption = {
             color: colors,
-
             title: [
                 {
                     top: '2%',
@@ -129,6 +128,4 @@ export class MarketComponent implements OnInit {
             ]
         };
     }
-
-
 }

@@ -1,5 +1,8 @@
 .map-container {
 	height: 459px;
+	&.map-full {
+		height: 560px;
+	}
 
 	.map-frame {
 		border: 2px solid #222;
@@ -7,8 +10,6 @@
 
 		#map {
 			height: 100%;
-			filter: invert(1) hue-rotate(-180deg) brightness(1.8);
-
 		}
 
 		.map-legend {
@@ -26,11 +27,22 @@
 				margin-right: 1px;
 			}
 		}
+
+		.leaflet-tile-pane {
+			filter: saturate(0) sepia(0.25) hue-rotate(180deg) brightness(0.7) contrast(1.9);
+		}
+		.leaflet-container {
+			background: linear-gradient(0deg, #d4dae0, #d4dae0, #a0acc0, #a0acc0);
+		}
 	}
 }
 
 .map-box {
 	position: relative;
+
+	&.map-box-full #map {
+		height: 550px;
+	}
 
 	.chart-title {
 		font-size: 18px;

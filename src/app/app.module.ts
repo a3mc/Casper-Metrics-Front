@@ -28,6 +28,8 @@ import { WeightsFullComponent } from './charts/weights-full/weights-full.compone
 import { ClipboardModule } from "ngx-clipboard";
 import { TrainComponent } from './train/train.component';
 import { EraProgressComponent } from './era-progress/era-progress.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 
 @NgModule( {
     declarations: [
@@ -62,6 +64,8 @@ import { EraProgressComponent } from './era-progress/era-progress.component';
         FormsModule,
         CommonModule,
         ClipboardModule,
+        LeafletModule,
+        LeafletMarkerClusterModule
     ],
     providers: [
         ApiClientService,
