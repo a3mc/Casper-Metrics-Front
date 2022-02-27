@@ -15,7 +15,6 @@ export class FlowComponent implements OnInit, OnDestroy {
 
     @Input( 'mode' ) public mode: string = '';
 
-
     public loading = true;
     public chartOption: EChartsOption = {};
     public lastEraId = 0;
@@ -31,6 +30,7 @@ export class FlowComponent implements OnInit, OnDestroy {
         ceil: 0
     };
     public txInfo: any;
+    public accountInfo: any;
 
     private _eraSub: Subscription | undefined;
     private _sliderSub: Subscription | undefined;
@@ -38,6 +38,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     private _slider$: Subject<number> = new Subject();
     private _names: any[] = [];
     private _links: any[] = [];
+    private _transfers: any[] = [];
 
     constructor(
         private _apiClientService: ApiClientService,
@@ -71,6 +72,7 @@ export class FlowComponent implements OnInit, OnDestroy {
 
     public getTransfers( eraId: number ): void {
         this.txInfo = null;
+        this.accountInfo = null;
         this._apiClientService.get(
             '/transfersByEraId?eraId=' + eraId + '&limit=' + this.limit
         )
@@ -84,18 +86,19 @@ export class FlowComponent implements OnInit, OnDestroy {
                     this.eraStart = result.eraStart;
                     this.eraEnd = result.eraEnd;
                     this.count = result.count;
+                    this._transfers = Object.assign( [], result.transfers );
 
                     result.transfers.forEach( ( item: any ) => {
-                        if( !this._names.some( node => node.id === item.fromHash ) ) {
+                        if ( !this._names.some( node => node.id === item.fromHash ) ) {
                             this._names.push( {
                                 id: item.fromHash,
                                 name: this._shortenAddress( item.from || item.fromHash )
                             } );
                         }
-                        if( !this._names.some( node => node.id === item.toHash ) ) {
+                        if ( !this._names.some( node => node.id === item.toHash ) ) {
                             this._names.push( {
                                 id: item.toHash,
-                                name: this._shortenAddress( item.to || item.toHash )
+                                name: this._shortenAddress( item.to || item.toHash ),
                             } );
                         }
 
@@ -153,7 +156,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     private _setChart(): void {
         this.chartOption = {
             tooltip: {
-                formatter: ( params:any ) =>  {
+                formatter: ( params: any ) => {
                     if ( params.data.value ) {
                         return ( `${ Math.round( params.data.value * 100 ) / 100 } CSPR` )
                     }
@@ -179,8 +182,50 @@ export class FlowComponent implements OnInit, OnDestroy {
     }
 
     public chartClick( event: any ): void {
+        if ( event.data.id ) {
+            let hex: string = '';
+
+            const fromAccount = this._transfers.filter(
+                transfer => transfer.fromHash === event.data.id
+            );
+
+            const fromAccountAmount = Math.round( fromAccount.reduce( ( a, b ) => {
+                return a + parseInt( b.amount );
+            }, 0 ) / 1000000000 );
+
+            fromAccount.forEach( transfer => {
+                if ( transfer.from && !hex ) hex = transfer.from;
+            } );
+
+            const toAccount = this._transfers.filter(
+                transfer => transfer.toHash === event.data.id
+            );
+
+            const toAccountAmount = Math.round( toAccount.reduce( ( a, b ) => {
+                return a + parseInt( b.amount );
+            }, 0 ) / 1000000000 );
+
+            toAccount.forEach( transfer => {
+                if ( transfer.to && !hex ) hex = transfer.to;
+            } );
+
+            this.accountInfo = {
+                accountHash: event.data.id.replace( /^dub-/, '' ),
+                accountHex: hex,
+                totalCount: fromAccount.length + toAccount.length,
+                fromAccountCount: fromAccount.length,
+                toAccountCount: toAccount.length,
+                fromAmount: fromAccountAmount,
+                toAmount: toAccountAmount,
+                totalAmount: fromAccountAmount + toAccountAmount,
+            }
+
+            this.txInfo = null;
+        } else {
+            this.txInfo = event.data;
+            this.accountInfo = null;
+        }
         this.showInfo = true;
-        this.txInfo = event.data;
     }
 
 }

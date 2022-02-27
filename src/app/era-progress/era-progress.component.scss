@@ -1,0 +1,32 @@
+.era-container {
+	height: 47px;
+	overflow: hidden;
+	background: #42323399;
+	.era-progress {
+		background: #5d4645;
+		margin-right: 20px;
+		margin-top: 12px;
+		box-shadow: 1px 1px 1px #0003;
+		float: right;
+		width: 271px;
+		.era {
+			height: 25px;
+			background: green;
+			padding-left: 10px;
+			color: #463635;
+			font-weight: bold;
+			padding-top: 2px;
+			font-size: 13px;
+			transition: all 1s ease-in-out;
+			border-right: 1px solid #29591b;
+			white-space: nowrap;
+		}
+	}
+	.era-label {
+		padding-left: 20px;
+		padding-top: 11px;
+		font-size: 16px;
+		font-weight: bold;
+		text-shadow: 1px 1px 1px #0006;
+	}
+}

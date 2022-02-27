@@ -16,8 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
 import { DistributionComponent } from './overview/distribution/distribution.component';
 import { FooterComponent } from './footer/footer.component';
-import { TransfersComponent } from './overview/transfers/transfers.component';
-import { MarketComponent } from './overview/market/market.component';
+import { MarketComponent } from './market/market.component';
 import { FlowComponent } from './flow/flow.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { TransfersFullComponent } from './charts/transfers-full/transfers-full.component'
@@ -28,6 +27,9 @@ import { WeightsFullComponent } from './charts/weights-full/weights-full.compone
 import { ClipboardModule } from "ngx-clipboard";
 import { TrainComponent } from './train/train.component';
 import { EraProgressComponent } from './era-progress/era-progress.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
+import { CirculatingComponent } from './circulating/circulating.component';
 
 @NgModule( {
     declarations: [
@@ -42,7 +44,6 @@ import { EraProgressComponent } from './era-progress/era-progress.component';
         RewardsComponent,
         DistributionComponent,
         FooterComponent,
-        TransfersComponent,
         MarketComponent,
         FlowComponent,
         TransfersFullComponent,
@@ -50,6 +51,7 @@ import { EraProgressComponent } from './era-progress/era-progress.component';
         WeightsFullComponent,
         TrainComponent,
         EraProgressComponent,
+        CirculatingComponent,
     ],
     imports: [
         HttpClientModule,
@@ -62,6 +64,8 @@ import { EraProgressComponent } from './era-progress/era-progress.component';
         FormsModule,
         CommonModule,
         ClipboardModule,
+        LeafletModule,
+        LeafletMarkerClusterModule
     ],
     providers: [
         ApiClientService,

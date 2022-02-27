@@ -1,7 +1,15 @@
-<div class="era-progress">
-    <div class="era" *ngIf="dataService.lastBlock && eraBlocks">
-        {{ dataService.lastBlock.blockHeight }} / {{ eraBlocks }}
+<div class="era-container">
+    <div class="era-progress">
+        <div class="era" *ngIf="dataService.lastBlock && eraBlocksEstimated"
+             [style.width.%]="eraPercentage()">
+            {{ eraPercentage() }}%
+        </div>
+    </div>
+    <div class="era-label">
+        Era {{ dataService.lastBlock?.eraId }}
     </div>
 </div>
+
+
 
 

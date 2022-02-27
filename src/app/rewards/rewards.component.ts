@@ -83,6 +83,11 @@ export class RewardsComponent implements OnInit {
                     axisLabel: {
                         formatter: '{value}K'
                     },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#444'
+                        }
+                    }
                 },
                 {
                     gridIndex: 1,
@@ -91,6 +96,11 @@ export class RewardsComponent implements OnInit {
                     axisLabel: {
                         formatter: '{value}M'
                     },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#444'
+                        }
+                    }
                 }
             ],
             grid: [
@@ -122,7 +132,7 @@ export class RewardsComponent implements OnInit {
                     data: this._totalStaked,
                     xAxisIndex: 1,
                     yAxisIndex: 1,
-                    color: '#3f9623'
+                    color: 'green'
                 }
             ]
         };

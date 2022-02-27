@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TransfersComponent } from './transfers.component';
+import { CirculatingComponent } from './circulating.component';
 
-describe('TransfersComponent', () => {
-  let component: TransfersComponent;
-  let fixture: ComponentFixture<TransfersComponent>;
+describe('CirculatingComponent', () => {
+  let component: CirculatingComponent;
+  let fixture: ComponentFixture<CirculatingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TransfersComponent ]
+      declarations: [ CirculatingComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TransfersComponent);
+    fixture = TestBed.createComponent(CirculatingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

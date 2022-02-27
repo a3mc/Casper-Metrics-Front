@@ -3,6 +3,10 @@
     background: #fff1;
     transition: box-shadow, background-color 0.2s ease-in-out;
 
+    &.distrib-panel {
+        height: 488px;
+    }
+
     &:hover {
         background: #ffffff15;
         box-shadow: 5px 5px 15px #00000015;

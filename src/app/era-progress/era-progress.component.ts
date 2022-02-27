@@ -11,7 +11,7 @@ export class EraProgressComponent implements OnInit, OnDestroy {
 
     private _destroySubject= new Subject<void>();
     public era: any = null;
-    public eraBlocks = 0;
+    public eraBlocksEstimated = 0; // Estimated average of blocks based on the last era.
 
     constructor(
         public dataService: DataService
@@ -24,7 +24,7 @@ export class EraProgressComponent implements OnInit, OnDestroy {
                 result => {
                     if ( result ) {
                         this.era = result;
-                        this.eraBlocks = this.era.endBlock - this.era.startBlock;
+                        this.eraBlocksEstimated = this.era.endBlock - this.era.startBlock;
                     }
                 }
             )
@@ -32,6 +32,14 @@ export class EraProgressComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void  {
         this._destroySubject.next();
+    }
+
+    public eraPercentage(): number {
+        if ( !this.era || !this.dataService.lastBlock ) return 0;
+
+        return Math.min( 100, Math.round(
+            ( this.dataService.lastBlock.blockHeight - this.era.endBlock ) / this.eraBlocksEstimated * 100
+        ) );
     }
 
 }

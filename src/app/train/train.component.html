@@ -1,7 +1,8 @@
 <div class="train">
+    <div class="current-block">Last Block</div>
     <div class="train-container"
-         [class.cycle]="dataService.lastBlocks.length === 2"
-         [style.left.px]="350 + (-175 * dataService.lastBlocks.length)">
+         [class.cycle]="dataService.lastBlocks.length === 5"
+         [style.left.px]="410 + (-205 * dataService.lastBlocks.length)">
         <div class="block" *ngFor="let block of dataService.lastBlocks; let i = index"
             [class.active]="i === dataService.lastBlocks.length - 1">
             <div class="block-height clearfix">

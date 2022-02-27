@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
-import { ApiClientService } from '../../services/api-client.service';
+import { ApiClientService } from '../services/api-client.service';
 import { take } from 'rxjs';
 import * as moment from 'moment';
 
@@ -11,11 +11,15 @@ import * as moment from 'moment';
 } )
 export class MarketComponent implements OnInit {
 
+    @Input( 'mode' ) public mode: string = '';
+
+    public loading = true;
+    public chartOption: EChartsOption = {};
+    public showInfo = false;
+
     private _dates: string[] = [];
     private _prices: number[] = [];
     private _volumes: number[] = [];
-    public loading = true;
-    public chartOption: EChartsOption = {};
 
     constructor(
         private _apiClientService: ApiClientService
@@ -28,11 +32,15 @@ export class MarketComponent implements OnInit {
         )
             .pipe( take( 1 ) )
             .subscribe(
-                ( result: any ) => {
-                    result.reverse();
-                    result.forEach( ( item: any ) => {
+                ( result: any[] ) => {
+                    let items = Object.assign( [], result );
+                    if ( this.mode !== 'full' ) {
+                        items.reverse();
+                        items = items.slice( 0, 168 ).reverse();
+                    }
+                    items.forEach( ( item: any ) => {
                         this._dates.push( moment( item.date ).format( 'DD MMM' ) );
-                        this._prices.push( Math.round( item.close * 1000 ) / 1000 );
+                        this._prices.push( Math.round( ( ( item.close + item.open ) / 2 ) * 1000 ) / 1000 );
                         this._volumes.push( Math.round( item.volumeFrom / 1000 ) );
                     } );
                     this._setChart();
@@ -41,43 +49,45 @@ export class MarketComponent implements OnInit {
             );
     }
 
-    private _setChart(): void {
-        const colors = ['#3f9623','#5470C655','#3f962333'];
+    public toggleInfo(): void {
+        this.showInfo = !this.showInfo;
+    }
 
+    private _setChart(): void {
+        const colors = ['green','#5470C655','#3f962333'];
 
         this.chartOption = {
             color: colors,
-
-            title: [
-                {
-                    top: '2%',
-                    left: 'center',
-                    text: 'Market Price (CSPR/USD)',
-                    textStyle: {
-                        color: '#ccb',
-                        fontFamily: "'M PLUS 1', sans-serif",
-                        fontSize: '18px'
-                    }
-
-                },
-            ],
             legend: {
                 textStyle: {
                     color: '#ccb',
                     fontFamily: "'M PLUS 1', sans-serif",
                     fontSize: '12px',
                 },
-                bottom: 0
+                top: '20px'
             },
+            grid: {
+                top: '60px',
+                left: '3%',
+                right: '4%',
+                bottom: this.mode === 'full' ? '12%' : '4%',
+                containLabel: true,
+            },
+            dataZoom: this.mode === 'full' ? [
+                {
+                    start: 90,
+                    end: 100
+                }
+            ] : [],
             xAxis: [
                 {
                     type: 'category',
                     axisTick: {
-                        alignWithLabel: true
+                        alignWithLabel: true,
                     },
-                    // prettier-ignore
                     data: this._dates,
                 },
+
             ],
             yAxis: [
                 {
@@ -95,6 +105,11 @@ export class MarketComponent implements OnInit {
                         formatter: '${value}',
                         color: colors[0]
                     },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#444'
+                        }
+                    }
                 },
                 {
                     type: 'value',
@@ -108,8 +123,11 @@ export class MarketComponent implements OnInit {
                         },
                     },
                     axisLabel: {
-                        formatter: '{value}M',
+                        formatter: '{value}K',
                         color: '#5470C6'
+                    },
+                    splitLine: {
+                        show: false,
                     }
                 }
             ],
@@ -129,6 +147,4 @@ export class MarketComponent implements OnInit {
             ]
         };
     }
-
-
 }

@@ -1,0 +1,28 @@
+<div class="row mt-5" *ngIf="mode === 'full'">
+    <div [class.col-sm-12]="!showInfo"
+         [class.col-sm-9]="showInfo">
+        <div class="chart-panel p-3">
+            <div class="market-box pt-2">
+                <a class="info" (click)="toggleInfo()" [class.active]="showInfo">
+                    <i class="fa fa-info-circle"></i>
+                </a>
+                <div class="chart-title">
+                    Market Price (CSPR/USD)
+                </div>
+                <div *ngIf="!loading" echarts [options]="chartOption"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-3" *ngIf="showInfo">
+    <div class="chart-panel p-3 market-info">
+
+    </div>
+</div>
+
+<div class="market-box" *ngIf="mode!=='full'">
+    <div class="chart-title">
+        Market Price (CSPR/USD)
+    </div>
+    <div *ngIf="!loading" echarts [options]="chartOption" class="market"></div>
+</div>

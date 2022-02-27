@@ -1,26 +1,24 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { EChartsOption } from 'echarts';
-import { DataService } from '../../services/data.service';
-import * as moment from 'moment';
-import { Subscription } from 'rxjs';
-import { ApiClientService } from '../../services/api-client.service';
+import { Component, OnInit } from '@angular/core';
+import { EChartsOption } from "echarts";
+import { Subscription } from "rxjs";
+import { ApiClientService } from "../services/api-client.service";
+import { DataService } from "../services/data.service";
+import * as moment from "moment";
 
 @Component( {
-    selector: 'app-transfers-full',
-    templateUrl: './transfers-full.component.html',
-    styleUrls: ['./transfers-full.component.scss']
+    selector: 'app-circulating',
+    templateUrl: './circulating.component.html',
+    styleUrls: ['./circulating.component.scss']
 } )
-export class TransfersFullComponent implements OnInit, OnDestroy {
-
-    @Input( 'mode' ) public mode: string = '';
+export class CirculatingComponent implements OnInit {
 
     public loading = true;
     public chartOption: EChartsOption = {};
     public showInfo = false;
 
     private _erasSub: Subscription | undefined;
-    private _transfers: number[] = [];
-    private _deploys: number[] = [];
+    private _circulating: number[] = [];
+    private _total: number[] = [];
     private _dates: string[] = [];
 
     constructor(
@@ -58,17 +56,12 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
             this._erasSub.unsubscribe();
         }
         this._erasSub = this._dataService.eras$
-            .subscribe( ( result: any[] ) => {
+            .subscribe( ( result: any ) => {
                 this._reset();
-                let items = Object.assign( [], result );
-                if ( this.mode !== 'full' ) {
-                    items.reverse();
-                    items = items.slice( 0, 168 ).reverse();
-                }
-                items.forEach( ( era: any ) => {
+                result.forEach( ( era: any ) => {
                     this._dates.push( moment( era.end ).format( 'DD MMM' ) );
-                    this._transfers.push( era.transfersCount );
-                    this._deploys.push( era.deploysCount );
+                    this._circulating.push( era.circulatingSupply );
+                    this._total.push( era.totalSupply );
                 } );
                 this._setChart();
                 this.loading = false;
@@ -77,8 +70,7 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
 
     private _reset() {
         this._dates = [];
-        this._transfers = [];
-        this._deploys = [];
+        this._circulating = [];
     }
 
     private _setChart(): void {
@@ -89,14 +81,16 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
                     fontFamily: "'M PLUS 1', sans-serif",
                     fontSize: '12px',
                 },
-                top: '20px'
+                top: '20px',
+                data: ['Circulating Supply', 'Total Supply'],
+                selected: { 'Circulating Supply': true, 'Total Supply': false }
             },
-            dataZoom: this.mode === 'full' ? [
+            dataZoom: [
                 {
                     start: 90,
                     end: 100
                 }
-            ] : [],
+            ],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -111,7 +105,7 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
                 top: '60px',
                 left: '3%',
                 right: '4%',
-                bottom: this.mode === 'full' ? '12%' : '4%',
+                bottom: '12%',
                 containLabel: true,
             },
             xAxis: [
@@ -134,27 +128,28 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
             ],
             series: [
                 {
-                    name: 'Transfers',
-                    type: 'bar',
-                    stack: 'Ad',
-                    emphasis: {
-                        focus: 'series'
+                    name: 'Circulating Supply',
+                    type: 'line',
+                    smooth: true,
+                    lineStyle: {
+                        width: 2,
+                        color: 'green'
                     },
-                    data: this._transfers,
-                    color: '#5470C655'
+                    data: this._circulating,
+                    showSymbol: false,
                 },
                 {
-                    name: 'Deploys',
-                    type: 'bar',
-                    stack: 'Ad',
-                    emphasis: {
-                        focus: 'series'
+                    name: 'Total Supply',
+                    type: 'line',
+                    smooth: true,
+                    lineStyle: {
+                        width: 2,
+                        color: '#5470C699'
                     },
-                    data: this._deploys,
-                    color: 'green'
+                    data: this._total,
+                    showSymbol: false,
                 }
             ]
         };
     }
-
 }

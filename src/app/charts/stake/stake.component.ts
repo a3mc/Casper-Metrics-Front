@@ -99,7 +99,7 @@ export class StakeComponent implements OnInit, OnDestroy {
 				backgroundColor: '#fffc'
 			},
 			grid: {
-				top: '50px',
+				top: '60px',
 				left: '3%',
 				right: '4%',
 				bottom: '12%',
@@ -117,6 +117,11 @@ export class StakeComponent implements OnInit, OnDestroy {
 					min: 'dataMin',
 					max: 'dataMax',
 					position: 'left',
+					splitLine: {
+						lineStyle: {
+							color: '#444'
+						}
+					}
 				}
 			],
 			series: [
@@ -131,6 +136,7 @@ export class StakeComponent implements OnInit, OnDestroy {
 						width: 0
 					},
 					smooth: true,
+					showSymbol: false,
 					areaStyle: {
 						opacity: 0.8,
 						color: new graphic.LinearGradient(0, 0, 0, 1, [
@@ -156,6 +162,7 @@ export class StakeComponent implements OnInit, OnDestroy {
 						width: 0
 					},
 					smooth: true,
+					showSymbol: false,
 					areaStyle: {
 						opacity: 0.8,
 						color: new graphic.LinearGradient(0, 0, 0, 1, [

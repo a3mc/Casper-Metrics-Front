@@ -11,6 +11,10 @@ label, .date {
     white-space: nowrap;
 }
 
+.flow-container {
+    min-height: 437px;
+}
+
 .flow-box {
     position: relative;
     .chart-title {
