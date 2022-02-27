@@ -1,0 +1,29 @@
+<div class="row mt-5">
+    <div [class.col-sm-12]="!showInfo"
+         [class.col-sm-9]="showInfo">
+        <div class="chart-panel p-3">
+            <div class="circulating-box">
+                <a class="info" (click)="toggleInfo()" [class.active]="showInfo">
+                    <i class="fa fa-info-circle"></i>
+                </a>
+                <div class="chart-title">
+                    Circulating Supply
+                </div>
+                <div *ngIf="!loading" echarts [options]="chartOption" class="weights"
+                     (chartClick)="chartClick( $event )"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" *ngIf="showInfo">
+        <div class="chart-panel p-3 weights-info">
+            Circulating Supply represents the amount of token available in public hands.
+            It also includes staked amounts.<br><br>
+            It increases when more tokens get unlocked and with the validators rewards.<br><br>
+            Total Supply indicates the total amount of CSPR tokens, including all locked amounts.
+        </div>
+    </div>
+</div>
+
+
+
+
