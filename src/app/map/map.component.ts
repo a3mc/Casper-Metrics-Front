@@ -53,7 +53,7 @@ export class MapComponent implements AfterViewInit {
         const markers = L.markerClusterGroup();
 
         const markersData: any[] = [];
-        this._apiClientService.get( 'geodata/validators' )
+        this._apiClientService.get( 'validators' )
             .pipe( take( 1 ) )
             .subscribe(
                 ( result: any ) => {

@@ -20,9 +20,16 @@
 			cursor: pointer;
 		}
 		.dollar-price {
+			display: block;
 			color: #fff9;
 			margin-left: 63px;
 			font-size: 12px;
+			&.recieved {
+				margin-left: 58px;
+			}
+			&.sent {
+				margin-left: 35px;
+			}
 		}
 		.address {
 			padding-left: 7px;

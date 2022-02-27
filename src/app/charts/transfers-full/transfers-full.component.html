@@ -1,4 +1,4 @@
-<div class="row mt-5">
+<div class="row mt-5" *ngIf="mode === 'full'">
     <div [class.col-sm-12]="!showInfo"
          [class.col-sm-9]="showInfo">
         <div class="chart-panel p-3">
@@ -19,6 +19,13 @@
             Info here
         </div>
     </div>
+</div>
+
+<div class="transfers-box" *ngIf="mode !== 'full'">
+    <div class="chart-title">
+        Transactions
+    </div>
+    <div *ngIf="!loading" echarts [options]="chartOption" class="transfers"></div>
 </div>
 
 

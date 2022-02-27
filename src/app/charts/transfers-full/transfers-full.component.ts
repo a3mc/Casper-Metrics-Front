@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { DataService } from '../../services/data.service';
 import * as moment from 'moment';
-import { Subscription, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ApiClientService } from '../../services/api-client.service';
 
 @Component( {
@@ -11,6 +11,8 @@ import { ApiClientService } from '../../services/api-client.service';
     styleUrls: ['./transfers-full.component.scss']
 } )
 export class TransfersFullComponent implements OnInit, OnDestroy {
+
+    @Input( 'mode' ) public mode: string = '';
 
     public loading = true;
     public chartOption: EChartsOption = {};
@@ -56,9 +58,14 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
             this._erasSub.unsubscribe();
         }
         this._erasSub = this._dataService.eras$
-            .subscribe( ( result: any ) => {
+            .subscribe( ( result: any[] ) => {
                 this._reset();
-                result.forEach( ( era: any ) => {
+                let items = Object.assign( [], result );
+                if ( this.mode !== 'full' ) {
+                    items.reverse();
+                    items = items.slice( 0, 168 ).reverse();
+                }
+                items.forEach( ( era: any ) => {
                     this._dates.push( moment( era.end ).format( 'DD MMM' ) );
                     this._transfers.push( era.transfersCount );
                     this._deploys.push( era.deploysCount );
@@ -84,12 +91,12 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
                 },
                 top: '20px'
             },
-            dataZoom: [
+            dataZoom: this.mode === 'full' ? [
                 {
                     start: 90,
                     end: 100
                 }
-            ],
+            ] : [],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -101,10 +108,10 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
                 backgroundColor: '#fffc'
             },
             grid: {
-                top: '50px',
+                top: '60px',
                 left: '3%',
                 right: '4%',
-                bottom: '12%',
+                bottom: this.mode === 'full' ? '12%' : '4%',
                 containLabel: true,
             },
             xAxis: [
@@ -117,7 +124,12 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
                 {
                     type: 'value',
                     min: 'dataMin',
-                    max: 'dataMax'
+                    max: 'dataMax',
+                    splitLine: {
+                        lineStyle: {
+                            color: '#444'
+                        }
+                    }
                 }
             ],
             series: [
@@ -139,7 +151,7 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
                         focus: 'series'
                     },
                     data: this._deploys,
-                    color: '#3f9623'
+                    color: 'green'
                 }
             ]
         };

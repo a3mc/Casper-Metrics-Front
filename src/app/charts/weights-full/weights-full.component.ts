@@ -101,7 +101,7 @@ export class WeightsFullComponent implements OnInit, OnDestroy {
 				backgroundColor: '#fffc'
 			},
 			grid: {
-				top: '50px',
+				top: '60px',
 				left: '3%',
 				right: '4%',
 				bottom: '12%',
@@ -117,7 +117,12 @@ export class WeightsFullComponent implements OnInit, OnDestroy {
 				{
 					type: 'value',
 					min: 'dataMin',
-					max: 'dataMax'
+					max: 'dataMax',
+					splitLine: {
+						lineStyle: {
+							color: '#444'
+						}
+					}
 				}
 			],
 			series: [
@@ -132,6 +137,7 @@ export class WeightsFullComponent implements OnInit, OnDestroy {
 						focus: 'series'
 					},
 					data: this._weights,
+					showSymbol: false,
 					areaStyle: {
 						opacity: 0.8,
 						color: new graphic.LinearGradient( 0, 0, 0, 1, [

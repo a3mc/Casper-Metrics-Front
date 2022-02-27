@@ -40,10 +40,6 @@ export class DistributionComponent implements OnInit {
 
     private _setChart(): void {
         this.chartOption = {
-            // tooltip: {
-            //     trigger: 'item',
-            //     showDelay: 1000
-            // },
             title: [
                 {
                     top: '2%',
@@ -72,7 +68,7 @@ export class DistributionComponent implements OnInit {
                     type: 'pie',
                     radius: ['40%', '70%'],
                     avoidLabelOverlap: true,
-                    color: ['#3f9623', '#707054'],
+                    color: ['green', '#707054'],
                     label: {
                         show: false,
                         position: 'center',
