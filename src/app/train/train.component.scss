@@ -17,6 +17,12 @@
 		font-size: 11px;
 		text-transform: uppercase;
 		font-weight: bold;
+		@media ( max-width: 1400px ) {
+			right: 115px;
+		}
+		@media ( max-width: 1200px ) {
+			right: 137px;
+		}
 	}
 	.train-container {
 		padding-top: 8px;

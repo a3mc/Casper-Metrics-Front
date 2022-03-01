@@ -1,0 +1,33 @@
+<div class="mobile-block">
+    <div class="block" *ngIf="dataService.lastBlock">
+        <div class="mb-2">
+            <b>Last Block:</b>
+        </div>
+        <div class="clearfix">
+            <div class="float-start">
+                <span class="label">Height:</span>
+                <b>{{ dataService.lastBlock.blockHeight }}</b>
+            </div>
+            <div class="float-end switch" *ngIf="dataService.lastBlock.switch">Switch</div>
+        </div>
+        <div>
+            <span class="label">Date:</span>
+            {{ dataService.lastBlock.timestamp | date: 'medium' }}
+        </div>
+        <div>
+            <span class="label">Time:</span> {{ dataService.lastBlock.prevBlockTime / 1000 }}s
+        </div>
+        <div>
+            <span class="label">Transfers:</span> {{ dataService.lastBlock.transfersCount }}
+        </div>
+        <div>
+            <span class="label">Deploys:</span> {{ dataService.lastBlock.deploysCount }}
+        </div>
+        <div>
+            <span class="label">Staked:</span> {{ dataService.lastBlock.stakedThisBlock }}
+        </div>
+        <div>
+            <span class="label">Unbonded:</span> {{ dataService.lastBlock.undelegatedThisBlock }}
+        </div>
+    </div>
+</div>

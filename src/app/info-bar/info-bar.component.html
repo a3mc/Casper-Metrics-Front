@@ -4,41 +4,42 @@
     <div class="container info-bar-inner ps-2 pe-2">
         <div class="bars row g-0">
             <div class="col-sm-4 left-bar">
-                <app-train></app-train>
+                <app-train class="d-none d-lg-block"></app-train>
+                <app-block class="d-lg-none"></app-block>
                 <app-era-progress></app-era-progress>
             </div>
             <div class="col-sm-8 right-bar ps-5 pe-5 pt-3 pb-3">
                 <div class="row mt-3">
                     <div class="col-4 info-box">
                         <div class="label">
-                            Total Supply
+                            <span class="d-none d-lg-inline">Total </span>Supply
                         </div>
-                        <div class="value d-none d-md-block">
+                        <div class="value d-none d-xl-block">
                             {{ dataService.lastBlock?.totalSupply | number }}
                         </div>
-                        <div class="value d-md-none">
+                        <div class="value d-xl-none">
                             {{ dataService.lastBlock?.totalSupply / 1000000 | number: '1.0-0' }}M
                         </div>
                     </div>
                     <div class="col-4 info-box">
                         <div class="label">
-                            Circulating Supply
+                            Circulating<span class="d-none d-lg-inline"> Supply</span>
                         </div>
-                        <div class="value d-none d-md-block">
+                        <div class="value d-none d-xl-block">
                             {{ dataService.lastBlock?.circulatingSupply | number }}
                         </div>
-                        <div class="value d-md-none">
+                        <div class="value d-xl-none">
                             {{ dataService.lastBlock?.circulatingSupply / 1000000 | number: '1.0-0' }}M
                         </div>
                     </div>
                     <div class="col-4 info-box">
                         <div class="label">
-                            Validators Weights
+                            <span class="d-none d-lg-inline">Validators </span>Weights
                         </div>
-                        <div class="value d-none d-md-block">
+                        <div class="value d-none d-xl-block">
                             {{ dataService.lastBlock?.validatorsWeights | number }}
                         </div>
-                        <div class="value d-md-none">
+                        <div class="value d-xl-none">
                             {{ dataService.lastBlock?.validatorsWeights / 1000000 | number: '1.0-0' }}M
                         </div>
                     </div>
@@ -63,7 +64,7 @@
                     </div>
                     <div class="col-4 info-box">
                         <div class="label">
-                            Current Price
+                            <span class="d-none d-lg-inline">Current </span>Price
                             <sup title="Market data provided by CoinGecko">*</sup>
                         </div>
                         <div class="value price">
