@@ -30,6 +30,7 @@ import { EraProgressComponent } from './era-progress/era-progress.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { CirculatingComponent } from './circulating/circulating.component';
+import { BlockComponent } from './block/block.component';
 
 @NgModule( {
     declarations: [
@@ -52,6 +53,7 @@ import { CirculatingComponent } from './circulating/circulating.component';
         TrainComponent,
         EraProgressComponent,
         CirculatingComponent,
+        BlockComponent,
     ],
     imports: [
         HttpClientModule,

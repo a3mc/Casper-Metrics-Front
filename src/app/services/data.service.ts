@@ -16,6 +16,8 @@ export class DataService {
     public price = 0;
     public lastBlocks: any[] = [];
     public lastBlock: any = null;
+    public transfersCount = 0;
+    public deploysCount = 0;
 
     set lastEra( value: any ) {
         this._lastEra = value;
@@ -27,9 +29,23 @@ export class DataService {
         this.selectedEraId$.next( this._selectedEraId );
     }
 
+    get eras(): any[] {
+        return this._eras;
+    }
+
     set eras( value: any ) {
-        this._eras = value; // FIXME! Concat
+        this._eras = value;
         this.eras$.next( this._eras );
+
+        if ( this._eras && this._eras.length ) {
+            this.transfersCount = this._eras.reduce( ( a: number, b: any ) => {
+                return a + b.transfersCount
+            }, 0 );
+
+            this.deploysCount = this._eras.reduce( ( a: number, b: any ) => {
+                return a + b.deploysCount
+            }, 0 );
+        }
     }
 
     constructor(
@@ -48,15 +64,21 @@ export class DataService {
             .pipe( take( 1 ) )
             .subscribe( ( result: any ) => {
                 this.lastEra = result[0];
-                this.getEras( 0, this._lastEra.id ); // FIXME! concat
+
+                if ( !this._eras.length ) {
+                    this.getEras( 0, this._lastEra.id );
+                } else {
+                    this.eras = this._eras.concat( [result[0]] );
+                }
             } );
     }
 
     public getEras( start: number, end: number ): void {
-        this._apiClientService.get( 'era?order=id%20ASC&skip=' + start + '&limit=' + ( end - start ) )
+        this._apiClientService.get( 'era?order=id%20ASC&skip=' + start + '&limit=' + ( end - start + 1 ) )
             .pipe( take( 1 ) )
             .subscribe( ( result: any ) => {
                 this.eras = result;
+
             } );
     }
 
@@ -66,12 +88,11 @@ export class DataService {
     }
 
     private _getLastBlock(): void {
-
         this._apiClientService.get( 'block' )
             .pipe( take( 1 ) )
             .subscribe(
                 ( result: any ) => {
-                    if ( this.lastBlocks.find( block => block.blockHeight === result.blockHeight) ) {
+                    if ( this.lastBlocks.find( block => block.blockHeight === result.blockHeight ) ) {
                         return;
                     }
                     this.lastBlock = result;
@@ -83,6 +104,10 @@ export class DataService {
                         setTimeout( () => {
                             this.lastBlocks.shift();
                         }, 1000 )
+                    }
+
+                    if ( this.lastBlock.eraId > this._lastEra + 1 ) {
+                        this.getLastEra();
                     }
                 }
             )

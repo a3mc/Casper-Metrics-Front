@@ -29,6 +29,8 @@
 			}
 
 			.main-links {
+				position: relative;
+				z-index: 10000;
 				.link {
 					font-weight: bold;
 					text-decoration: none;

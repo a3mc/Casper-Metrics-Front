@@ -36,7 +36,7 @@ export class MarketComponent implements OnInit {
                     let items = Object.assign( [], result );
                     if ( this.mode !== 'full' ) {
                         items.reverse();
-                        items = items.slice( 0, 168 ).reverse();
+                        items = items.slice( 0, 336 ).reverse();
                     }
                     items.forEach( ( item: any ) => {
                         this._dates.push( moment( item.date ).format( 'DD MMM' ) );

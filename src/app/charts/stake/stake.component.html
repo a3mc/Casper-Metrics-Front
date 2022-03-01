@@ -15,8 +15,39 @@
         </div>
     </div>
     <div class="col-sm-3" *ngIf="showInfo">
-        <div class="chart-panel p-3 stake-info">
-            Info here
+        <div class="chart-panel p-3 stake-info" *ngIf="!stakeInfo">
+            Staked and unbonded amounts (CSPR) per Era.
+            Values above zero are the amounts staked and values below are unbonded amounts.
+            <br><br>
+            Click chart values for more details.
+        </div>
+
+        <div class="chart-panel p-3 stake-info" *ngIf="stakeInfo">
+            <div class="info-header">Delegations Details</div>
+            <div class="mt-4">
+                <span class="label">Era Id: </span>
+                {{ stakeInfo.id }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Era Blocks: </span>
+                {{ stakeInfo.startBlock }} &mdash; {{ stakeInfo.endBlock }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Era Start: </span>
+                {{ stakeInfo.start | date: 'medium' }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Era End: </span>
+                {{ stakeInfo.end | date: 'medium' }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Staked: </span>
+                {{ stakeInfo.stakedThisEra | number: '1.0-2' }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Unbonded: </span>
+                {{ stakeInfo.undelegatedThisEra| number: '1.0-2' }}
+            </div>
         </div>
     </div>
 </div>

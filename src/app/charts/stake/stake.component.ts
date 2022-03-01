@@ -15,13 +15,12 @@ export class StakeComponent implements OnInit, OnDestroy {
 	public loading = true;
 	public chartOption: EChartsOption = {};
 	public showInfo = false;
+	public stakeInfo: any = null;
 
 	private _erasSub: Subscription | undefined;
 	private _staked: number[] = [];
 	private _unbonded: number[] = [];
 	private _dates: string[] = [];
-	private _prices: number[] = [];
-	private _volumes: number[] = [];
 
 	constructor(
 		private _apiClientService: ApiClientService,
@@ -41,11 +40,14 @@ export class StakeComponent implements OnInit, OnDestroy {
 
 	public toggleInfo(): void {
 		this.showInfo = !this.showInfo;
+		this.stakeInfo = null;
 	}
 
 	public chartClick( event: any ): void {
 		if ( event.dataIndex !== undefined ) {
 			this._dataService.selectedEra = event.dataIndex;
+			this.stakeInfo = this._dataService.eras.find( era => era.id === event.dataIndex );
+			this.showInfo = true;
 		}
 	}
 
@@ -70,6 +72,7 @@ export class StakeComponent implements OnInit, OnDestroy {
 		this._dates = [];
 		this._staked = [];
 		this._unbonded = [];
+		this.stakeInfo = null;
 	}
 
 	private _setChart(): void {
