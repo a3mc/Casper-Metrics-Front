@@ -15,6 +15,7 @@ export class WeightsFullComponent implements OnInit, OnDestroy {
 	public loading = true;
 	public chartOption: EChartsOption = {};
 	public showInfo = false;
+	public weightsInfo: any = null;
 
 	private _erasSub: Subscription | undefined;
 	private _weights: number[] = [];
@@ -39,11 +40,14 @@ export class WeightsFullComponent implements OnInit, OnDestroy {
 
 	public toggleInfo(): void {
 		this.showInfo = !this.showInfo;
+		this.weightsInfo = null;
 	}
 
 	public chartClick( event: any ): void {
 		if ( event.dataIndex !== undefined ) {
 			this._dataService.selectedEra = event.dataIndex;
+			this.weightsInfo = this._dataService.eras.find( era => era.id === event.dataIndex );
+			this.showInfo = true;
 		}
 	}
 
@@ -72,6 +76,7 @@ export class WeightsFullComponent implements OnInit, OnDestroy {
 		this._dates = [];
 		this._weights = [];
 		this._deploys = [];
+		this.weightsInfo = null;
 	}
 
 	private _setChart(): void {

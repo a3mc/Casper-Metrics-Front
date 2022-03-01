@@ -15,8 +15,37 @@
         </div>
     </div>
     <div class="col-sm-3" *ngIf="showInfo">
-        <div class="chart-panel p-3 transfers-info">
-            Info here
+        <div class="chart-panel p-3 transfers-info" *ngIf="!transfersInfo">
+            Transfers and deploys per Era.<br><br>
+            Click on the chart for the details.
+        </div>
+
+        <div class="chart-panel p-3 transfers-info" *ngIf="transfersInfo">
+            <div class="info-header">Transactions Details</div>
+            <div class="mt-4">
+                <span class="label">Era Id: </span>
+                {{ transfersInfo.id }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Era Blocks: </span>
+                {{ transfersInfo.startBlock }} &mdash; {{ transfersInfo.endBlock }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Era Start: </span>
+                {{ transfersInfo.start | date: 'medium' }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Era End: </span>
+                {{ transfersInfo.end | date: 'medium' }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Deploys: </span>
+                {{ transfersInfo.deploysCount }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Transfers: </span>
+                {{ transfersInfo.transfersCount }}
+            </div>
         </div>
     </div>
 </div>

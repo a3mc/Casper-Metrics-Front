@@ -1,24 +1,26 @@
 .train {
 	user-select: none;
-	margin-top: 33px;
+	margin-top: 23px;
 	position: relative;
 	background-image: url(/assets/img/corners.png);
 	background-size: 210px;
 	background-repeat: no-repeat;
 	background-position-x: 195px;
+	background-position-y: 10px;
 	height: 190px;
 	overflow-x: hidden;
 	.current-block {
 		position: absolute;
 		color: #948887;
 		right: 99px;
-		top: -11px;
+		top: 1px;
 		font-size: 11px;
 		text-transform: uppercase;
 		font-weight: bold;
 	}
 	.train-container {
 		padding-top: 8px;
+		margin-top: 10px;
 		width: 10000px;
 		position: relative;
 		left: 0;
