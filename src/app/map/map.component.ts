@@ -16,6 +16,7 @@ export class MapComponent implements AfterViewInit {
 
     public showInfo = false;
     public validator: any = null;
+    public showChartsLink = false;
     private _map: any;
 
     constructor(
@@ -76,6 +77,10 @@ export class MapComponent implements AfterViewInit {
                         }, )
                             .bindTooltip( layer => validator.org )
                             .on( 'click', result => {
+                                if ( this.mode !== 'full' ) {
+                                    this.showChartsLink = true;
+                                    return;
+                                }
                                 this.validator = validator;
                                 this.showInfo = true;
                                 return false;

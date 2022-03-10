@@ -17,6 +17,7 @@ export class DistributionComponent implements OnInit {
     private _total = 0;
     public loading = true;
     public chartOption: EChartsOption = {};
+    public showChartsLink = false;
 
     constructor(
         private _apiClientService: ApiClientService
@@ -36,6 +37,10 @@ export class DistributionComponent implements OnInit {
                 this.loading = false;
             }
         );
+    }
+
+    public chartClick( event: any ): void {
+        this.showChartsLink = true;
     }
 
     private _setChart(): void {

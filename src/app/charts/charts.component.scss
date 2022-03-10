@@ -2,6 +2,7 @@
 	border-radius: 10px;
 	background: #fff1;
 	transition: box-shadow, background-color 0.2s ease-in-out;
+	min-height: 455px;
 
 	&:hover {
 		background: #ffffff15;
@@ -13,24 +14,30 @@
 			color: #fff9;
 			white-space: nowrap;
 		}
+
 		i.fa-copy:hover {
 			color: #fff;
 		}
+
 		i.fa-copy {
 			cursor: pointer;
 		}
+
 		.dollar-price {
 			display: block;
 			color: #fff9;
 			margin-left: 63px;
 			font-size: 12px;
+
 			&.recieved {
 				margin-left: 58px;
 			}
+
 			&.sent {
 				margin-left: 35px;
 			}
 		}
+
 		.address {
 			padding-left: 7px;
 			padding-right: 7px;
@@ -38,21 +45,60 @@
 			word-wrap: break-word;
 			overflow-wrap: anywhere;
 		}
+
 		.from {
 			color: #c9a1a1;
 		}
+
 		.to {
 			color: #a5c79f;
 		}
+
 		.deploy-hash {
 			color: #c3c89e
 		}
+
 		.info-header {
 			font-weight: bold;
 			font-size: 16px;
 			color: #ccccbb;
 		}
 	}
+}
+
+#flow {
+	display: block;
+	min-height: 561px;
+}
+
+#transactions {
+	display: block;
+	min-height: 455px
+}
+
+#staked {
+	display: block;
+	min-height: 455px
+}
+
+#weights {
+	display: block;
+	min-height: 455px
+}
+
+#market {
+	display: block;
+	min-height: 462px;
+}
+
+#circulating {
+	display: block;
+	min-height: 455px;
+}
+
+#network {
+	display: block;
+	min-height: 636px;
 }
 
 .charts-menu {

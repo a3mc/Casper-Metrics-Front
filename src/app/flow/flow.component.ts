@@ -31,6 +31,7 @@ export class FlowComponent implements OnInit, OnDestroy {
     };
     public txInfo: any;
     public accountInfo: any;
+    public showChartsLink = false;
 
     private _eraSub: Subscription | undefined;
     private _sliderSub: Subscription | undefined;
@@ -182,6 +183,10 @@ export class FlowComponent implements OnInit, OnDestroy {
     }
 
     public chartClick( event: any ): void {
+        if ( this.mode !== 'full' ) {
+            this.showChartsLink = true;
+            return;
+        }
         if ( event.data.id ) {
             let hex: string = '';
 
