@@ -16,6 +16,7 @@ export class MarketComponent implements OnInit {
     public loading = true;
     public chartOption: EChartsOption = {};
     public showInfo = false;
+    public showChartsLink = false;
 
     private _dates: string[] = [];
     private _prices: number[] = [];
@@ -51,6 +52,12 @@ export class MarketComponent implements OnInit {
 
     public toggleInfo(): void {
         this.showInfo = !this.showInfo;
+    }
+
+    public chartClick( event: any ): void {
+        if ( this.mode !== 'full' ) {
+            this.showChartsLink = true;
+        }
     }
 
     private _setChart(): void {

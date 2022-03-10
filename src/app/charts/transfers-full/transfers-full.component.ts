@@ -18,6 +18,7 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
     public chartOption: EChartsOption = {};
     public showInfo = false;
     public transfersInfo: any = null;
+    public showChartsLink = false;
 
     private _erasSub: Subscription | undefined;
     private _transfers: number[] = [];
@@ -46,6 +47,10 @@ export class TransfersFullComponent implements OnInit, OnDestroy {
     }
 
     public chartClick( event: any ): void {
+        if ( this.mode !== 'full' ) {
+            this.showChartsLink = true;
+            return;
+        }
         if ( event.dataIndex !== undefined ) {
             this._dataService.selectedEra = event.dataIndex;
             this.transfersInfo = this._dataService.eras.find( era => era.id === event.dataIndex );

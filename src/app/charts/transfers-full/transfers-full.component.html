@@ -51,10 +51,19 @@
 </div>
 
 <div class="transfers-box" *ngIf="mode !== 'full'">
+    <div class="charts-link" [class.active]="showChartsLink">
+        <a (click)="showChartsLink=false" class="close">
+            <i class="fa fa-close"></i>
+        </a>
+        <a class="btn btn-success go-btn" [routerLink] = "['/charts']"  fragment="transactions">
+            Go to Charts
+            <i class="fa fa-bar-chart-o ms-1"></i>
+        </a>
+    </div>
     <div class="chart-title">
         Transactions
     </div>
-    <div *ngIf="!loading" echarts [options]="chartOption" class="transfers"></div>
+    <div *ngIf="!loading" echarts [options]="chartOption" class="transfers" (click)="chartClick( $event )"></div>
 </div>
 
 
