@@ -47,9 +47,7 @@ export class MapComponent implements AfterViewInit {
         } );
 
         tiles.addTo( this._map );
-        setTimeout( () => {
-            this._addMarkers();
-        }, 100 );
+        this._addMarkers();
     }
 
     private _addMarkers(): void {
@@ -90,9 +88,11 @@ export class MapComponent implements AfterViewInit {
 
                         markers.addLayer( marker );
                     }
+                    this._map.addLayer( markers );
+
                     setTimeout( () => {
-                        this._map.addLayer( markers );
-                    }, 100 );
+                        this._map.invalidateSize()
+                    }, 400);
 
                 }
             );

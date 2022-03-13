@@ -37,7 +37,7 @@ export class EraProgressComponent implements OnInit, OnDestroy {
     public eraPercentage(): number {
         if ( !this.era || !this.dataService.lastBlock ) return 0;
 
-        return Math.min( 100, Math.round(
+        return Math.min( 99, Math.round(
             ( this.dataService.lastBlock.blockHeight - this.era.endBlock ) / this.eraBlocksEstimated * 100
         ) );
     }
