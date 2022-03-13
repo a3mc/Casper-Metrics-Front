@@ -130,7 +130,13 @@ export class MarketComponent implements OnInit {
                         },
                     },
                     axisLabel: {
-                        formatter: '{value}K',
+                        formatter: function( param: any ) {
+                            if ( param === 0 ) {
+                                return '';
+                            } else {
+                                return param + 'K';
+                            }
+                        },
                         color: '#5470C6'
                     },
                     splitLine: {

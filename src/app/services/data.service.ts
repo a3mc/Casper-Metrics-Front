@@ -128,7 +128,9 @@ export class DataService {
             .pipe( take( 1 ) )
             .subscribe(
                 ( result: any ) => {
-                    this.price = result;
+                    if ( result !== 0 ) {
+                        this.price = result;
+                    }
                 }
             )
     }
