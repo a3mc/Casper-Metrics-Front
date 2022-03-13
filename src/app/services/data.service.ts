@@ -106,7 +106,7 @@ export class DataService {
                         }, 1000 )
                     }
 
-                    if ( this.lastBlock.eraId > this._lastEra.id + 1 ) {
+                    if ( this._lastEra && this.lastBlock.eraId > this._lastEra.id + 1 ) {
                         this.getLastEra();
                     }
                 }
