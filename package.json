@@ -1,14 +1,11 @@
 {
     "name": "casper-metrics-front",
-    "version": "0.0.2",
+    "version": "0.2.4",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build --configuration local",
-        "build:prod": "ng build --configuration production",
-        "build:dev": "ng build --configuration development",
-        "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "build:prod": "ng build --configuration production"
     },
     "private": true,
     "dependencies": {

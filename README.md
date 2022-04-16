@@ -1,27 +1,54 @@
 # CasperMetricsFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+This project is a front UI for https://caspermetrics.io
+It serves various metrics for Casper blockchain and provides an API interface to fetch the data.
 
-## Development server
+## Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Make sure you use node 16+
 
-## Code scaffolding
+## Installation and running
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run
+```sh
+npm install
+```
 
-## Build
+To serve locally, run:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```sh
+ng serve 
+```
 
-## Running unit tests
+For building run:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```shell
+npm run build
+```
 
-## Running end-to-end tests
+You can use prod mode for deploying it for production use.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Other notes and API connection
 
-## Further help
+Please see https://github.com/a3mc/Casper-Metrics repository of the main app for more details.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Documentation
+
+Most of the code is self-explanatory.
+And we are preparing a full documentation that will be released as a part of Milestone 3 of the project.
+
+## Contributing and Code of Conduct
+
+You are welcome to add your suggestions and to contribute to the project.
+Please create PRs against develop branch if you want to contribute.
+*We reserve the right to ignore or decline any PRs and not to respond to the messages.*
+
+Please follow the best practices, follow the code structure and make sure that your suggestion is really valuable for the project and well-formed.
+When you open an issue, please make sure you provide enough details on how to reproduce it.
+Don't use explicit lexis and be polite to other members.
+
+## License
+
+This project is licensed under MIT.
+
+
