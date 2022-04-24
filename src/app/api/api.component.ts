@@ -21,7 +21,6 @@ export class ApiComponent implements AfterViewInit {
             tryItOutEnabled: true,
             syntaxHighlight: {
                 activate: false,
-                theme: 'nord'
             },
             displayRequestDuration: true,
             defaultModelsExpandDepth: -1,
