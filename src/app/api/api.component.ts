@@ -20,7 +20,8 @@ export class ApiComponent implements AfterViewInit {
             dom_id: '#swagger',
             tryItOutEnabled: true,
             syntaxHighlight: {
-                activate: false,
+                activate: true,
+                theme: 'nord'
             },
             displayRequestDuration: true,
             defaultModelsExpandDepth: -1,
