@@ -19,6 +19,9 @@ export class CirculatingComponent implements OnInit {
     private _erasSub: Subscription | undefined;
     private _circulating: number[] = [];
     private _total: number[] = [];
+    private _transfers: number[] = [];
+    private _rewards: number[] = [];
+    private _unlocks: number[] = [];
     private _dates: string[] = [];
 
     constructor(
@@ -61,7 +64,10 @@ export class CirculatingComponent implements OnInit {
                 result.forEach( ( era: any ) => {
                     this._dates.push( moment( era.end ).format( 'DD MMM' ) );
                     this._circulating.push( era.circulatingSupply );
-                    this._total.push( era.totalSupply );
+                    this._transfers.push( era.transfersCirculatingSupply );
+                    this._unlocks.push( era.validatorsCirculatingSupply );
+                    this._rewards.push( era.rewardsCirculatingSupply );
+                    // this._total.push( era.totalSupply );
                 } );
                 this._setChart();
                 this.loading = false;
@@ -71,10 +77,15 @@ export class CirculatingComponent implements OnInit {
     private _reset() {
         this._dates = [];
         this._circulating = [];
+        this._transfers = [];
+        this._unlocks = [];
+        this._rewards = [];
+        this._total = [];
     }
 
     private _setChart(): void {
         this.chartOption = {
+            colors: ['green', 'blue', 'yellow', 'purple'],
             legend: {
                 textStyle: {
                     color: '#ccb',
@@ -82,8 +93,18 @@ export class CirculatingComponent implements OnInit {
                     fontSize: '12px',
                 },
                 top: '20px',
-                data: ['Circulating Supply', 'Total Supply'],
-                selected: { 'Circulating Supply': true, 'Total Supply': false }
+                data: [
+                    'Circulating Supply',
+                    'Unlocked Transfers',
+                    'Validators Unlocks',
+                    'Rewards',
+                ],
+                selected: {
+                    'Circulating Supply': true,
+                    'Unlocked Transfers': true,
+                    'Validators Unlocks': true,
+                    'Rewards': true,
+                }
             },
             dataZoom: [
                 {
@@ -102,7 +123,7 @@ export class CirculatingComponent implements OnInit {
                 backgroundColor: '#fffc'
             },
             grid: {
-                top: '60px',
+                top: window.innerWidth < 800 ? '90px' : '60px',
                 left: '3%',
                 right: '4%',
                 bottom: '12%',
@@ -131,24 +152,50 @@ export class CirculatingComponent implements OnInit {
                     name: 'Circulating Supply',
                     type: 'line',
                     smooth: true,
+                    color: 'green',
                     lineStyle: {
-                        width: 2,
-                        color: 'green'
+                        width: 4,
+                        color: 'green',
                     },
                     data: this._circulating,
                     showSymbol: false,
                 },
                 {
-                    name: 'Total Supply',
+                    name: 'Unlocked Transfers',
                     type: 'line',
                     smooth: true,
+                    color: 'blue',
                     lineStyle: {
                         width: 2,
-                        color: '#5470C699'
+                        color: 'blue',
                     },
-                    data: this._total,
+                    data: this._transfers,
                     showSymbol: false,
-                }
+                },
+                {
+                    name: 'Validators Unlocks',
+                    type: 'line',
+                    smooth: true,
+                    color: 'yellow',
+                    lineStyle: {
+                        width: 2,
+                        color: 'yellow',
+                    },
+                    data: this._unlocks,
+                    showSymbol: false,
+                },
+                {
+                    name: 'Rewards',
+                    type: 'line',
+                    smooth: true,
+                    color: 'purple',
+                    lineStyle: {
+                        width: 2,
+                        color: 'purple',
+                    },
+                    data: this._rewards,
+                    showSymbol: false,
+                },
             ]
         };
     }
