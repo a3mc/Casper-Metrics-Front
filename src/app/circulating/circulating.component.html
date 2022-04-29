@@ -7,7 +7,7 @@
                     <i class="fa fa-info-circle"></i>
                 </a>
                 <div class="chart-title">
-                    Circulating Supply
+                    Circulating Supply <span class="text-danger"><small>(Dev mode: data is TBA)</small></span>
                 </div>
                 <div *ngIf="!loading" echarts [options]="chartOption" class="weights"
                      (chartClick)="chartClick( $event )"></div>
@@ -17,9 +17,10 @@
     <div class="col-sm-3" *ngIf="showInfo">
         <div class="chart-panel p-3 weights-info">
             Circulating Supply represents the amount of token available in public hands.
-            It also includes staked amounts.<br><br>
+            It also includes staked but amounts.<br><br>
             It increases when more tokens get unlocked and with the validators rewards.<br><br>
-            Total Supply indicates the total amount of CSPR tokens, including all locked amounts.
+            The green line shows the total Circulating supply. You can also view where it comes from: unlocked transfers,
+            marked by admins as unlocked, rewards and unlocked validators, that have been initially locked at Genesis.
         </div>
     </div>
 </div>

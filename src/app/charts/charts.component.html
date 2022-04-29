@@ -5,7 +5,7 @@
         <li> <a [routerLink]="['/charts']"  fragment="staked">Staked</a></li>
         <li> <a [routerLink]="['/charts']"  fragment="weights">Validators Weights</a></li>
         <li> <a [routerLink]="['/charts']"  fragment="market">Market Price</a></li>
-<!--        <li> <a [routerLink]="['/charts']"  fragment="circulating">Circulating Supply</a></li>-->
+        <li> <a [routerLink]="['/charts']"  fragment="circulating">Circulating Supply</a></li>
         <li> <a [routerLink]="['/charts']"  fragment="network">Network Map</a></li>
     </ul>
 
@@ -15,7 +15,7 @@
     <app-stake id="staked"></app-stake>
     <app-weights-full id="weights"></app-weights-full>
     <app-market id="market" [mode]="'full'"></app-market>
-<!--    <app-circulating id="circulating"></app-circulating>-->
+    <app-circulating id="circulating"></app-circulating>
     <app-map id="network" [mode]="'full'"></app-map>
 </div>
 
