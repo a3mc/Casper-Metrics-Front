@@ -21,11 +21,15 @@ export class ApiComponent implements AfterViewInit {
             tryItOutEnabled: true,
             syntaxHighlight: {
                 activate: true,
-                theme: 'nord'
+                theme: 'nord',
             },
             displayRequestDuration: true,
             defaultModelsExpandDepth: -1,
             defaultModelExpandDepth: -1,
+            parameterMacro: () => {
+                return '';
+            },
+            validatorUrl: 'none',
         } );
     }
 

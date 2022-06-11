@@ -92,11 +92,11 @@ export class DataService {
             .pipe( take( 1 ) )
             .subscribe(
                 ( result: any ) => {
-                    if ( this.lastBlocks.find( block => block.blockHeight === result.blockHeight ) ) {
+                    if ( this.lastBlocks.find( block => block.blockHeight === result.blockHeight ) || !result.length ) {
                         return;
                     }
-                    this.lastBlock = result;
-                    this.lastBlocks.push( result );
+                    this.lastBlock = result[0];
+                    this.lastBlocks.push( result[0] );
                     if ( this.lastBlocks.length === 1 ) {
                         this._getPrevBlock();
                     }
@@ -118,7 +118,9 @@ export class DataService {
             .pipe( take( 1 ) )
             .subscribe(
                 ( result: any ) => {
-                    this.lastBlocks.unshift( result );
+                    if ( result && result.length ) {
+                        this.lastBlocks.unshift( result[0] );
+                    }
                 }
             )
     }
