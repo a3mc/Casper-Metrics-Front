@@ -12,7 +12,7 @@ import { ApiComponent } from './api/api.component';
 import { StackedComponent } from './stacked/stacked.component';
 import { RewardsComponent } from './rewards/rewards.component';
 import { ApiClientService } from './services/api-client.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
 import { DistributionComponent } from './overview/distribution/distribution.component';
 import { FooterComponent } from './footer/footer.component';
@@ -31,6 +31,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { CirculatingComponent } from './circulating/circulating.component';
 import { BlockComponent } from './block/block.component';
+import { MarkdownModule } from 'ngx-markdown';
+import { DocsComponent } from './docs/docs.component';
 
 @NgModule( {
     declarations: [
@@ -54,6 +56,7 @@ import { BlockComponent } from './block/block.component';
         EraProgressComponent,
         CirculatingComponent,
         BlockComponent,
+        DocsComponent,
     ],
     imports: [
         HttpClientModule,
@@ -67,7 +70,8 @@ import { BlockComponent } from './block/block.component';
         CommonModule,
         ClipboardModule,
         LeafletModule,
-        LeafletMarkerClusterModule
+        LeafletMarkerClusterModule,
+        MarkdownModule.forRoot( { loader: HttpClient } ),
     ],
     providers: [
         ApiClientService,

@@ -3,11 +3,13 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { OverviewComponent } from './overview/overview.component';
 import { ChartsComponent } from './charts/charts.component';
 import { ApiComponent } from './api/api.component';
+import { DocsComponent } from './docs/docs.component';
 
 const routes: Routes = [
 	{ path: '', component: OverviewComponent, pathMatch: 'full' },
 	{ path: 'charts', component: ChartsComponent },
 	{ path: 'api', component: ApiComponent },
+	{ path: 'docs', component: DocsComponent },
 ];
 
 @NgModule( {

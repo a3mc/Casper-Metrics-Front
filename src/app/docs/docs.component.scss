@@ -1,0 +1,32 @@
+.docs-container {
+	min-height: 400px;
+}
+markdown {
+	font-size: 16px;
+	color: #eee;
+	h1, h2, h3, h4, h5 ,h6 {
+		color: white;
+		font-weight: bold;
+	}
+	h2 {
+		margin-bottom: 20px;
+	}
+	h3 {
+		margin-top: 40px;
+	}
+	h5 {
+		margin-top: 20px;
+	}
+	pre {
+		margin-bottom: 40px !important;
+		font-size: 13px !important;
+		background: #343131 !important;
+	}
+	a, a:hover, a:visited, a:active {
+		color: #6885df !important;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+}
