@@ -92,7 +92,7 @@ export class DataService {
             .pipe( take( 1 ) )
             .subscribe(
                 ( result: any ) => {
-                    if ( this.lastBlocks.find( block => block.blockHeight === result.blockHeight ) || !result.length ) {
+                    if ( this.lastBlocks.find( block => block.blockHeight === result[0].blockHeight ) || !result.length ) {
                         return;
                     }
                     this.lastBlock = result[0];
