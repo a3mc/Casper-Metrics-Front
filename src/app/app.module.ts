@@ -33,6 +33,7 @@ import { CirculatingComponent } from './circulating/circulating.component';
 import { BlockComponent } from './block/block.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { DocsComponent } from './docs/docs.component';
+import { DelegatorsComponent } from './delegators/delegators.component';
 
 @NgModule( {
     declarations: [
@@ -57,6 +58,7 @@ import { DocsComponent } from './docs/docs.component';
         CirculatingComponent,
         BlockComponent,
         DocsComponent,
+        DelegatorsComponent,
     ],
     imports: [
         HttpClientModule,
