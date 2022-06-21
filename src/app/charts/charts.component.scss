@@ -10,16 +10,16 @@
 	}
 
 	&.tx-info, &.validators-info, &.transfers-info, &.stake-info {
-		.label, i.fa-copy {
+		.label, i.fa-copy, i.fa-external-link {
 			color: #fff9;
 			white-space: nowrap;
 		}
 
-		i.fa-copy:hover {
+		i.fa-copy:hover, i.fa-external-link:hover {
 			color: #fff;
 		}
 
-		i.fa-copy {
+		i.fa-copy, i.fa-external-link {
 			cursor: pointer;
 		}
 
