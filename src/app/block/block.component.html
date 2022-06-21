@@ -15,7 +15,7 @@
             {{ dataService.lastBlock.timestamp | date: 'medium' }}
         </div>
         <div>
-            <span class="label">Time:</span> {{ dataService.lastBlock.prevBlockTime / 1000 }}s
+            <span class="label">Time:</span> {{ dataService.lastBlock.prevBlockTime / 1000 | number: '1.3-3' }}s
         </div>
         <div>
             <span class="label">Transfers:</span> {{ dataService.lastBlock.transfersCount }}

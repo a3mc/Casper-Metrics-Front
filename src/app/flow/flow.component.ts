@@ -216,6 +216,7 @@ export class FlowComponent implements OnInit, OnDestroy {
 
             this.accountInfo = {
                 accountHash: event.data.id.replace( /^dub-/, '' ),
+                accountHashPure: event.data.id.replace( /^dub-/, '' ).replace( /account-hash-/, '' ),
                 accountHex: hex,
                 totalCount: fromAccount.length + toAccount.length,
                 fromAccountCount: fromAccount.length,
@@ -228,6 +229,7 @@ export class FlowComponent implements OnInit, OnDestroy {
             this.txInfo = null;
         } else {
             this.txInfo = event.data;
+            this.txInfo.targetPure = this.txInfo.target.replace( /^dub-/, '' ).replace( /account-hash-/, '' )
             this.accountInfo = null;
         }
         this.showInfo = true;

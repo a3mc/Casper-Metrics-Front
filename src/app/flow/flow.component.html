@@ -101,16 +101,28 @@
                 <span class="label">From:</span>
                 <span class="address from">{{ txInfo.from || txInfo.source }}</span>
                 <i class="fa fa-copy" ngxClipboard [cbContent]="txInfo?.from || txInfo?.source"></i>
+                <a href="https://cspr.live/account/{{ txInfo?.from || txInfo?.source }}" target="_blank" class="ms-2"
+                   title="A link to the external Explorer website">
+                    <i class="fa fa-external-link"></i>
+                </a>
             </div>
             <div class="mt-3">
                 <span class="label">To:</span>
                 <span class="address to">{{ txInfo.to || txInfo.target }}</span>
                 <i class="fa fa-copy" ngxClipboard [cbContent]="txInfo?.to || txInfo?.target"></i>
+                <a href="https://cspr.live/account/{{ txInfo?.to || txInfo?.targetPure }}" target="_blank" class="ms-2"
+                   title="A link to the external Explorer website">
+                    <i class="fa fa-external-link"></i>
+                </a>
             </div>
             <div class="mt-3">
                 <span class="label">Deploy Hash:</span>
                 <span class="address deploy-hash">{{ txInfo.deployHash }}</span>
                 <i class="fa fa-copy" ngxClipboard [cbContent]="txInfo?.deployHash"></i>
+                <a href="https://cspr.live/deploy/{{ txInfo?.deployHash }}" target="_blank" class="ms-2"
+                   title="A link to the external Explorer website">
+                    <i class="fa fa-external-link"></i>
+                </a>
             </div>
         </div>
 
@@ -120,11 +132,19 @@
                 <span class="label">Account Hash:</span>
                 <span class="address to">{{ accountInfo.accountHash }}</span>
                 <i class="fa fa-copy" ngxClipboard [cbContent]="accountInfo.accountHash"></i>
+                <a href="https://cspr.live/account/{{ accountInfo.accountHashPure }}" target="_blank" class="ms-2"
+                    title="A link to the external Explorer website">
+                    <i class="fa fa-external-link"></i>
+                </a>
             </div>
             <div class="mt-3" *ngIf="accountInfo.accountHex">
                 <span class="label">Public Key Hex:</span>
                 <span class="address to">{{ accountInfo.accountHex }}</span>
                 <i class="fa fa-copy" ngxClipboard [cbContent]="accountInfo.accountHex"></i>
+                <a href="https://cspr.live/account/{{ accountInfo.accountHex }}" target="_blank" class="ms-2"
+                   title="A link to the external Explorer website">
+                    <i class="fa fa-external-link"></i>
+                </a>
             </div>
             <div class="mt-4">
                 <span class="label">Received:</span>&nbsp;
