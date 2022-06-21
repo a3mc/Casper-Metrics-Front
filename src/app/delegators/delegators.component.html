@@ -1,0 +1,56 @@
+<div class="row mt-5">
+    <div [class.col-sm-12]="!showInfo"
+         [class.col-sm-9]="showInfo">
+        <div class="chart-panel p-3">
+            <div class="delegators-box">
+                <a class="info" (click)="toggleInfo()" [class.active]="showInfo">
+                    <i class="fa fa-info-circle"></i>
+                </a>
+                <div class="chart-title">
+                    Delegators &amp; Validators
+                </div>
+                <div *ngIf="!loading" echarts [options]="chartOption" class="delegators"
+                     (chartClick)="chartClick( $event )"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" *ngIf="showInfo">
+        <div class="chart-panel p-3 weights-info" *ngIf="!eraInfo">
+            Count of delegators and validators per Era.
+            <br><br>
+            Click on chart values for more details.
+        </div>
+
+        <div class="chart-panel p-3 transfers-info" *ngIf="eraInfo">
+            <div class="info-header">Details</div>
+            <div class="mt-4">
+                <span class="label">Era Id: </span>
+                {{ eraInfo.id }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Era Blocks: </span>
+                {{ eraInfo.startBlock }} &mdash; {{ eraInfo.endBlock }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Era Start: </span>
+                {{ eraInfo.start | date: 'medium' }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Era End: </span>
+                {{ eraInfo.end | date: 'medium' }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Delegators count: </span>
+                {{ eraInfo.delegatorsCount | number: '1.0-0' }}
+            </div>
+            <div class="mt-2">
+                <span class="label">Validators count: </span>
+                {{ eraInfo.validatorsCount | number: '1.0-0' }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
