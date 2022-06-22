@@ -1,9 +1,9 @@
 <div class="container-sm mt-5 docs-container">
-    <markdown [src]="'https://raw.githubusercontent.com/a3mc/Casper-Metrics/develop/docs/API_OVERVIEW.md'"
+    <markdown [src]="'https://raw.githubusercontent.com/a3mc/Casper-Metrics/master/docs/API_OVERVIEW.md'"
         (error)="errorLoading = true"></markdown>
     <div class="alert alert-warning" *ngIf="errorLoading">
         There was an error loading the document from the external resource. You can try again later or just explore
         the document directly on the
-        <a href="https://github.com/a3mc/Casper-Metrics/blob/develop/docs/API_OVERVIEW.md" target="_blank">GitHub.</a>
+        <a href="https://github.com/a3mc/Casper-Metrics/blob/master/docs/API_OVERVIEW.md" target="_blank">GitHub.</a>
     </div>
 </div>
