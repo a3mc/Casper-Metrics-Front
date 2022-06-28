@@ -1,14 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
 <head>
   <meta charset="utf-8">
-  <title>CasperMetricsFront</title>
+  <title>Casper Metrics &mdash; CSPR Metrics API and Historical Archive for Services, Daps and Analytics</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="src/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@300;600&display=swap" rel="stylesheet">
+
+  <meta name="description" content="CSPR Metrics API and Historical Archive for Services, Daps and Analytics.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Casper Metrics">
+  <meta property="og:description" content="CSPR Metrics API and Historical Archive for Services, Daps and Analytics">
+  <meta property="og:image" content="https://caspermetrics.io/assets/img/casper-metrics.png">
+  <meta property="og:url" content="caspermetrics.io" >
+  <meta property="og:site_name" content="Casper Metrics">
+  <meta name="twitter:title" content="Casper Metrics">
+  <meta name="twitter:description" content="CSPR Metrics API and Historical Archive for Services, Daps and Analytics">
+  <meta name="twitter:image" content="https://caspermetrics.io/assets/img/casper-metrics.png">
+  <meta name="category" content="Analytics">
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Dataset",
+      "name": "Casper Metrics",
+      "description": "The data is collected by crawling the Casper blockchain and stored in a database. It's served in an effective way, through some layers of caching and allows to easily get the blockchain data without crawling the network on your own with SDKs or directly.",
+      "version": "0.2.4",
+      "license": "MIT",
+      "image": "https://caspermetrics.io/assets/img/casper-metrics.png",
+      "distribution": {
+        "@type": "DataDownload",
+        "contentUrl": "https://caspermetrics.io/api"
+      },
+      "sourceOrganization": "https://art3mis.cloud"
+    }
+  </script>
 </head>
 <body>
   <app-root></app-root>
