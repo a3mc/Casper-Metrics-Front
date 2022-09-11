@@ -1,0 +1,122 @@
+<div class="row mt-5">
+    <div [class.col-sm-12]="!showInfo"
+         [class.col-sm-9]="showInfo">
+        <div class="chart-panel p-3">
+            <div class="rewards-box">
+                <a class="info" (click)="toggleInfo()" [class.active]="showInfo">
+                    <i class="fa fa-info-circle"></i>
+                </a>
+                <div class="chart-title">
+                    Delegators Rewards
+                </div>
+
+                <div class="row p-5 pb-3 search-area">
+                    <div class="col-sm-5">
+                        <label class="form-label">Validator</label>
+                        <select class="form-control" [(ngModel)]="selectedValidator">
+                            <option *ngFor="let validator of validators" [value]="validator.address">
+                                {{ validator.name + ' ' + validator.address.substring(0, 5) + '&hellip;' +
+                            validator.address.substring(validator.address.length - 5) }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <label class="form-label">Delegator Public Key</label>
+                        <input type="text" class="form-control" placeholder=""
+                               [(ngModel)]="selectedDelegator">
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary btn-search" (click)="showDelegator()"
+                                [disabled]="!selectedDelegator || !selectedValidator">
+                            <i class="fa fa-search"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <div *ngIf="error" class="alert alert-danger m-5">
+                    {{ error }}
+                </div>
+
+                <div class="chart-title mt-4" *ngIf="!loading && !error">
+                    Current Price
+                </div>
+
+                <div *ngIf="!loading && !error" echarts [options]="chartOption" class="transfers"
+                     (chartClick)="chartClick( $event )"></div>
+
+                <div class="chart-title mt-5" *ngIf="!loading && !error">
+                    Historical Price
+                </div>
+
+                <div *ngIf="!loading && !error" echarts [options]="chartOptionHistorical" class="transfers"
+                     (chartClick)="chartClick( $event )"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" *ngIf="showInfo">
+        <div class="chart-panel p-3 rewards-info">
+            <div class="info-header">Rewards Details</div>
+            <div class="rewards-text mt-3" *ngIf="loading">
+                This chart shows how much rewards a particular delegator has received from a particular
+                validator.<br><br>
+                Currently, this section is available for a limited list of validators. It will be expanded in
+                future.<br><br>
+
+                "USD (historical)" shows the theoretical value of the rewards in USD if delegator sold it immediately
+                when received.
+                <br><br>
+
+                "Per era" graphs show the rewards received per era, which lasts for about two hours each.<br><br>
+
+                Select Validator and enter Delegator address to see the charts.<br><br>
+            </div>
+
+            <div class="rewards-details" *ngIf="!loading">
+                <div class="mt-4">
+                    <span class="label">Validator:</span>
+                    <span class="address from">{{ selectedValidator }}</span>
+                    <i class="fa fa-copy" ngxClipboard [cbContent]="selectedValidator"></i>
+                    <a href="https://cspr.live/account/{{ selectedValidator }}" target="_blank" class="ms-2"
+                       title="A link to the external Explorer website">
+                        <i class="fa fa-external-link"></i>
+                    </a>
+                </div>
+                <div class="mt-2">
+                    <span class="label">Delegator:</span>
+                    <span class="address to">{{ selectedDelegator }}</span>
+                    <i class="fa fa-copy" ngxClipboard [cbContent]="selectedDelegator"></i>
+                    <a href="https://cspr.live/account/{{ selectedDelegator }}" target="_blank" class="ms-2"
+                       title="A link to the external Explorer website">
+                        <i class="fa fa-external-link"></i>
+                    </a>
+                </div>
+                <div class="mt-2">
+                    <span class="label">Delegation period:</span>
+                    <div style="font-size: 12px" class="mt-1">
+                        {{ dates[0] | date: 'dd MMM yyyy' }} &mdash;
+                        {{ dates[dates.length - 1] | date: 'dd MMM yyyy' }}
+                    </div>
+                    <div style="font-size: 12px">
+                        Era {{ eras[0] }} &mdash;
+                        Era {{ eras[eras.length - 1] }}
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <span class="label">Total delegator rewards:</span><br>
+                    <div class="dollar-price mt-1" style="color:white">
+                        <b>{{ rewards[rewards.length - 1] / 1000000000 | number: '1.0-0' }} CSPR</b>
+                    </div>
+                    <div class="dollar-price" style="color:#28c328">
+                        {{ rewards[rewards.length - 1] * price / 1000000000 | number: '1.2-2' }} USD (current price)
+                    </div>
+                    <div class="dollar-price" style="color:#ffff0099">
+                        {{ rewardsUsd[rewardsUsd.length - 1] | number: '1.2-2' }} USD (historical)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

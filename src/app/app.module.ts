@@ -34,6 +34,8 @@ import { BlockComponent } from './block/block.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { DocsComponent } from './docs/docs.component';
 import { DelegatorsComponent } from './delegators/delegators.component';
+import { StakeInfoComponent } from './stake-info/stake-info.component';
+import { DelegatorsRewardsComponent } from './stake-info/delegators-rewards/delegators-rewards.component';
 
 @NgModule( {
     declarations: [
@@ -59,6 +61,8 @@ import { DelegatorsComponent } from './delegators/delegators.component';
         BlockComponent,
         DocsComponent,
         DelegatorsComponent,
+        StakeInfoComponent,
+        DelegatorsRewardsComponent,
     ],
     imports: [
         HttpClientModule,

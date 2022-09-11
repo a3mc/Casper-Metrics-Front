@@ -148,7 +148,7 @@ export class DelegatorsComponent implements OnInit, OnDestroy {
                         lineStyle: {
                             color: '#444'
                         }
-                    }
+                    },
                 }
             ],
             series: [
