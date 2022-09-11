@@ -154,10 +154,28 @@ export class DelegatorsRewardsComponent implements OnInit {
                 trigger: 'axis',
                 backgroundColor: '#fffc',
                 formatter: ( params: any ) => {
-                    return `<b>CSPR:</b> ${ ( params[0].value / 1000000000 ).toFixed( 4 ) } <br>
-                        <b>USD (current price):</b> $${ ( params[1].value / 1000000000 ).toFixed( 4 ) } <br>
-                        <b>CSPR (per era):</b> ${ ( params[2].value / 1000000000 ).toFixed( 4 ) } <br>
-                        <b>USD (per era, current price):</b> $${ ( params[3].value / 1000000000 ).toFixed( 4 ) }`;
+
+                    const cspr = params.filter( ( param: any ) => param.seriesName === 'CSPR' );
+                    const usd = params.filter( ( param: any ) => param.seriesName === 'USD (current price)' );
+                    const csprEra = params.filter( ( param: any ) => param.seriesName === 'CSPR (per era)' );
+                    const usdEra = params.filter( ( param: any ) => param.seriesName === 'USD (per era, current price)' );
+
+                    let text = '';
+
+                    if ( cspr.length ) {
+                        text += `<b>CSPR:</b> ${ ( cspr[0].value / 1000000000 ).toFixed( 4 ) } <br>`;
+                    }
+                    if ( usd.length ) {
+                        text += `<b>USD (current price):</b> $${ ( usd[0].value / 1000000000 ).toFixed( 4 ) }<br>`;
+                    }
+                    if ( csprEra.length ) {
+                        text += `<b>CSPR (per era):</b> ${ ( csprEra[0].value / 1000000000 ).toFixed( 4 ) } <br>`;
+                    }
+                    if ( usdEra.length ) {
+                        text += `<b>USD (per era, current price):</b> $${ (usdEra[0].value / 1000000000).toFixed( 4 )}`;
+                    }
+
+                    return text;
                 }
             },
             grid: {
@@ -325,10 +343,27 @@ export class DelegatorsRewardsComponent implements OnInit {
                 trigger: 'axis',
                 backgroundColor: '#fffc',
                 formatter: ( params: any ) => {
-                    return `<b>CSPR:</b> ${ ( params[0].value / 1000000000 ).toFixed( 4 ) } <br>
-                        <b>USD (historical):</b> $${ params[1].value.toFixed( 4 ) } <br>
-                        <b>CSPR (per era):</b> ${ ( params[2].value / 1000000000 ).toFixed( 4 ) } <br>
-                        <b>USD (per era, historical):</b> $${ params[3].value.toFixed( 4 ) }`;
+                    const cspr = params.filter( ( p: any ) => p.seriesName === 'CSPR' );
+                    const usd = params.filter( ( p: any ) => p.seriesName === 'USD (historical)' );
+                    const csprEra = params.filter( ( p: any ) => p.seriesName === 'CSPR (per era)' );
+                    const usdEra = params.filter( ( p: any ) => p.seriesName === 'USD (per era, historical)' );
+
+                    let text = '';
+
+                    if ( cspr && cspr.length ) {
+                        text += `<b>CSPR:</b> ${ ( cspr[0].value / 1000000000 ).toFixed( 4 ) } <br>`;
+                    }
+                    if ( usd && usd.length ) {
+                        text += `<b>USD (historical):</b> $${ ( usd[0].value  ).toFixed( 4 ) } <br>`;
+                    }
+                    if ( csprEra && csprEra.length ) {
+                        text += `<b>CSPR (per era):</b> ${ ( csprEra[0].value / 1000000000 ).toFixed( 4 ) } <br>`;
+                    }
+                    if ( usdEra && usdEra.length ) {
+                        text += `<b>USD (per era, historical):</b> $${ ( usdEra[0].value  ).toFixed( 4 ) }`;
+                    }
+
+                    return text;
                 }
             },
             grid: {
