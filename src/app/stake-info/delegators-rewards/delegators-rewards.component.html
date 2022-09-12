@@ -39,17 +39,31 @@
                 </div>
 
                 <div class="chart-title mt-4" *ngIf="!loading && !error">
-                    Current Price
+                    Current Price Total Rewards
                 </div>
 
                 <div *ngIf="!loading && !error" echarts [options]="chartOption" class="transfers"
                      (chartClick)="chartClick( $event )"></div>
 
+                <div class="chart-title mt-4" *ngIf="!loading && !error">
+                    Current Price Rewards Per Era
+                </div>
+
+                <div *ngIf="!loading && !error" echarts [options]="chartOptionEra" class="transfers"
+                     (chartClick)="chartClick( $event )"></div>
+
                 <div class="chart-title mt-5" *ngIf="!loading && !error">
-                    Historical Price
+                    Historical Price Total Rewards
                 </div>
 
                 <div *ngIf="!loading && !error" echarts [options]="chartOptionHistorical" class="transfers"
+                     (chartClick)="chartClick( $event )"></div>
+
+                <div class="chart-title mt-5" *ngIf="!loading && !error">
+                    Historical Price Rewards Per Era
+                </div>
+
+                <div *ngIf="!loading && !error" echarts [options]="chartOptionEraHistorical" class="transfers"
                      (chartClick)="chartClick( $event )"></div>
             </div>
         </div>
