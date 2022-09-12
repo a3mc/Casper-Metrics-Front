@@ -14,7 +14,9 @@ export class DelegatorsRewardsComponent implements OnInit {
     public loading = true;
     public showInfo = true;
     public chartOption: any;
+    public chartOptionEra: any;
     public chartOptionHistorical: any;
+    public chartOptionEraHistorical: any;
     public validators: any = [{
         name: 'ART3MIS.CLOUD',
         address: '01ba1dcfbe8dba48b88674bb007c000391c0ea36b5d80570c113a42a9823d702c2',
@@ -123,7 +125,7 @@ export class DelegatorsRewardsComponent implements OnInit {
     // Set the chart options.
     private _setChart(): void {
         this.chartOption = {
-            colors: ['green', 'yellow', 'blue', 'cyan'],
+            colors: ['green', 'yellow'],
             legend: {
                 textStyle: {
                     color: '#ccb',
@@ -135,14 +137,10 @@ export class DelegatorsRewardsComponent implements OnInit {
             data: [
                 'CSPR',
                 'USD (current price)',
-                'CSPR (per era)',
-                'USD (per era, current price)',
             ],
             selected: {
                 'CSPR': true,
                 'USD (current price)': true,
-                'CSPR (per era)': true,
-                'USD (per era, current price)': true
             },
             dataZoom: [
                 {
@@ -154,11 +152,8 @@ export class DelegatorsRewardsComponent implements OnInit {
                 trigger: 'axis',
                 backgroundColor: '#fffc',
                 formatter: ( params: any ) => {
-
                     const cspr = params.filter( ( param: any ) => param.seriesName === 'CSPR' );
                     const usd = params.filter( ( param: any ) => param.seriesName === 'USD (current price)' );
-                    const csprEra = params.filter( ( param: any ) => param.seriesName === 'CSPR (per era)' );
-                    const usdEra = params.filter( ( param: any ) => param.seriesName === 'USD (per era, current price)' );
 
                     let text = '';
 
@@ -168,13 +163,6 @@ export class DelegatorsRewardsComponent implements OnInit {
                     if ( usd.length ) {
                         text += `<b>USD (current price):</b> $${ ( usd[0].value / 1000000000 ).toFixed( 4 ) }<br>`;
                     }
-                    if ( csprEra.length ) {
-                        text += `<b>CSPR (per era):</b> ${ ( csprEra[0].value / 1000000000 ).toFixed( 4 ) } <br>`;
-                    }
-                    if ( usdEra.length ) {
-                        text += `<b>USD (per era, current price):</b> $${ (usdEra[0].value / 1000000000).toFixed( 4 )}`;
-                    }
-
                     return text;
                 }
             },
@@ -192,38 +180,6 @@ export class DelegatorsRewardsComponent implements OnInit {
                 }
             ],
             yAxis: [
-                {
-                    type: 'value',
-                    min: 'dataMin',
-                    max: 'dataMax',
-                    position: 'left',
-                    splitLine: {
-                        lineStyle: {
-                            color: '#444'
-                        }
-                    },
-                    axisLabel: {
-                        formatter: ( value: any ) => {
-                            return Math.round( value / 1000000000 ).toFixed( 2 )
-                        }
-                    },
-                },
-                {
-                    type: 'value',
-                    min: 'dataMin',
-                    max: 'dataMax',
-                    position: 'right',
-                    splitLine: {
-                        lineStyle: {
-                            color: '#444'
-                        }
-                    },
-                    axisLabel: {
-                        formatter: ( value: any ) => {
-                            return '$' + ( value / 1000000000 ).toFixed( 2 )
-                        }
-                    },
-                },
                 {
                     type: 'value',
                     min: 'dataMin',
@@ -283,55 +239,26 @@ export class DelegatorsRewardsComponent implements OnInit {
                     showSymbol: false,
                     yAxisIndex: 1,
                 },
-                {
-                    name: 'CSPR (per era)',
-                    type: 'line',
-                    smooth: false,
-                    color: 'yellow',
-                    lineStyle: {
-                        width: 1,
-                        color: 'cyan',
-                    },
-                    data: this.rewardsEra,
-                    showSymbol: false,
-                },
-                {
-                    name: 'USD (per era, current price)',
-                    type: 'line',
-                    smooth: false,
-                    color: 'pink',
-                    lineStyle: {
-                        width: 1,
-                        color: 'pink',
-                    },
-                    data: this.rewardsUsdEraCurrent,
-                    showSymbol: false,
-                    yAxisIndex: 1,
-                },
             ]
         };
 
-        this.chartOptionHistorical = {
-            colors: ['cyan', 'navy', 'pink'],
+        this.chartOptionEra = {
+            colors: ['blue', 'cyan'],
             legend: {
                 textStyle: {
                     color: '#ccb',
                     fontFamily: "'M PLUS 1', sans-serif",
                     fontSize: '12px',
                 },
-                top: '20px'
+                top: '20px',
             },
             data: [
-                'CSPR',
-                'USD (historical)',
                 'CSPR (per era)',
-                'USD (per era, historical)',
+                'USD (per era, current price)',
             ],
             selected: {
-                'CSPR': true,
-                'USD (historical)': true,
-                'CSPR (per era)': false,
-                'USD (per era, historical)': false,
+                'CSPR (per era)': true,
+                'USD (per era, current price)': true
             },
             dataZoom: [
                 {
@@ -343,24 +270,16 @@ export class DelegatorsRewardsComponent implements OnInit {
                 trigger: 'axis',
                 backgroundColor: '#fffc',
                 formatter: ( params: any ) => {
-                    const cspr = params.filter( ( p: any ) => p.seriesName === 'CSPR' );
-                    const usd = params.filter( ( p: any ) => p.seriesName === 'USD (historical)' );
-                    const csprEra = params.filter( ( p: any ) => p.seriesName === 'CSPR (per era)' );
-                    const usdEra = params.filter( ( p: any ) => p.seriesName === 'USD (per era, historical)' );
+                    const csprEra = params.filter( ( param: any ) => param.seriesName === 'CSPR (per era)' );
+                    const usdEra = params.filter( ( param: any ) => param.seriesName === 'USD (per era, current price)' );
 
                     let text = '';
 
-                    if ( cspr && cspr.length ) {
-                        text += `<b>CSPR:</b> ${ ( cspr[0].value / 1000000000 ).toFixed( 4 ) } <br>`;
-                    }
-                    if ( usd && usd.length ) {
-                        text += `<b>USD (historical):</b> $${ ( usd[0].value  ).toFixed( 4 ) } <br>`;
-                    }
-                    if ( csprEra && csprEra.length ) {
+                    if ( csprEra.length ) {
                         text += `<b>CSPR (per era):</b> ${ ( csprEra[0].value / 1000000000 ).toFixed( 4 ) } <br>`;
                     }
-                    if ( usdEra && usdEra.length ) {
-                        text += `<b>USD (per era, historical):</b> $${ ( usdEra[0].value  ).toFixed( 4 ) }`;
+                    if ( usdEra.length ) {
+                        text += `<b>USD (per era, current price):</b> $${ (usdEra[0].value / 1000000000).toFixed( 4 )}`;
                     }
 
                     return text;
@@ -408,10 +327,97 @@ export class DelegatorsRewardsComponent implements OnInit {
                     },
                     axisLabel: {
                         formatter: ( value: any ) => {
-                            return '$' + value.toFixed( 2 )
+                            return '$' + ( value / 1000000000 ).toFixed( 2 )
                         }
                     },
                 },
+            ],
+            series: [
+                {
+                    name: 'CSPR (per era)',
+                    type: 'line',
+                    smooth: false,
+                    color: 'yellow',
+                    lineStyle: {
+                        width: 1,
+                        color: 'cyan',
+                    },
+                    data: this.rewardsEra,
+                    showSymbol: false,
+                },
+                {
+                    name: 'USD (per era, current price)',
+                    type: 'line',
+                    smooth: false,
+                    color: 'pink',
+                    lineStyle: {
+                        width: 1,
+                        color: 'pink',
+                    },
+                    data: this.rewardsUsdEraCurrent,
+                    showSymbol: false,
+                    yAxisIndex: 1,
+                },
+            ]
+        };
+
+        this.chartOptionHistorical = {
+            colors: ['cyan', 'navy'],
+            legend: {
+                textStyle: {
+                    color: '#ccb',
+                    fontFamily: "'M PLUS 1', sans-serif",
+                    fontSize: '12px',
+                },
+                top: '20px'
+            },
+            data: [
+                'CSPR',
+                'USD (historical)',
+            ],
+            selected: {
+                'CSPR': true,
+                'USD (historical)': true,
+            },
+            dataZoom: [
+                {
+                    start: 0,
+                    end: 100
+                }
+            ],
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: '#fffc',
+                formatter: ( params: any ) => {
+                    const cspr = params.filter( ( p: any ) => p.seriesName === 'CSPR' );
+                    const usd = params.filter( ( p: any ) => p.seriesName === 'USD (historical)' );
+
+                    let text = '';
+
+                    if ( cspr && cspr.length ) {
+                        text += `<b>CSPR:</b> ${ ( cspr[0].value / 1000000000 ).toFixed( 4 ) } <br>`;
+                    }
+                    if ( usd && usd.length ) {
+                        text += `<b>USD (historical):</b> $${ ( usd[0].value  ).toFixed( 4 ) } <br>`;
+                    }
+
+                    return text;
+                }
+            },
+            grid: {
+                top: window.innerWidth < 800 ? '90px' : '60px',
+                left: '3%',
+                right: '4%',
+                bottom: '12%',
+                containLabel: true,
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: this.dates
+                }
+            ],
+            yAxis: [
                 {
                     type: 'value',
                     min: 'dataMin',
@@ -471,6 +477,100 @@ export class DelegatorsRewardsComponent implements OnInit {
                     showSymbol: false,
                     yAxisIndex: 1,
                 },
+            ]
+        };
+
+        this.chartOptionEraHistorical = {
+            colors: ['navy', 'pink'],
+            legend: {
+                textStyle: {
+                    color: '#ccb',
+                    fontFamily: "'M PLUS 1', sans-serif",
+                    fontSize: '12px',
+                },
+                top: '20px'
+            },
+            data: [
+                'CSPR (per era)',
+                'USD (per era, historical)',
+            ],
+            selected: {
+                'CSPR (per era)': false,
+                'USD (per era, historical)': false,
+            },
+            dataZoom: [
+                {
+                    start: 0,
+                    end: 100
+                }
+            ],
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: '#fffc',
+                formatter: ( params: any ) => {
+                    const csprEra = params.filter( ( p: any ) => p.seriesName === 'CSPR (per era)' );
+                    const usdEra = params.filter( ( p: any ) => p.seriesName === 'USD (per era, historical)' );
+
+                    let text = '';
+
+                    if ( csprEra && csprEra.length ) {
+                        text += `<b>CSPR (per era):</b> ${ ( csprEra[0].value / 1000000000 ).toFixed( 4 ) } <br>`;
+                    }
+                    if ( usdEra && usdEra.length ) {
+                        text += `<b>USD (per era, historical):</b> $${ ( usdEra[0].value  ).toFixed( 4 ) }`;
+                    }
+
+                    return text;
+                }
+            },
+            grid: {
+                top: window.innerWidth < 800 ? '90px' : '60px',
+                left: '3%',
+                right: '4%',
+                bottom: '12%',
+                containLabel: true,
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: this.dates
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    min: 'dataMin',
+                    max: 'dataMax',
+                    position: 'left',
+                    splitLine: {
+                        lineStyle: {
+                            color: '#444'
+                        }
+                    },
+                    axisLabel: {
+                        formatter: ( value: any ) => {
+                            return Math.round( value / 1000000000 ).toFixed( 2 )
+                        }
+                    },
+                },
+                {
+                    type: 'value',
+                    min: 'dataMin',
+                    max: 'dataMax',
+                    position: 'right',
+                    splitLine: {
+                        lineStyle: {
+                            color: '#444'
+                        }
+                    },
+                    axisLabel: {
+                        formatter: ( value: any ) => {
+                            return '$' + value.toFixed( 2 )
+                        }
+                    },
+                },
+            ],
+            series: [
                 {
                     name: 'CSPR (per era)',
                     type: 'line',
