@@ -80,6 +80,7 @@ export class DelegatorsRewardsComponent implements OnInit {
                     this.price = this._dataService.price;
 
                     data.sort( ( a: any, b: any ) => a.eraId - b.eraId );
+                    data.pop();
                     this.data = data;
                     data.forEach( ( era: any ) => {
                         rewards += Number( era.amount );
