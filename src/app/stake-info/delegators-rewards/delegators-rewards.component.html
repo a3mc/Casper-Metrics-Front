@@ -24,6 +24,9 @@
                         <label class="form-label">Delegator Public Key</label>
                         <input type="text" class="form-control" placeholder=""
                                [(ngModel)]="selectedDelegator">
+                        <div class="small mt-1"><i>For example:</i> <a (click)="selectedDelegator = exampleDelegator; showDelegator()"
+                           class="link example-link ms-2" [title]="exampleDelegator">01a60&hellip;66a66</a>
+                        </div>
                     </div>
                     <div class="col-sm-2">
                         <button class="btn btn-primary btn-search" (click)="showDelegator()"

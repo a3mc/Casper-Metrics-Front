@@ -21,7 +21,7 @@ export class DelegatorsRewardsComponent implements OnInit {
         name: 'ART3MIS.CLOUD',
         address: '01ba1dcfbe8dba48b88674bb007c000391c0ea36b5d80570c113a42a9823d702c2',
     }];
-    // 01a60e0885f4968dd3107e088b4cb5798af665859b769bc1aa86909a5b67f66a66
+    public exampleDelegator = '01a60e0885f4968dd3107e088b4cb5798af665859b769bc1aa86909a5b67f66a66';
     public selectedValidator: any = null;
     public selectedDelegator: any = null;
     public error: string | null = null;
@@ -45,6 +45,7 @@ export class DelegatorsRewardsComponent implements OnInit {
 
     ngOnInit(): void {
         this.error = null
+        this.selectedValidator = this.validators[0].address
     }
 
     // Open close info panel.
@@ -54,13 +55,7 @@ export class DelegatorsRewardsComponent implements OnInit {
 
     // Handle chart click.
     public chartClick( event: any ): void {
-        // if ( event.dataIndex !== undefined ) {
-        //     console.log( event.dataIndex, event )
-        //     //this._dataService.selectedEra = event.dataIndex;
-        //     this.rewardsInfo = this.data.find( era => era.eraId === this.eras[event.dataIndex] );
-        //     console.log( this.rewardsInfo )
-        //     this.showInfo = true;
-        // }
+        // Can be used later for detailed info on click.
     }
 
     // Get the delegators rewards for the selected validator.
@@ -79,9 +74,11 @@ export class DelegatorsRewardsComponent implements OnInit {
                     let usdRewards = 0;
                     this.price = this._dataService.price;
 
+                    // Sort the data by era.
                     data.sort( ( a: any, b: any ) => a.eraId - b.eraId );
                     data.pop();
                     this.data = data;
+                    // Calculate the rewards for each era.
                     data.forEach( ( era: any ) => {
                         rewards += Number( era.amount );
                         if ( usdRewards === 0 && era.usdAmount !== 0 ) {
