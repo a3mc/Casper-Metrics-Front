@@ -9,7 +9,7 @@ import { StakeInfoComponent } from './stake-info/stake-info.component';
 const routes: Routes = [
 	{ path: '', component: OverviewComponent, pathMatch: 'full' },
 	{ path: 'charts', component: ChartsComponent },
-	{ path: 'stake', component: StakeInfoComponent },
+	{ path: 'accounting', component: StakeInfoComponent },
 	{ path: 'api', component: ApiComponent },
 	{ path: 'docs', component: DocsComponent },
 ];

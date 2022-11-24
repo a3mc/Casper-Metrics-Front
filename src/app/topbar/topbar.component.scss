@@ -41,6 +41,10 @@
 					&.link-active, &:hover {
 						color: green;
 					}
+					@media screen and (max-width: 992px) {
+						font-size: 18px;
+						margin-left: -20px;
+					}
 				}
 			}
 
@@ -89,7 +93,7 @@
 	left: 0;
 	right: 0;
 	background: #7d6161;
-	z-index: 100;
+	z-index: 10000;
 
 	.mobile-menu {
 		.link {
