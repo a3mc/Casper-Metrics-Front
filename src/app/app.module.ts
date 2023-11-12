@@ -36,6 +36,8 @@ import { DocsComponent } from './docs/docs.component';
 import { DelegatorsComponent } from './delegators/delegators.component';
 import { StakeInfoComponent } from './stake-info/stake-info.component';
 import { DelegatorsRewardsComponent } from './stake-info/delegators-rewards/delegators-rewards.component';
+import { SearchbarComponent } from './searchbar/searchbar.component';
+import { InspectorComponent } from './inspector/inspector.component';
 
 @NgModule( {
     declarations: [
@@ -63,6 +65,8 @@ import { DelegatorsRewardsComponent } from './stake-info/delegators-rewards/dele
         DelegatorsComponent,
         StakeInfoComponent,
         DelegatorsRewardsComponent,
+        SearchbarComponent,
+        InspectorComponent,
     ],
     imports: [
         HttpClientModule,
