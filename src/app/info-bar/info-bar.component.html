@@ -77,7 +77,8 @@
 
                 <div class="row mt-4">
                     <div class="p-3 ps-5 pe-5 dev-banner text-center">
-                        <b><span class="text-warning">Attention!</span> Development stage.</b> Some data can be delayed or incorrect.<br>
+                        <a routerLink="/search" [routerLinkActive]="['link-active']"
+                           [routerLinkActiveOptions]="{exact: true}" class="link me-5">Search</a>
                     </div>
                 </div>
 

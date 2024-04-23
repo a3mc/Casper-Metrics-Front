@@ -5,6 +5,7 @@ import { ChartsComponent } from './charts/charts.component';
 import { ApiComponent } from './api/api.component';
 import { DocsComponent } from './docs/docs.component';
 import { StakeInfoComponent } from './stake-info/stake-info.component';
+import { InspectorComponent } from "./inspector/inspector.component";
 
 const routes: Routes = [
 	{ path: '', component: OverviewComponent, pathMatch: 'full' },
@@ -12,6 +13,7 @@ const routes: Routes = [
 	{ path: 'accounting', component: StakeInfoComponent },
 	{ path: 'api', component: ApiComponent },
 	{ path: 'docs', component: DocsComponent },
+	{ path: 'search', component: InspectorComponent },
 ];
 
 @NgModule( {

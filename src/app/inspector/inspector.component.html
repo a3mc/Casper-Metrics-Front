@@ -1,0 +1,209 @@
+<div class="container-sm">
+    <div class="row mt-5">
+        <h3 class="mt-3 mb-3">Search Accounts</h3>
+        <div>
+            <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText"
+                   (keyup)="searchChanged()"
+                   (change)="searchChanged()"/>
+        </div>
+        <h3 class="mt-5 mb-3" *ngIf="searchPerformed">Search Results Summary</h3>
+        <div class="summary mb-3" *ngIf="searchPerformed && !searchAccountHash">
+            <i class="fa fa-remove"></i>
+            No matching accounts were found.
+        </div>
+        <div class="summary mb-3" *ngIf="searchAccountHash">
+            <i class="fa fa-check"></i>
+            Found one matching account with a total of {{ count }} transfer transactions.
+            <div class="mt-2" *ngIf="searchAccountName">
+                <label class="label">Name:</label>
+                {{ searchAccountName }}
+            </div>
+            <div class="mt-2" *ngIf="searchAccountName">
+                <label class="label">Comment:</label>
+                {{ searchAccountComment }}
+            </div>
+            <div class="mt-2">
+                <label class="label">Liquid balance:</label>
+                {{ balance / 1000000000 | number: '1.0-2' }} CSPR
+                (~${{ balance / 1000000000 * dataService.price | number: '1.2-2' }})
+            </div>
+            <div class="mt-2">
+                <label class="label">
+                    Inbound transfers:
+                </label>
+                {{ transfersToCount }} &mdash; {{ transfersToSum / 1000000000 | number: '1.0-2' }} CSPR
+                (~${{ transfersToSum / 1000000000 * dataService.price | number: '1.2-2' }})
+            </div>
+            <div class="mt-2">
+                <label class="label">
+                    Outbound transfers:
+                </label>
+                {{ transfersFromCount }} &mdash; {{ transfersFromSum / 1000000000 | number: '1.0-2' }} CSPR
+                (~${{ transfersFromSum / 1000000000 * dataService.price | number: '1.2-2' }})
+            </div>
+        </div>
+        <h3 class="mt-5 mb-3" *ngIf="searchAccountHash">
+            Transfers History
+            <small *ngIf="count > transfers.length" class="text-muted">
+                (displaying the largest {{ transfers.length }} tx out of {{ count }} total)
+            </small>
+        </h3>
+        <div *ngIf="searchAccountHash" [class.col-sm-12]="!showInfo"
+             [class.col-sm-9]="showInfo">
+            <div class="chart-panel p-3">
+                <div class="flow-box pt-2">
+                    <div *ngIf="!loading" echarts [options]="chartOption" class="flow"
+                         (chartClick)="chartClick( $event )"></div>
+
+                    <div class="era-control">
+                        <div class="row">
+                            <div class="col-12">
+                                <ngx-slider *ngIf="showSingleSlider"
+                                            [(value)]="eraId" [options]="options"
+                                            (valueChange)="sliderChange( $event )"
+                                ></ngx-slider>
+                            </div>
+                        </div>
+                        <div class="row pt-3">
+                            <div class="col text-start">
+                                <label class="form-label ms-5 me-1" for="eraId">
+                                    Data up Era:
+                                </label>
+                                <input type="number" [(ngModel)]="eraId" name="eraId" id="eraId"
+                                       size="5" [min]="options.floor || 0" [max]="options.ceil || 0"/>
+                            </div>
+                            <div class="col text-end">
+                                <label class="form-label count-label me-5">
+                                    Total tx count: {{ count }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3" *ngIf="showInfo">
+            <div class="chart-panel p-3 transfers-info tx-info" *ngIf="txInfo">
+                <div class="info-header">Transaction Details</div>
+                <div class="mt-4">
+                    <span class="label">Date:</span>
+                    {{ txInfo.timestamp | date : 'medium' }} UTC
+                </div>
+                <div class="mt-2">
+                    <span class="label">Era:</span>
+                    {{ txInfo.eraId }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">Block Height:</span>
+                    {{ txInfo.blockHeight }}
+                </div>
+                <div class="mt-2">
+                    <span class="label">Amount:</span>
+                    &nbsp;<b>{{ txInfo.value | number: '1.0-2' }}</b> CSPR<br/>
+                    <span class="dollar-price">
+                    ~${{ txInfo.value * dataService.price | number: '1.2-2' }} (current rate)
+                </span>
+                </div>
+                <div class="mt-3">
+                    <span class="label">From:</span>
+                    <span class="address from">{{ txInfo.from || txInfo.source }}</span>
+                    <i class="fa fa-copy" ngxClipboard [cbContent]="txInfo?.from || txInfo?.source"></i>
+                    <a href="https://cspr.live/account/{{ txInfo?.from || txInfo?.source }}" target="_blank"
+                       class="ms-2"
+                       title="A link to the external Explorer website">
+                        <i class="fa fa-external-link"></i>
+                    </a>
+                </div>
+                <div class="mt-3">
+                    <span class="label">To:</span>
+                    <span class="address to">{{ txInfo.to || txInfo.target }}</span>
+                    <i class="fa fa-copy" ngxClipboard [cbContent]="txInfo?.to || txInfo?.target"></i>
+                    <a href="https://cspr.live/account/{{ txInfo?.to || txInfo?.targetPure }}" target="_blank"
+                       class="ms-2"
+                       title="A link to the external Explorer website">
+                        <i class="fa fa-external-link"></i>
+                    </a>
+                </div>
+                <div class="mt-3">
+                    <span class="label">Deploy Hash:</span>
+                    <span class="address deploy-hash">{{ txInfo.deployHash }}</span>
+                    <i class="fa fa-copy" ngxClipboard [cbContent]="txInfo?.deployHash"></i>
+                    <a href="https://cspr.live/deploy/{{ txInfo?.deployHash }}" target="_blank" class="ms-2"
+                       title="A link to the external Explorer website">
+                        <i class="fa fa-external-link"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="chart-panel p-3 transfers-info tx-info" *ngIf="accountInfo">
+                <div class="info-header">
+                    Account Details up to Era {{ eraId }}
+                    <div class="text-muted" style="font-weight: normal">
+                        (Diagram filters are applied)
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="label">Account Hash:</span>
+                    <span class="address to">{{ accountInfo.accountHash }}</span>
+                    <i class="fa fa-copy" ngxClipboard [cbContent]="accountInfo.accountHash"></i>
+                    <a href="https://cspr.live/account/{{ accountInfo.accountHashPure }}" target="_blank" class="ms-2"
+                       title="A link to the external Explorer website">
+                        <i class="fa fa-external-link"></i>
+                    </a>
+                </div>
+                <div class="mt-3" *ngIf="accountInfo.accountHex">
+                    <span class="label">Public Key Hex:</span>
+                    <span class="address to">{{ accountInfo.accountHex }}</span>
+                    <i class="fa fa-copy" ngxClipboard [cbContent]="accountInfo.accountHex"></i>
+                    <a href="https://cspr.live/account/{{ accountInfo.accountHex }}" target="_blank" class="ms-2"
+                       title="A link to the external Explorer website">
+                        <i class="fa fa-external-link"></i>
+                    </a>
+                </div>
+                <div class="mt-4">
+                    <span class="label">Received:</span>&nbsp;
+                    <b>{{ accountInfo.toAmount }}</b>&nbsp;CSPR
+                    <span class="dollar-price received">
+                    ~${{ accountInfo.toAmount * dataService.price | number: '1.2-2' }} (current rate)
+                </span>
+                </div>
+                <div class="mt-4">
+                    <span class="label">Sent:</span>&nbsp;
+                    <b>{{ accountInfo.fromAmount }}</b>&nbsp;CSPR
+                    <span class="dollar-price sent">
+                    ~${{ accountInfo.fromAmount * dataService.price | number: '1.2-2' }} (current rate)
+                </span>
+                </div>
+                <div class="mt-4">
+                    <span class="label">Inbound Transfers:</span>
+                    {{ accountInfo.toAccountCount }}
+                </div>
+                <div class="mt-4">
+                    <span class="label">Outbound Transfers:</span>
+                    {{ accountInfo.fromAccountCount }}
+                </div>
+                <div class="mt-4" *ngIf="accountInfo.accountHash != searchAccountHash">
+                    <button class="btn btn-success"
+                        (click)="
+                            searchText = accountInfo.accountHex ?? accountInfo.accountHash;
+                            searchChanged( accountInfo.accountHex ?? accountInfo.accountHash )">
+                        Center on this account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5" *ngIf="searchAccountHash">
+        <h3 class="mb-3">Received/Sent Amounts by Era</h3>
+        <div class="col-sm-12">
+            <div class="chart-panel p-3">
+                <div class="transfers-box">
+                    <div *ngIf="!loading" echarts [options]="chartOption2" class="transfers"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
